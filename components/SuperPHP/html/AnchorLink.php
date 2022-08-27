@@ -24,17 +24,17 @@ class AnchorLink extends SuperPHPElement {
      *   Attributes:
      * 
      * @param SuperPHPElement[] $children
-     * @param String $download - filename
+     * @param String|null $download - filename
      * * Specifies that the target will be downloaded when a user clicks on the hyperlink
-     * @param String $href - URL
+     * @param String|null $href - URL
      * * Specifies the URL of the page the link goes to
-     * @param String $hreflang - language_code
+     * @param String|null $hreflang - language_code
      * * Specifies the language of the linked document
-     * @param String $media - media_query
+     * @param String|null $media - media_query
      * * Specifies what media/device the linked document is optimized for
-     * @param String $ping - list_of_URLs
+     * @param String|null $ping - list_of_URLs
      * * Specifies a space-separated list of URLs to which, when the link is followed, post requests with the body ping will be sent by the browser (in the background). Typically used for tracking.
-     * @param String $referrerpolicy
+     * @param String|null $referrerpolicy
      *  - no-referrer
      *  - no-referrer-when-downgrade
      *  - origin
@@ -43,7 +43,7 @@ class AnchorLink extends SuperPHPElement {
      *  - strict-origin-when-cross-origin
      *  - unsafe-url
      * * Specifies which referrer information to send with the link
-     * @param String $rel
+     * @param String|null $rel
      *  - alternate
      *  - author
      *  - bookmark
@@ -58,30 +58,32 @@ class AnchorLink extends SuperPHPElement {
      *  - search
      *  - tag
      * * Specifies the relationship between the current document and the linked document
-     * @param String $target
+     * @param String|null $target
      *  - _blank
      *  - _parent
      *  - _self
      *  - _top
      * * Specifies where to open the linked document
-     * @param String $type
+     * @param String|null $type
      * - media_type
      * * Specifies the media type of the linked document
      * 
      * * Global attributes:
      * accesskey	Specifies a shortcut key to activate/focus an element
-     * @param String classes	Specifies one or more classnames for an element (refers to a class in a style sheet)
-     * @param String contenteditable	Specifies whether the content of an element is editable or not
-     * @param String dir	Specifies the text direction for the content in an element
-     * @param String draggable	Specifies whether an element is draggable or not
-     * @param String hidden	Specifies that an element is not yet, or is no longer, relevant
-     * @param String id	Specifies a unique id for an element
-     * @param String lang	Specifies the language of the element's content
-     * @param String spellcheck	Specifies whether the element is to have its spelling and grammar checked or not
-     * @param String style	Specifies an inline CSS style for an element
-     * @param String tabindex	Specifies the tabbing order of an element
-     * @param String title	Specifies extra information about an element
-     * @param String translate	Specifies whether the content of an element should be translated or not
+     * @param String|null classes	Specifies one or more classnames for an element (refers to a class in a style sheet)
+     * @param String|null contenteditable	Specifies whether the content of an element is editable or not
+     * @param String|null dir	Specifies the text direction for the content in an element
+     * @param String|null draggable	Specifies whether an element is draggable or not
+     * @param String|null hidden	Specifies that an element is not yet, or is no longer, relevant
+     * @param String|null id	Specifies a unique id for an element
+     * @param String|null lang	Specifies the language of the element's content
+     * @param String|null spellcheck	Specifies whether the element is to have its spelling and grammar checked or not
+     * @param String|null style	Specifies an inline CSS style for an element
+     * @param String|null tabindex	Specifies the tabbing order of an element
+     * @param String|null title	Specifies extra information about an element
+     * @param String|null translate	Specifies whether the content of an element should be translated or not
+     * 
+     * @author Jishnu Raj <jishnurajpp2@gmail.com>
      */
     function __construct(
         SuperPHPElement $child = null,
