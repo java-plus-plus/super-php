@@ -1,5 +1,6 @@
 <?php
 
+use SuperPHP\Address;
 use SuperPHP\AnchorLink;
 use SuperPHP\Body;
 use SuperPHP\Button;
@@ -51,6 +52,10 @@ new SuperPHP(
                             new PlainText(text: "Or click here!",)
                         ],
                     ),
+                    new LineBreak(),
+                    new Address(
+                        child: new PlainText("Sample Address")
+                    )
                 ],
             ),
         ],
