@@ -4,14 +4,21 @@ namespace SuperPHP;
 
 use DOMNode;
 
-class Abbr extends SuperPHPElement {
+class Article extends SuperPHPElement {
     public DOMNode $node;
 
     /**
-     * Abbr
+     * Article
      * 
-     * The <abbr> tag defines an abbreviation or an acronym, like "HTML", "CSS", "Mr.", "Dr.", "ASAP", "ATM".
-     * Tip: Use the global title attribute to show the description for the abbreviation/acronym when you mouse over the element.
+     * The <article> tag specifies independent, self-contained content.
+     * An article should make sense on its own and it should be possible to distribute it independently from the rest of the site.
+     * 
+     * Potential sources for the <article> element:
+     * 
+     * * Forum post
+     * * Blog post
+     * * News story
+     * Note: The <article> element does not render as anything special in a browser. However, you can use CSS to style the <article> element (see example below).
      *
      * @param SuperPHPElement|null $child
      * 
@@ -30,7 +37,7 @@ class Abbr extends SuperPHPElement {
      * @param String|null title	Specifies extra information about an element
      * @param String|null translate	Specifies whether the content of an element should be translated or not
      * 
-     * @author Muhammed Nafih <muhammednafih09@email.com>
+     * @author Jishnu Raj <jishnurajpp2@gmail.com>
      */
     function __construct(
         SuperPHPElement $child = null,
@@ -50,7 +57,7 @@ class Abbr extends SuperPHPElement {
         String $title = null,
         String $translate = null,
     ) {
-        $this->node = self::$dom->createElement("abbr");
+        $this->node = self::$dom->createElement("article");
         if ($child) $this->node->appendChild($child->node);
 
         // Global attributes
