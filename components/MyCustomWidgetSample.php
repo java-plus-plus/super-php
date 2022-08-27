@@ -1,14 +1,14 @@
 <?php
 
-use SuperPHP\SuperButton;
+use SuperPHP\Button;
 use SuperPHP\SuperPHPElement;
-use SuperPHP\SuperText;
+use SuperPHP\PlainText;
 
 class MyCustomWidgetSample extends SuperPHPElement {
     public DOMNode $node;
     function __construct() {
-        $this->node = (new SuperButton(
-            [new SuperText("Oii"),]
+        $this->node = (new Button(
+            [new PlainText("Oii"),]
         )
         )->node;
     }

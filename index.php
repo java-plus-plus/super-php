@@ -1,13 +1,15 @@
 <?php
 
-use SuperPHP\SuperBody;
-use SuperPHP\SuperButton;
-use SuperPHP\SuperHead;
-use SuperPHP\SuperHTML;
-use SuperPHP\SuperLineBreak;
+use SuperPHP\AnchorLink;
+use SuperPHP\Body;
+use SuperPHP\Button;
+use SuperPHP\Comment;
+use SuperPHP\Head;
+use SuperPHP\HTML;
+use SuperPHP\LineBreak;
 use SuperPHP\SuperPHP;
-use SuperPHP\SuperText;
-use SuperPHP\SuperTitle;
+use SuperPHP\PlainText;
+use SuperPHP\Title;
 
 require_once __DIR__ . "/config/GlobalConfig.php";
 require_once __DIR__ . "/components/SimpleDB.php";
@@ -22,28 +24,34 @@ require_once __DIR__ . "/components/MyCustomWidgetSample.php";
 // );
 
 $sPHP = new SuperPHP(
-    fn () => new SuperHTML(
+    fn () => new HTML(
         children: [
-            new SuperHead(
+            new Head(
                 children: [
-                    new SuperTitle(
-                        title: new SuperText(text: "Sample title",),
+                    new Title(
+                        title: new PlainText(text: "Sample title",),
                     ),
                 ],
             ),
             new MyCustomWidgetSample(),
-            new SuperBody(
+            new Body(
                 children: [
-                    new SuperText(text: "<h1>Kunjolee...!</h1>",),
-                    new SuperButton(
-                        children: [
-                            new SuperText(text: "Click me!",)
-                        ],
+                    new AnchorLink(
+                        new PlainText("Go to Google"),
+                        href: "https://google.com",
+                        download: "Oi.txt",
+                        id: "123",
+                        classes: ["btn", "btn-primary"]
                     ),
-                    new SuperLineBreak(count: 10),
-                    new SuperButton(
+                    new LineBreak(count: 1),
+                    new Comment("<h1>Hllo...!</h1>"),
+                    new Button(
+                        children: array_map(fn ($element) => new PlainText(text: "Click me!",), [1, 2, 3]),
+                    ),
+                    new LineBreak(count: 10),
+                    new Button(
                         children: [
-                            new SuperText(text: "Or click here!",)
+                            new PlainText(text: "Or click here!",)
                         ],
                     ),
                 ],
