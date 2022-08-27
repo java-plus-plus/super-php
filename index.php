@@ -1,5 +1,6 @@
 <?php
 
+use SuperPHP\Abbr;
 use SuperPHP\Address;
 use SuperPHP\AnchorLink;
 use SuperPHP\Body;
@@ -55,6 +56,10 @@ new SuperPHP(
                     new LineBreak(),
                     new Address(
                         child: new PlainText("Sample Address")
+                    ),
+                    new LineBreak(),
+                    new Abbr(
+                        child: new PlainText("Sample Abbr")
                     )
                 ],
             ),
