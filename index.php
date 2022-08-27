@@ -12,10 +12,7 @@ use SuperPHP\SuperPHP;
 use SuperPHP\PlainText;
 use SuperPHP\Title;
 
-require_once __DIR__ . "/config/GlobalConfig.php";
 require_once __DIR__ . "/components/SimpleDB.php";
-require_once __DIR__ . "/components/head.php";
-require_once __DIR__ . "/components/foot.php";
 require_once __DIR__ . "/components/SuperPHP/SuperPHP.php";
 require_once __DIR__ . "/components/MyCustomWidgetSample.php";
 
@@ -24,7 +21,7 @@ require_once __DIR__ . "/components/MyCustomWidgetSample.php";
 //     debug: true
 // );
 
-$sPHP = new SuperPHP(
+new SuperPHP(
     fn () => new HTML(
         children: [
             new Head(
@@ -64,33 +61,3 @@ $sPHP = new SuperPHP(
         ],
     ),
 );
-
-
-die();
-?>
-<html lang="en">
-<?php
-putHead(
-    title: "Dashboard",
-    db: $db,
-    stylesheets: [
-        ...GlobalConfig::default_stylesheets,
-        "styles.css",
-    ],
-    scripts: []
-);
-?>
-
-<body>
-
-
-    <?php putFoot(
-        db: null,
-        scripts: [
-            ...GlobalConfig::default_scripts
-        ]
-    ); ?>
-</body>
-
-</html>
-</pre>
