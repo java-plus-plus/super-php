@@ -3,6 +3,7 @@
 use SuperPHP\Abbr;
 use SuperPHP\Address;
 use SuperPHP\AnchorLink;
+use SuperPHP\Article;
 use SuperPHP\Body;
 use SuperPHP\Button;
 use SuperPHP\Comment;
@@ -60,7 +61,11 @@ new SuperPHP(
                     new LineBreak(),
                     new Abbr(
                         child: new PlainText("Sample Abbr")
-                    )
+                    ),
+                    new LineBreak(),
+                    new Article(
+                        child: new PlainText("Sample Article")
+                    ),
                 ],
             ),
         ],

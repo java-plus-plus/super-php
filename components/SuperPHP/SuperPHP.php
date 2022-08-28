@@ -8,6 +8,7 @@ require_once __DIR__ . "./html/PlainText.php";
 require_once __DIR__ . "./html/Address.php";
 require_once __DIR__ . "./html/AnchorLink.php";
 require_once __DIR__ . "./html/Abbr.php";
+require_once __DIR__ . "./html/Article.php";
 
 
 use DOMDocument;
