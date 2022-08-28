@@ -4,6 +4,7 @@ use SuperPHP\Abbr;
 use SuperPHP\Address;
 use SuperPHP\AnchorLink;
 use SuperPHP\Article;
+use SuperPHP\Audio;
 use SuperPHP\Body;
 use SuperPHP\Button;
 use SuperPHP\Comment;
@@ -13,6 +14,7 @@ use SuperPHP\LineBreak;
 use SuperPHP\SuperPHP;
 use SuperPHP\PlainText;
 use SuperPHP\Title;
+use SuperPHP\Typography;
 
 require_once __DIR__ . "/components/SimpleDB.php";
 require_once __DIR__ . "/components/SuperPHP/SuperPHP.php";
@@ -65,6 +67,23 @@ new SuperPHP(
                     new LineBreak(),
                     new Article(
                         child: new PlainText("Sample Article")
+                    ),
+                    new LineBreak(),
+                    new Audio(
+                        child: new PlainText("Sample Article"),
+                        controls: true
+                    ),
+                    new LineBreak(),
+                    new Typography(
+                        child: new PlainText("Sample Heading 1"),
+                        id: "test",
+                        variant: Typography::H1
+                    ),
+                    new LineBreak(),
+                    new Typography(
+                        child: new PlainText("Sample Paragrap"),
+                        id: "test",
+                        variant: Typography::Paragraph
                     ),
                 ],
             ),

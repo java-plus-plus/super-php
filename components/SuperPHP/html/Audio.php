@@ -4,23 +4,32 @@ namespace SuperPHP;
 
 use DOMNode;
 
-class Article extends SuperPHPElement {
+class Audio extends SuperPHPElement {
     public DOMNode $node;
 
     /**
-     * Article
+     * Audio
      * 
-     * The <article> tag specifies independent, self-contained content.
-     * An article should make sense on its own and it should be possible to distribute it independently from the rest of the site.
+     * The <audio> tag is used to embed sound content in a document, such as music or other audio streams.
      * 
-     * Potential sources for the <article> element:
+     * The <audio> tag contains one or more <source> tags with different audio sources. The browser will choose the first source it supports.
      * 
-     * * Forum post
-     * * Blog post
-     * * News story
-     * Note: The <article> element does not render as anything special in a browser. However, you can use CSS to style the <article> element (see example below).
+     * The text between the <audio> and </audio> tags will only be displayed in browsers that do not support the <audio> element.
+     * 
+     * There are three supported audio formats in HTML: MP3, WAV, and OGG.
      *
      * @param SuperPHPElement|null $child
+     * 
+     *  * Attributes:
+     * @param String|null $autoplay	Specifies that the audio will start playing as soon as it is ready
+     * @param String|null $controls	Specifies that audio controls should be displayed (such as a play/pause button etc)
+     * @param String|null $loop	Specifies that the audio will start over again, every time it is finished
+     * @param String|null $muted	Specifies that the audio output should be muted
+     * @param String|null $preload	Specifies if and how the author thinks the audio should be loaded when the page loads
+     *  - auto
+     *  - metadata
+     *  - none
+     * @param String|null $src	Specifies the URL of the audio file
      * 
      * * Global attributes:
      * @param String|null $accesskey	Specifies a shortcut key to activate/focus an element
@@ -42,6 +51,14 @@ class Article extends SuperPHPElement {
     function __construct(
         SuperPHPElement $child = null,
 
+        // Attributes
+        String $autoplay = null,
+        String $controls = null,
+        String $loop = null,
+        String $muted = null,
+        String $preload = null,
+        String $src = null,
+
         // Global attributes
         String $accesskey = null,
         array $classes = null,
@@ -57,8 +74,16 @@ class Article extends SuperPHPElement {
         String $title = null,
         String $translate = null,
     ) {
-        $this->node = self::$dom->createElement("article");
+        $this->node = self::$dom->createElement("audio");
         if ($child) $this->node->appendChild($child->node);
+
+        // Aattributes
+        if ($autoplay) $this->node->setAttribute("autoplay", $autoplay);
+        if ($controls) $this->node->setAttribute("controls", $controls);
+        if ($loop) $this->node->setAttribute("loop", $loop);
+        if ($muted) $this->node->setAttribute("muted", $muted);
+        if ($preload) $this->node->setAttribute("preload", $preload);
+        if ($src) $this->node->setAttribute("src", $src);
 
         // Global attributes
         if ($accesskey) $this->node->setAttribute("accesskey", $accesskey);

@@ -9,9 +9,10 @@ require_once __DIR__ . "./html/Address.php";
 require_once __DIR__ . "./html/AnchorLink.php";
 require_once __DIR__ . "./html/Abbr.php";
 require_once __DIR__ . "./html/Article.php";
+require_once __DIR__ . "./html/Audio.php";
+require_once __DIR__ . "./html/Typography.php";
 
 
-use DOMDocument;
 use DOMNode;
 
 class SuperPHP extends SuperPHPElement {

@@ -3,22 +3,25 @@
 namespace SuperPHP;
 
 use DOMNode;
+use Error;
 
-class Article extends SuperPHPElement {
+class Typography extends SuperPHPElement {
     public DOMNode $node;
+    public const Paragraph = "p";
+    public const BoldText = "b";
+    public const Underlined = "u";
+    public const Italic = "i";
+    public const H1 = "h1";
+    public const H2 = "h2";
+    public const H3 = "h3";
+    public const H4 = "h4";
+    public const H5 = "h5";
+    public const H6 = "h6";
 
     /**
-     * Article
+     * Typography
      * 
-     * The <article> tag specifies independent, self-contained content.
-     * An article should make sense on its own and it should be possible to distribute it independently from the rest of the site.
-     * 
-     * Potential sources for the <article> element:
-     * 
-     * * Forum post
-     * * Blog post
-     * * News story
-     * Note: The <article> element does not render as anything special in a browser. However, you can use CSS to style the <article> element (see example below).
+     * Used for adding different text formats to the output text.
      *
      * @param SuperPHPElement|null $child
      * 
@@ -41,6 +44,8 @@ class Article extends SuperPHPElement {
      */
     function __construct(
         SuperPHPElement $child = null,
+        String $variant = self::Paragraph,
+
 
         // Global attributes
         String $accesskey = null,
@@ -57,7 +62,21 @@ class Article extends SuperPHPElement {
         String $title = null,
         String $translate = null,
     ) {
-        $this->node = self::$dom->createElement("article");
+        if (!in_array($variant, [
+            self::Paragraph,
+            self::BoldText,
+            self::Underlined,
+            self::Italic,
+            self::H1,
+            self::H2,
+            self::H3,
+            self::H4,
+            self::H5,
+            self::H6,
+        ])) {
+            throw new Error("Unsupported typography variant");
+        }
+        $this->node = self::$dom->createElement($variant);
         if ($child) $this->node->appendChild($child->node);
 
         // Global attributes
