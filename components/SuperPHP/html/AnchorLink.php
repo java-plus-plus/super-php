@@ -70,18 +70,18 @@ class AnchorLink extends SuperPHPElement {
      * 
      * * Global attributes:
      * accesskey	Specifies a shortcut key to activate/focus an element
-     * @param String|null classes	Specifies one or more classnames for an element (refers to a class in a style sheet)
-     * @param String|null contenteditable	Specifies whether the content of an element is editable or not
-     * @param String|null dir	Specifies the text direction for the content in an element
-     * @param String|null draggable	Specifies whether an element is draggable or not
-     * @param String|null hidden	Specifies that an element is not yet, or is no longer, relevant
-     * @param String|null id	Specifies a unique id for an element
-     * @param String|null lang	Specifies the language of the element's content
-     * @param String|null spellcheck	Specifies whether the element is to have its spelling and grammar checked or not
-     * @param String|null style	Specifies an inline CSS style for an element
-     * @param String|null tabindex	Specifies the tabbing order of an element
-     * @param String|null title	Specifies extra information about an element
-     * @param String|null translate	Specifies whether the content of an element should be translated or not
+     * @param array|null $classes	Specifies one or more classnames for an element (refers to a class in a style sheet)
+     * @param String|null $contenteditable	Specifies whether the content of an element is editable or not
+     * @param String|null $dir	Specifies the text direction for the content in an element
+     * @param String|null $draggable	Specifies whether an element is draggable or not
+     * @param String|null $hidden	Specifies that an element is not yet, or is no longer, relevant
+     * @param String|null $id	Specifies a unique id for an element
+     * @param String|null $lang	Specifies the language of the element's content
+     * @param String|null $spellcheck	Specifies whether the element is to have its spelling and grammar checked or not
+     * @param String|null $style	Specifies an inline CSS style for an element
+     * @param String|null $tabindex	Specifies the tabbing order of an element
+     * @param String|null $title	Specifies extra information about an element
+     * @param String|null $translate	Specifies whether the content of an element should be translated or not
      * 
      * @author Jishnu Raj <jishnurajpp2@gmail.com>
      */
