@@ -4,13 +4,13 @@ namespace SuperPHP;
 
 use DOMNode;
 
-class Address extends SuperPHPElement {
+class Strong extends SuperPHPElement {
     public DOMNode $node;
 
     /**
-     * Address
+     * Strong
      * 
-     * The address element represents the contact information for its nearest article or body element ancestor. If that is the body element, then the contact information applies to the document as a whole.
+     * The strong element represents strong importance, seriousness, or urgency for its contents.
      *
      * @param SuperPHPElement|null $child
      * 
@@ -345,7 +345,7 @@ class Address extends SuperPHPElement {
         String $ariaDetails = null,
         String $ariaKeyshortcuts = null,
     ) {
-        $this->node = self::$dom->createElement("address");
+        $this->node = self::$dom->createElement("strong");
         if ($child) $this->node->appendChild($child->node);
 
         // Element-specific attributes

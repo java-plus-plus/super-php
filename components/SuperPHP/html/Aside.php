@@ -4,13 +4,13 @@ namespace SuperPHP;
 
 use DOMNode;
 
-class Address extends SuperPHPElement {
+class Aside extends SuperPHPElement {
     public DOMNode $node;
 
     /**
-     * Address
+     * Aside
      * 
-     * The address element represents the contact information for its nearest article or body element ancestor. If that is the body element, then the contact information applies to the document as a whole.
+     * The aside element represents a section of a page that consists of content that is tangentially related to the content around the aside element, and which could be considered separate from that content. Such sections are often represented as sidebars in printed typography.
      *
      * @param SuperPHPElement|null $child
      * 
@@ -345,7 +345,7 @@ class Address extends SuperPHPElement {
         String $ariaDetails = null,
         String $ariaKeyshortcuts = null,
     ) {
-        $this->node = self::$dom->createElement("address");
+        $this->node = self::$dom->createElement("aside");
         if ($child) $this->node->appendChild($child->node);
 
         // Element-specific attributes

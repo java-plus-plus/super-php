@@ -4,13 +4,13 @@ namespace SuperPHP;
 
 use DOMNode;
 
-class Address extends SuperPHPElement {
+class Footer extends SuperPHPElement {
     public DOMNode $node;
 
     /**
-     * Address
+     * Footer
      * 
-     * The address element represents the contact information for its nearest article or body element ancestor. If that is the body element, then the contact information applies to the document as a whole.
+     * The footer element represents a footer for its nearest ancestor sectioning content or sectioning root element. A footer typically contains information about its section such as who wrote it, links to related documents, copyright data, and the like.
      *
      * @param SuperPHPElement|null $child
      * 
@@ -345,7 +345,7 @@ class Address extends SuperPHPElement {
         String $ariaDetails = null,
         String $ariaKeyshortcuts = null,
     ) {
-        $this->node = self::$dom->createElement("address");
+        $this->node = self::$dom->createElement("footer");
         if ($child) $this->node->appendChild($child->node);
 
         // Element-specific attributes

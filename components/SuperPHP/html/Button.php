@@ -4,18 +4,51 @@ namespace SuperPHP;
 
 use DOMNode;
 
-class Address extends SuperPHPElement {
+class Button extends SuperPHPElement {
     public DOMNode $node;
 
     /**
-     * Address
+     * Button
      * 
-     * The address element represents the contact information for its nearest article or body element ancestor. If that is the body element, then the contact information applies to the document as a whole.
+     * The button element represents a button labeled by its contents.
      *
      * @param SuperPHPElement|null $child
      * 
      * * Element-specific attributes:
+     * @param String|null autofocus	This Boolean attribute lets you specify that the button should have input focus when the page loads, unless the user overrides it, for example by typing in a different control. Only one form-associated element in a document can have this attribute specified.
+     * @param String|null disabled	This Boolean attribute indicates that the user cannot interact with the button. If this attribute is not specified, the button inherits its setting from the containing element, for example [`<fieldset>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/fieldset "The HTML <fieldset> element is used to group several controls as well as labels (<label>) within a web form."); if there is no containing element with the **disabled** attribute set, then the button is enabled.
 
+Firefox will, unlike other browsers, by default, [persist the dynamic disabled state](https://stackoverflow.com/questions/5985839/bug-with-firefox-disabled-attribute-of-input-not-resetting-when-refreshing) of a [`<button>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button "The HTML <button> element represents a clickable button, which can be used in forms or anywhere in a document that needs simple, standard button functionality.") across page loads. Use the [`autocomplete`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attr-autocomplete) attribute to control this feature.
+     * @param String|null form	The form element that the button is associated with (its _form owner_). The value of the attribute must be the **id** attribute of a [`<form>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form "The HTML <form> element represents a document section that contains interactive controls for submitting information to a web server.") element in the same document. If this attribute is not specified, the `<button>` element will be associated to an ancestor [`<form>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form "The HTML <form> element represents a document section that contains interactive controls for submitting information to a web server.") element, if one exists. This attribute enables you to associate `<button>` elements to [`<form>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form "The HTML <form> element represents a document section that contains interactive controls for submitting information to a web server.") elements anywhere within a document, not just as descendants of [`<form>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form "The HTML <form> element represents a document section that contains interactive controls for submitting information to a web server.") elements.
+     * @param String|null formaction	The URI of a program that processes the information submitted by the button. If specified, it overrides the [`action`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form#attr-action) attribute of the button's form owner.
+     * @param String|null formenctype	If the button is a submit button, this attribute specifies the type of content that is used to submit the form to the server. Possible values are:
+
+*   `application/x-www-form-urlencoded`: The default value if the attribute is not specified.
+*   `multipart/form-data`: Use this value if you are using an [`<input>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input "The HTML <input> element is used to create interactive controls for web-based forms in order to accept data from the user; a wide variety of types of input data and control widgets are available, depending on the device and user agent.") element with the [`type`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-type) attribute set to `file`.
+*   `text/plain`
+
+If this attribute is specified, it overrides the [`enctype`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form#attr-enctype) attribute of the button's form owner.
+     * @param String|null formmethod	If the button is a submit button, this attribute specifies the HTTP method that the browser uses to submit the form. Possible values are:
+
+*   `post`: The data from the form are included in the body of the form and sent to the server.
+*   `get`: The data from the form are appended to the **form** attribute URI, with a '?' as a separator, and the resulting URI is sent to the server. Use this method when the form has no side-effects and contains only ASCII characters.
+
+If specified, this attribute overrides the [`method`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form#attr-method) attribute of the button's form owner.
+     * @param String|null formnovalidate	If the button is a submit button, this Boolean attribute specifies that the form is not to be validated when it is submitted. If this attribute is specified, it overrides the [`novalidate`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form#attr-novalidate) attribute of the button's form owner.
+     * @param String|null formtarget	If the button is a submit button, this attribute is a name or keyword indicating where to display the response that is received after submitting the form. This is a name of, or keyword for, a _browsing context_ (for example, tab, window, or inline frame). If this attribute is specified, it overrides the [`target`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form#attr-target) attribute of the button's form owner. The following keywords have special meanings:
+
+*   `_self`: Load the response into the same browsing context as the current one. This value is the default if the attribute is not specified.
+*   `_blank`: Load the response into a new unnamed browsing context.
+*   `_parent`: Load the response into the parent browsing context of the current one. If there is no parent, this option behaves the same way as `_self`.
+*   `_top`: Load the response into the top-level browsing context (that is, the browsing context that is an ancestor of the current one, and has no parent). If there is no parent, this option behaves the same way as `_self`.
+     * @param String|null name	The name of the button, which is submitted with the form data.
+     * @param String|null type	The type of the button. Possible values are:
+
+*   `submit`: The button submits the form data to the server. This is the default if the attribute is not specified, or if the attribute is dynamically changed to an empty or invalid value.
+*   `reset`: The button resets all the controls to their initial values.
+*   `button`: The button has no default behavior. It can have client-side scripts associated with the element's events, which are triggered when the events occur.
+     * @param String|null value	The initial value of the button. It defines the value associated with the button which is submitted with the form data. This value is passed to the server in params when the form is submitted.
+     * @param String|null autocomplete	undefined
 * 
 * * Global attributes:
      * @param String|null accesskey	Provides a hint for generating a keyboard shortcut for the current element. This attribute consists of a space-separated list of characters. The browser should use the first one that exists on the computer keyboard layout.
@@ -198,7 +231,18 @@ class Address extends SuperPHPElement {
         SuperPHPElement $child = null,
 
         // Element-specific attributes:
-
+        String $autofocus = null,
+        String $disabled = null,
+        String $form = null,
+        String $formaction = null,
+        String $formenctype = null,
+        String $formmethod = null,
+        String $formnovalidate = null,
+        String $formtarget = null,
+        String $name = null,
+        String $type = null,
+        String $value = null,
+        String $autocomplete = null,
 
         // Global attributes
         String $accesskey = null,
@@ -345,11 +389,22 @@ class Address extends SuperPHPElement {
         String $ariaDetails = null,
         String $ariaKeyshortcuts = null,
     ) {
-        $this->node = self::$dom->createElement("address");
+        $this->node = self::$dom->createElement("button");
         if ($child) $this->node->appendChild($child->node);
 
         // Element-specific attributes
-
+        if ($autofocus) $this->node->setAttribute("autofocus", $autofocus);
+        if ($disabled) $this->node->setAttribute("disabled", $disabled);
+        if ($form) $this->node->setAttribute("form", $form);
+        if ($formaction) $this->node->setAttribute("formaction", $formaction);
+        if ($formenctype) $this->node->setAttribute("formenctype", $formenctype);
+        if ($formmethod) $this->node->setAttribute("formmethod", $formmethod);
+        if ($formnovalidate) $this->node->setAttribute("formnovalidate", $formnovalidate);
+        if ($formtarget) $this->node->setAttribute("formtarget", $formtarget);
+        if ($name) $this->node->setAttribute("name", $name);
+        if ($type) $this->node->setAttribute("type", $type);
+        if ($value) $this->node->setAttribute("value", $value);
+        if ($autocomplete) $this->node->setAttribute("autocomplete", $autocomplete);
 
         // Global attributes
         if ($accesskey) $this->node->setAttribute("accesskey", $accesskey);

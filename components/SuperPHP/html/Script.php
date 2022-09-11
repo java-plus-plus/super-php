@@ -4,18 +4,50 @@ namespace SuperPHP;
 
 use DOMNode;
 
-class Address extends SuperPHPElement {
+class Script extends SuperPHPElement {
     public DOMNode $node;
 
     /**
-     * Address
+     * Script
      * 
-     * The address element represents the contact information for its nearest article or body element ancestor. If that is the body element, then the contact information applies to the document as a whole.
+     * The script element allows authors to include dynamic script and data blocks in their documents. The element does not represent content for the user.
      *
      * @param SuperPHPElement|null $child
      * 
      * * Element-specific attributes:
+     * @param String|null src	This attribute specifies the URI of an external script; this can be used as an alternative to embedding a script directly within a document.
 
+If a `script` element has a `src` attribute specified, it should not have a script embedded inside its tags.
+     * @param String|null type	This attribute indicates the type of script represented. The value of this attribute will be in one of the following categories:
+
+*   **Omitted or a JavaScript MIME type:** For HTML5-compliant browsers this indicates the script is JavaScript. HTML5 specification urges authors to omit the attribute rather than provide a redundant MIME type. In earlier browsers, this identified the scripting language of the embedded or imported (via the `src` attribute) code. JavaScript MIME types are [listed in the specification](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types#JavaScript_types).
+*   **`module`:** For HTML5-compliant browsers the code is treated as a JavaScript module. The processing of the script contents is not affected by the `charset` and `defer` attributes. For information on using `module`, see [ES6 in Depth: Modules](https://hacks.mozilla.org/2015/08/es6-in-depth-modules/). Code may behave differently when the `module` keyword is used.
+*   **Any other value:** The embedded content is treated as a data block which won't be processed by the browser. Developers must use a valid MIME type that is not a JavaScript MIME type to denote data blocks. The `src` attribute will be ignored.
+
+**Note:** in Firefox you could specify the version of JavaScript contained in a `<script>` element by including a non-standard `version` parameter inside the `type` attribute — for example `type="text/javascript;version=1.8"`. This has been removed in Firefox 59 (see [bug 1428745](https://bugzilla.mozilla.org/show_bug.cgi?id=1428745 "FIXED: Remove support for version parameter from script loader")).
+     * @param String|null charset	undefined
+     * @param String|null async	This is a Boolean attribute indicating that the browser should, if possible, load the script asynchronously.
+
+This attribute must not be used if the `src` attribute is absent (i.e. for inline scripts). If it is included in this case it will have no effect.
+
+Browsers usually assume the worst case scenario and load scripts synchronously, (i.e. `async="false"`) during HTML parsing.
+
+Dynamically inserted scripts (using [`document.createElement()`](https://developer.mozilla.org/en-US/docs/Web/API/Document/createElement "In an HTML document, the document.createElement() method creates the HTML element specified by tagName, or an HTMLUnknownElement if tagName isn't recognized.")) load asynchronously by default, so to turn on synchronous loading (i.e. scripts load in the order they were inserted) set `async="false"`.
+
+See [Browser compatibility](#Browser_compatibility) for notes on browser support. See also [Async scripts for asm.js](https://developer.mozilla.org/en-US/docs/Games/Techniques/Async_scripts).
+     * @param String|null defer	This Boolean attribute is set to indicate to a browser that the script is meant to be executed after the document has been parsed, but before firing [`DOMContentLoaded`](https://developer.mozilla.org/en-US/docs/Web/Events/DOMContentLoaded "/en-US/docs/Web/Events/DOMContentLoaded").
+
+Scripts with the `defer` attribute will prevent the `DOMContentLoaded` event from firing until the script has loaded and finished evaluating.
+
+This attribute must not be used if the `src` attribute is absent (i.e. for inline scripts), in this case it would have no effect.
+
+To achieve a similar effect for dynamically inserted scripts use `async="false"` instead. Scripts with the `defer` attribute will execute in the order in which they appear in the document.
+     * @param String|null crossorigin	Normal `script` elements pass minimal information to the [`window.onerror`](https://developer.mozilla.org/en-US/docs/Web/API/GlobalEventHandlers/onerror "The onerror property of the GlobalEventHandlers mixin is an EventHandler that processes error events.") for scripts which do not pass the standard [CORS](https://developer.mozilla.org/en-US/docs/Glossary/CORS "CORS: CORS (Cross-Origin Resource Sharing) is a system, consisting of transmitting HTTP headers, that determines whether browsers block frontend JavaScript code from accessing responses for cross-origin requests.") checks. To allow error logging for sites which use a separate domain for static media, use this attribute. See [CORS settings attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/CORS_settings_attributes) for a more descriptive explanation of its valid arguments.
+     * @param String|null nonce	A cryptographic nonce (number used once) to whitelist inline scripts in a [script-src Content-Security-Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/script-src). The server must generate a unique nonce value each time it transmits a policy. It is critical to provide a nonce that cannot be guessed as bypassing a resource's policy is otherwise trivial.
+     * @param String|null integrity	undefined
+     * @param String|null nomodule	undefined
+     * @param String|null referrerpolicy	undefined
+     * @param String|null text	undefined
 * 
 * * Global attributes:
      * @param String|null accesskey	Provides a hint for generating a keyboard shortcut for the current element. This attribute consists of a space-separated list of characters. The browser should use the first one that exists on the computer keyboard layout.
@@ -198,7 +230,17 @@ class Address extends SuperPHPElement {
         SuperPHPElement $child = null,
 
         // Element-specific attributes:
-
+        String $src = null,
+        String $type = null,
+        String $charset = null,
+        String $async = null,
+        String $defer = null,
+        String $crossorigin = null,
+        String $nonce = null,
+        String $integrity = null,
+        String $nomodule = null,
+        String $referrerpolicy = null,
+        String $text = null,
 
         // Global attributes
         String $accesskey = null,
@@ -345,11 +387,21 @@ class Address extends SuperPHPElement {
         String $ariaDetails = null,
         String $ariaKeyshortcuts = null,
     ) {
-        $this->node = self::$dom->createElement("address");
+        $this->node = self::$dom->createElement("script");
         if ($child) $this->node->appendChild($child->node);
 
         // Element-specific attributes
-
+        if ($src) $this->node->setAttribute("src", $src);
+        if ($type) $this->node->setAttribute("type", $type);
+        if ($charset) $this->node->setAttribute("charset", $charset);
+        if ($async) $this->node->setAttribute("async", $async);
+        if ($defer) $this->node->setAttribute("defer", $defer);
+        if ($crossorigin) $this->node->setAttribute("crossorigin", $crossorigin);
+        if ($nonce) $this->node->setAttribute("nonce", $nonce);
+        if ($integrity) $this->node->setAttribute("integrity", $integrity);
+        if ($nomodule) $this->node->setAttribute("nomodule", $nomodule);
+        if ($referrerpolicy) $this->node->setAttribute("referrerpolicy", $referrerpolicy);
+        if ($text) $this->node->setAttribute("text", $text);
 
         // Global attributes
         if ($accesskey) $this->node->setAttribute("accesskey", $accesskey);

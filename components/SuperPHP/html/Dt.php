@@ -4,13 +4,13 @@ namespace SuperPHP;
 
 use DOMNode;
 
-class Address extends SuperPHPElement {
+class Dt extends SuperPHPElement {
     public DOMNode $node;
 
     /**
-     * Address
+     * Dt
      * 
-     * The address element represents the contact information for its nearest article or body element ancestor. If that is the body element, then the contact information applies to the document as a whole.
+     * The dt element represents the term, or name, part of a term-description group in a description list (dl element).
      *
      * @param SuperPHPElement|null $child
      * 
@@ -345,7 +345,7 @@ class Address extends SuperPHPElement {
         String $ariaDetails = null,
         String $ariaKeyshortcuts = null,
     ) {
-        $this->node = self::$dom->createElement("address");
+        $this->node = self::$dom->createElement("dt");
         if ($child) $this->node->appendChild($child->node);
 
         // Element-specific attributes

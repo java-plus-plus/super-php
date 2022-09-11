@@ -4,18 +4,18 @@ namespace SuperPHP;
 
 use DOMNode;
 
-class Address extends SuperPHPElement {
+class Details extends SuperPHPElement {
     public DOMNode $node;
 
     /**
-     * Address
+     * Details
      * 
-     * The address element represents the contact information for its nearest article or body element ancestor. If that is the body element, then the contact information applies to the document as a whole.
+     * The details element represents a disclosure widget from which the user can obtain additional information or controls.
      *
      * @param SuperPHPElement|null $child
      * 
      * * Element-specific attributes:
-
+     * @param String|null open	This Boolean attribute indicates whether or not the details — that is, the contents of the `<details>` element — are currently visible. The default, `false`, means the details are not visible.
 * 
 * * Global attributes:
      * @param String|null accesskey	Provides a hint for generating a keyboard shortcut for the current element. This attribute consists of a space-separated list of characters. The browser should use the first one that exists on the computer keyboard layout.
@@ -198,7 +198,7 @@ class Address extends SuperPHPElement {
         SuperPHPElement $child = null,
 
         // Element-specific attributes:
-
+        String $open = null,
 
         // Global attributes
         String $accesskey = null,
@@ -345,11 +345,11 @@ class Address extends SuperPHPElement {
         String $ariaDetails = null,
         String $ariaKeyshortcuts = null,
     ) {
-        $this->node = self::$dom->createElement("address");
+        $this->node = self::$dom->createElement("details");
         if ($child) $this->node->appendChild($child->node);
 
         // Element-specific attributes
-
+        if ($open) $this->node->setAttribute("open", $open);
 
         // Global attributes
         if ($accesskey) $this->node->setAttribute("accesskey", $accesskey);

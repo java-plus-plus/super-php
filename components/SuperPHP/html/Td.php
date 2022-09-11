@@ -4,18 +4,24 @@ namespace SuperPHP;
 
 use DOMNode;
 
-class Address extends SuperPHPElement {
+class Td extends SuperPHPElement {
     public DOMNode $node;
 
     /**
-     * Address
+     * Td
      * 
-     * The address element represents the contact information for its nearest article or body element ancestor. If that is the body element, then the contact information applies to the document as a whole.
+     * The td element represents a data cell in a table.
      *
      * @param SuperPHPElement|null $child
      * 
      * * Element-specific attributes:
-
+     * @param String|null colspan	undefined
+     * @param String|null rowspan	undefined
+     * @param String|null headers	undefined
+     * @param String|null abbr	undefined
+     * @param String|null align	undefined
+     * @param String|null axis	undefined
+     * @param String|null bgcolor	undefined
 * 
 * * Global attributes:
      * @param String|null accesskey	Provides a hint for generating a keyboard shortcut for the current element. This attribute consists of a space-separated list of characters. The browser should use the first one that exists on the computer keyboard layout.
@@ -198,7 +204,13 @@ class Address extends SuperPHPElement {
         SuperPHPElement $child = null,
 
         // Element-specific attributes:
-
+        String $colspan = null,
+        String $rowspan = null,
+        String $headers = null,
+        String $abbr = null,
+        String $align = null,
+        String $axis = null,
+        String $bgcolor = null,
 
         // Global attributes
         String $accesskey = null,
@@ -345,11 +357,17 @@ class Address extends SuperPHPElement {
         String $ariaDetails = null,
         String $ariaKeyshortcuts = null,
     ) {
-        $this->node = self::$dom->createElement("address");
+        $this->node = self::$dom->createElement("td");
         if ($child) $this->node->appendChild($child->node);
 
         // Element-specific attributes
-
+        if ($colspan) $this->node->setAttribute("colspan", $colspan);
+        if ($rowspan) $this->node->setAttribute("rowspan", $rowspan);
+        if ($headers) $this->node->setAttribute("headers", $headers);
+        if ($abbr) $this->node->setAttribute("abbr", $abbr);
+        if ($align) $this->node->setAttribute("align", $align);
+        if ($axis) $this->node->setAttribute("axis", $axis);
+        if ($bgcolor) $this->node->setAttribute("bgcolor", $bgcolor);
 
         // Global attributes
         if ($accesskey) $this->node->setAttribute("accesskey", $accesskey);

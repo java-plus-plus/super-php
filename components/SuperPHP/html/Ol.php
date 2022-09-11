@@ -4,18 +4,35 @@ namespace SuperPHP;
 
 use DOMNode;
 
-class Address extends SuperPHPElement {
+class Ol extends SuperPHPElement {
     public DOMNode $node;
 
     /**
-     * Address
+     * Ol
      * 
-     * The address element represents the contact information for its nearest article or body element ancestor. If that is the body element, then the contact information applies to the document as a whole.
+     * The ol element represents a list of items, where the items have been intentionally ordered, such that changing the order would change the meaning of the document.
      *
      * @param SuperPHPElement|null $child
      * 
      * * Element-specific attributes:
+     * @param String|null reversed	This Boolean attribute specifies that the items of the list are specified in reversed order.
+     * @param String|null start	This integer attribute specifies the start value for numbering the individual list items. Although the ordering type of list elements might be Roman numerals, such as XXXI, or letters, the value of start is always represented as a number. To start numbering elements from the letter "C", use `<ol start="3">`.
 
+**Note**: This attribute was deprecated in HTML4, but reintroduced in HTML5.
+     * @param String|null type	Indicates the numbering type:
+
+*   `'a'` indicates lowercase letters,
+*   `'A'` indicates uppercase letters,
+*   `'i'` indicates lowercase Roman numerals,
+*   `'I'` indicates uppercase Roman numerals,
+*   and `'1'` indicates numbers (default).
+
+The type set is used for the entire list unless a different [`type`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/li#attr-type) attribute is used within an enclosed [`<li>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/li "The HTML <li> element is used to represent an item in a list. It must be contained in a parent element: an ordered list (<ol>), an unordered list (<ul>), or a menu (<menu>). In menus and unordered lists, list items are usually displayed using bullet points. In ordered lists, they are usually displayed with an ascending counter on the left, such as a number or letter.") element.
+
+**Note:** This attribute was deprecated in HTML4, but reintroduced in HTML5.
+
+Unless the value of the list number matters (e.g. in legal or technical documents where items are to be referenced by their number/letter), the CSS [`list-style-type`](https://developer.mozilla.org/en-US/docs/Web/CSS/list-style-type "The list-style-type CSS property sets the marker (such as a disc, character, or custom counter style) of a list item element.") property should be used instead.
+     * @param String|null compact	undefined
 * 
 * * Global attributes:
      * @param String|null accesskey	Provides a hint for generating a keyboard shortcut for the current element. This attribute consists of a space-separated list of characters. The browser should use the first one that exists on the computer keyboard layout.
@@ -198,7 +215,10 @@ class Address extends SuperPHPElement {
         SuperPHPElement $child = null,
 
         // Element-specific attributes:
-
+        String $reversed = null,
+        String $start = null,
+        String $type = null,
+        String $compact = null,
 
         // Global attributes
         String $accesskey = null,
@@ -345,11 +365,14 @@ class Address extends SuperPHPElement {
         String $ariaDetails = null,
         String $ariaKeyshortcuts = null,
     ) {
-        $this->node = self::$dom->createElement("address");
+        $this->node = self::$dom->createElement("ol");
         if ($child) $this->node->appendChild($child->node);
 
         // Element-specific attributes
-
+        if ($reversed) $this->node->setAttribute("reversed", $reversed);
+        if ($start) $this->node->setAttribute("start", $start);
+        if ($type) $this->node->setAttribute("type", $type);
+        if ($compact) $this->node->setAttribute("compact", $compact);
 
         // Global attributes
         if ($accesskey) $this->node->setAttribute("accesskey", $accesskey);

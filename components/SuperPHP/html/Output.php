@@ -4,18 +4,20 @@ namespace SuperPHP;
 
 use DOMNode;
 
-class Address extends SuperPHPElement {
+class Output extends SuperPHPElement {
     public DOMNode $node;
 
     /**
-     * Address
+     * Output
      * 
-     * The address element represents the contact information for its nearest article or body element ancestor. If that is the body element, then the contact information applies to the document as a whole.
+     * The output element represents the result of a calculation performed by the application, or the result of a user action.
      *
      * @param SuperPHPElement|null $child
      * 
      * * Element-specific attributes:
-
+     * @param String|null for	A space-separated list of other elements’ [`id`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/id)s, indicating that those elements contributed input values to (or otherwise affected) the calculation.
+     * @param String|null form	The [form element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form) that this element is associated with (its "form owner"). The value of the attribute must be an `id` of a form element in the same document. If this attribute is not specified, the output element must be a descendant of a form element. This attribute enables you to place output elements anywhere within a document, not just as descendants of their form elements.
+     * @param String|null name	The name of the element, exposed in the [`HTMLFormElement`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement "The HTMLFormElement interface represents a <form> element in the DOM; it allows access to and in some cases modification of aspects of the form, as well as access to its component elements.") API.
 * 
 * * Global attributes:
      * @param String|null accesskey	Provides a hint for generating a keyboard shortcut for the current element. This attribute consists of a space-separated list of characters. The browser should use the first one that exists on the computer keyboard layout.
@@ -198,7 +200,9 @@ class Address extends SuperPHPElement {
         SuperPHPElement $child = null,
 
         // Element-specific attributes:
-
+        String $for = null,
+        String $form = null,
+        String $name = null,
 
         // Global attributes
         String $accesskey = null,
@@ -345,11 +349,13 @@ class Address extends SuperPHPElement {
         String $ariaDetails = null,
         String $ariaKeyshortcuts = null,
     ) {
-        $this->node = self::$dom->createElement("address");
+        $this->node = self::$dom->createElement("output");
         if ($child) $this->node->appendChild($child->node);
 
         // Element-specific attributes
-
+        if ($for) $this->node->setAttribute("for", $for);
+        if ($form) $this->node->setAttribute("form", $form);
+        if ($name) $this->node->setAttribute("name", $name);
 
         // Global attributes
         if ($accesskey) $this->node->setAttribute("accesskey", $accesskey);

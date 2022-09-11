@@ -4,18 +4,22 @@ namespace SuperPHP;
 
 use DOMNode;
 
-class Address extends SuperPHPElement {
+class Source extends SuperPHPElement {
     public DOMNode $node;
 
     /**
-     * Address
+     * Source
      * 
-     * The address element represents the contact information for its nearest article or body element ancestor. If that is the body element, then the contact information applies to the document as a whole.
+     * The source element allows authors to specify multiple alternative media resources for media elements. It does not represent anything on its own.
      *
      * @param SuperPHPElement|null $child
      * 
      * * Element-specific attributes:
-
+     * @param String|null src	Required for [`<audio>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/audio "The HTML <audio> element is used to embed sound content in documents. It may contain one or more audio sources, represented using the src attribute or the <source> element: the browser will choose the most suitable one. It can also be the destination for streamed media, using a MediaStream.") and [`<video>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video "The HTML Video element (<video>) embeds a media player which supports video playback into the document."), address of the media resource. The value of this attribute is ignored when the `<source>` element is placed inside a [`<picture>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/picture "The HTML <picture> element contains zero or more <source> elements and one <img> element to provide versions of an image for different display/device scenarios.") element.
+     * @param String|null type	The MIME-type of the resource, optionally with a `codecs` parameter. See [RFC 4281](https://tools.ietf.org/html/rfc4281) for information about how to specify codecs.
+     * @param String|null sizes	undefined
+     * @param String|null srcset	undefined
+     * @param String|null media	undefined
 * 
 * * Global attributes:
      * @param String|null accesskey	Provides a hint for generating a keyboard shortcut for the current element. This attribute consists of a space-separated list of characters. The browser should use the first one that exists on the computer keyboard layout.
@@ -198,7 +202,11 @@ class Address extends SuperPHPElement {
         SuperPHPElement $child = null,
 
         // Element-specific attributes:
-
+        String $src = null,
+        String $type = null,
+        String $sizes = null,
+        String $srcset = null,
+        String $media = null,
 
         // Global attributes
         String $accesskey = null,
@@ -345,11 +353,15 @@ class Address extends SuperPHPElement {
         String $ariaDetails = null,
         String $ariaKeyshortcuts = null,
     ) {
-        $this->node = self::$dom->createElement("address");
+        $this->node = self::$dom->createElement("source");
         if ($child) $this->node->appendChild($child->node);
 
         // Element-specific attributes
-
+        if ($src) $this->node->setAttribute("src", $src);
+        if ($type) $this->node->setAttribute("type", $type);
+        if ($sizes) $this->node->setAttribute("sizes", $sizes);
+        if ($srcset) $this->node->setAttribute("srcset", $srcset);
+        if ($media) $this->node->setAttribute("media", $media);
 
         // Global attributes
         if ($accesskey) $this->node->setAttribute("accesskey", $accesskey);

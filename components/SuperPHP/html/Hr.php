@@ -4,18 +4,22 @@ namespace SuperPHP;
 
 use DOMNode;
 
-class Address extends SuperPHPElement {
+class Hr extends SuperPHPElement {
     public DOMNode $node;
 
     /**
-     * Address
+     * Hr
      * 
-     * The address element represents the contact information for its nearest article or body element ancestor. If that is the body element, then the contact information applies to the document as a whole.
+     * The hr element represents a paragraph-level thematic break, e.g. a scene change in a story, or a transition to another topic within a section of a reference book.
      *
      * @param SuperPHPElement|null $child
      * 
      * * Element-specific attributes:
-
+     * @param String|null align	undefined
+     * @param String|null color	undefined
+     * @param String|null noshade	undefined
+     * @param String|null size	undefined
+     * @param String|null width	undefined
 * 
 * * Global attributes:
      * @param String|null accesskey	Provides a hint for generating a keyboard shortcut for the current element. This attribute consists of a space-separated list of characters. The browser should use the first one that exists on the computer keyboard layout.
@@ -198,7 +202,11 @@ class Address extends SuperPHPElement {
         SuperPHPElement $child = null,
 
         // Element-specific attributes:
-
+        String $align = null,
+        String $color = null,
+        String $noshade = null,
+        String $size = null,
+        String $width = null,
 
         // Global attributes
         String $accesskey = null,
@@ -345,11 +353,15 @@ class Address extends SuperPHPElement {
         String $ariaDetails = null,
         String $ariaKeyshortcuts = null,
     ) {
-        $this->node = self::$dom->createElement("address");
+        $this->node = self::$dom->createElement("hr");
         if ($child) $this->node->appendChild($child->node);
 
         // Element-specific attributes
-
+        if ($align) $this->node->setAttribute("align", $align);
+        if ($color) $this->node->setAttribute("color", $color);
+        if ($noshade) $this->node->setAttribute("noshade", $noshade);
+        if ($size) $this->node->setAttribute("size", $size);
+        if ($width) $this->node->setAttribute("width", $width);
 
         // Global attributes
         if ($accesskey) $this->node->setAttribute("accesskey", $accesskey);

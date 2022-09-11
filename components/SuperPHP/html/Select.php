@@ -4,18 +4,27 @@ namespace SuperPHP;
 
 use DOMNode;
 
-class Address extends SuperPHPElement {
+class Select extends SuperPHPElement {
     public DOMNode $node;
 
     /**
-     * Address
+     * Select
      * 
-     * The address element represents the contact information for its nearest article or body element ancestor. If that is the body element, then the contact information applies to the document as a whole.
+     * The select element represents a control for selecting amongst a set of options.
      *
      * @param SuperPHPElement|null $child
      * 
      * * Element-specific attributes:
+     * @param String|null autocomplete	A [`DOMString`](https://developer.mozilla.org/en-US/docs/Web/API/DOMString "DOMString is a UTF-16 String. As JavaScript already uses such strings, DOMString is mapped directly to a String.") providing a hint for a [user agent's](https://developer.mozilla.org/en-US/docs/Glossary/user_agent "user agent's: A user agent is a computer program representing a person, for example, a browser in a Web context.") autocomplete feature. See [The HTML autocomplete attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete) for a complete list of values and details on how to use autocomplete.
+     * @param String|null autofocus	This Boolean attribute lets you specify that a form control should have input focus when the page loads. Only one form element in a document can have the `autofocus` attribute.
+     * @param String|null disabled	This Boolean attribute indicates that the user cannot interact with the control. If this attribute is not specified, the control inherits its setting from the containing element, for example `fieldset`; if there is no containing element with the `disabled` attribute set, then the control is enabled.
+     * @param String|null form	This attribute lets you specify the form element to which the select element is associated (that is, its "form owner"). If this attribute is specified, its value must be the same as the `id` of a form element in the same document. This enables you to place select elements anywhere within a document, not just as descendants of their form elements.
+     * @param String|null multiple	This Boolean attribute indicates that multiple options can be selected in the list. If it is not specified, then only one option can be selected at a time. When `multiple` is specified, most browsers will show a scrolling list box instead of a single line dropdown.
+     * @param String|null name	This attribute is used to specify the name of the control.
+     * @param String|null required	A Boolean attribute indicating that an option with a non-empty string value must be selected.
+     * @param String|null size	If the control is presented as a scrolling list box (e.g. when `multiple` is specified), this attribute represents the number of rows in the list that should be visible at one time. Browsers are not required to present a select element as a scrolled list box. The default value is 0.
 
+**Note:** According to the HTML5 specification, the default value for size should be 1; however, in practice, this has been found to break some web sites, and no other browser currently does that, so Mozilla has opted to continue to return 0 for the time being with Firefox.
 * 
 * * Global attributes:
      * @param String|null accesskey	Provides a hint for generating a keyboard shortcut for the current element. This attribute consists of a space-separated list of characters. The browser should use the first one that exists on the computer keyboard layout.
@@ -198,7 +207,14 @@ class Address extends SuperPHPElement {
         SuperPHPElement $child = null,
 
         // Element-specific attributes:
-
+        String $autocomplete = null,
+        String $autofocus = null,
+        String $disabled = null,
+        String $form = null,
+        String $multiple = null,
+        String $name = null,
+        String $required = null,
+        String $size = null,
 
         // Global attributes
         String $accesskey = null,
@@ -345,11 +361,18 @@ class Address extends SuperPHPElement {
         String $ariaDetails = null,
         String $ariaKeyshortcuts = null,
     ) {
-        $this->node = self::$dom->createElement("address");
+        $this->node = self::$dom->createElement("select");
         if ($child) $this->node->appendChild($child->node);
 
         // Element-specific attributes
-
+        if ($autocomplete) $this->node->setAttribute("autocomplete", $autocomplete);
+        if ($autofocus) $this->node->setAttribute("autofocus", $autofocus);
+        if ($disabled) $this->node->setAttribute("disabled", $disabled);
+        if ($form) $this->node->setAttribute("form", $form);
+        if ($multiple) $this->node->setAttribute("multiple", $multiple);
+        if ($name) $this->node->setAttribute("name", $name);
+        if ($required) $this->node->setAttribute("required", $required);
+        if ($size) $this->node->setAttribute("size", $size);
 
         // Global attributes
         if ($accesskey) $this->node->setAttribute("accesskey", $accesskey);

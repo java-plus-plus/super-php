@@ -4,18 +4,18 @@ namespace SuperPHP;
 
 use DOMNode;
 
-class Address extends SuperPHPElement {
+class Ul extends SuperPHPElement {
     public DOMNode $node;
 
     /**
-     * Address
+     * Ul
      * 
-     * The address element represents the contact information for its nearest article or body element ancestor. If that is the body element, then the contact information applies to the document as a whole.
+     * The ul element represents a list of items, where the order of the items is not important — that is, where changing the order would not materially change the meaning of the document.
      *
      * @param SuperPHPElement|null $child
      * 
      * * Element-specific attributes:
-
+     * @param String|null compact	undefined
 * 
 * * Global attributes:
      * @param String|null accesskey	Provides a hint for generating a keyboard shortcut for the current element. This attribute consists of a space-separated list of characters. The browser should use the first one that exists on the computer keyboard layout.
@@ -198,7 +198,7 @@ class Address extends SuperPHPElement {
         SuperPHPElement $child = null,
 
         // Element-specific attributes:
-
+        String $compact = null,
 
         // Global attributes
         String $accesskey = null,
@@ -345,11 +345,11 @@ class Address extends SuperPHPElement {
         String $ariaDetails = null,
         String $ariaKeyshortcuts = null,
     ) {
-        $this->node = self::$dom->createElement("address");
+        $this->node = self::$dom->createElement("ul");
         if ($child) $this->node->appendChild($child->node);
 
         // Element-specific attributes
-
+        if ($compact) $this->node->setAttribute("compact", $compact);
 
         // Global attributes
         if ($accesskey) $this->node->setAttribute("accesskey", $accesskey);

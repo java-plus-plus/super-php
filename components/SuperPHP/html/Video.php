@@ -4,18 +4,28 @@ namespace SuperPHP;
 
 use DOMNode;
 
-class Address extends SuperPHPElement {
+class Video extends SuperPHPElement {
     public DOMNode $node;
 
     /**
-     * Address
+     * Video
      * 
-     * The address element represents the contact information for its nearest article or body element ancestor. If that is the body element, then the contact information applies to the document as a whole.
+     * A video element is used for playing videos or movies, and audio files with captions.
      *
      * @param SuperPHPElement|null $child
      * 
      * * Element-specific attributes:
-
+     * @param String|null src	undefined
+     * @param String|null crossorigin	undefined
+     * @param String|null poster	undefined
+     * @param String|null preload	undefined
+     * @param String|null autoplay	A Boolean attribute; if specified, the video automatically begins to play back as soon as it can do so without stopping to finish loading the data.
+     * @param String|null mediagroup	undefined
+     * @param String|null loop	undefined
+     * @param String|null muted	undefined
+     * @param String|null controls	undefined
+     * @param String|null width	undefined
+     * @param String|null height	undefined
 * 
 * * Global attributes:
      * @param String|null accesskey	Provides a hint for generating a keyboard shortcut for the current element. This attribute consists of a space-separated list of characters. The browser should use the first one that exists on the computer keyboard layout.
@@ -198,7 +208,17 @@ class Address extends SuperPHPElement {
         SuperPHPElement $child = null,
 
         // Element-specific attributes:
-
+        String $src = null,
+        String $crossorigin = null,
+        String $poster = null,
+        String $preload = null,
+        String $autoplay = null,
+        String $mediagroup = null,
+        String $loop = null,
+        String $muted = null,
+        String $controls = null,
+        String $width = null,
+        String $height = null,
 
         // Global attributes
         String $accesskey = null,
@@ -345,11 +365,21 @@ class Address extends SuperPHPElement {
         String $ariaDetails = null,
         String $ariaKeyshortcuts = null,
     ) {
-        $this->node = self::$dom->createElement("address");
+        $this->node = self::$dom->createElement("video");
         if ($child) $this->node->appendChild($child->node);
 
         // Element-specific attributes
-
+        if ($src) $this->node->setAttribute("src", $src);
+        if ($crossorigin) $this->node->setAttribute("crossorigin", $crossorigin);
+        if ($poster) $this->node->setAttribute("poster", $poster);
+        if ($preload) $this->node->setAttribute("preload", $preload);
+        if ($autoplay) $this->node->setAttribute("autoplay", $autoplay);
+        if ($mediagroup) $this->node->setAttribute("mediagroup", $mediagroup);
+        if ($loop) $this->node->setAttribute("loop", $loop);
+        if ($muted) $this->node->setAttribute("muted", $muted);
+        if ($controls) $this->node->setAttribute("controls", $controls);
+        if ($width) $this->node->setAttribute("width", $width);
+        if ($height) $this->node->setAttribute("height", $height);
 
         // Global attributes
         if ($accesskey) $this->node->setAttribute("accesskey", $accesskey);

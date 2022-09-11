@@ -4,18 +4,19 @@ namespace SuperPHP;
 
 use DOMNode;
 
-class Address extends SuperPHPElement {
+class Optgroup extends SuperPHPElement {
     public DOMNode $node;
 
     /**
-     * Address
+     * Optgroup
      * 
-     * The address element represents the contact information for its nearest article or body element ancestor. If that is the body element, then the contact information applies to the document as a whole.
+     * The optgroup element represents a group of option elements with a common label.
      *
      * @param SuperPHPElement|null $child
      * 
      * * Element-specific attributes:
-
+     * @param String|null disabled	If this Boolean attribute is set, none of the items in this option group is selectable. Often browsers grey out such control and it won't receive any browsing events, like mouse clicks or focus-related ones.
+     * @param String|null label	The name of the group of options, which the browser can use when labeling the options in the user interface. This attribute is mandatory if this element is used.
 * 
 * * Global attributes:
      * @param String|null accesskey	Provides a hint for generating a keyboard shortcut for the current element. This attribute consists of a space-separated list of characters. The browser should use the first one that exists on the computer keyboard layout.
@@ -198,7 +199,8 @@ class Address extends SuperPHPElement {
         SuperPHPElement $child = null,
 
         // Element-specific attributes:
-
+        String $disabled = null,
+        String $label = null,
 
         // Global attributes
         String $accesskey = null,
@@ -345,11 +347,12 @@ class Address extends SuperPHPElement {
         String $ariaDetails = null,
         String $ariaKeyshortcuts = null,
     ) {
-        $this->node = self::$dom->createElement("address");
+        $this->node = self::$dom->createElement("optgroup");
         if ($child) $this->node->appendChild($child->node);
 
         // Element-specific attributes
-
+        if ($disabled) $this->node->setAttribute("disabled", $disabled);
+        if ($label) $this->node->setAttribute("label", $label);
 
         // Global attributes
         if ($accesskey) $this->node->setAttribute("accesskey", $accesskey);

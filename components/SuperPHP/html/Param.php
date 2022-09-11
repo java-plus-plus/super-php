@@ -4,18 +4,21 @@ namespace SuperPHP;
 
 use DOMNode;
 
-class Address extends SuperPHPElement {
+class Param extends SuperPHPElement {
     public DOMNode $node;
 
     /**
-     * Address
+     * Param
      * 
-     * The address element represents the contact information for its nearest article or body element ancestor. If that is the body element, then the contact information applies to the document as a whole.
+     * The param element defines parameters for plugins invoked by object elements. It does not represent anything on its own.
      *
      * @param SuperPHPElement|null $child
      * 
      * * Element-specific attributes:
-
+     * @param String|null name	Name of the parameter.
+     * @param String|null value	Specifies the value of the parameter.
+     * @param String|null type	undefined
+     * @param String|null valuetype	undefined
 * 
 * * Global attributes:
      * @param String|null accesskey	Provides a hint for generating a keyboard shortcut for the current element. This attribute consists of a space-separated list of characters. The browser should use the first one that exists on the computer keyboard layout.
@@ -198,7 +201,10 @@ class Address extends SuperPHPElement {
         SuperPHPElement $child = null,
 
         // Element-specific attributes:
-
+        String $name = null,
+        String $value = null,
+        String $type = null,
+        String $valuetype = null,
 
         // Global attributes
         String $accesskey = null,
@@ -345,11 +351,14 @@ class Address extends SuperPHPElement {
         String $ariaDetails = null,
         String $ariaKeyshortcuts = null,
     ) {
-        $this->node = self::$dom->createElement("address");
+        $this->node = self::$dom->createElement("param");
         if ($child) $this->node->appendChild($child->node);
 
         // Element-specific attributes
-
+        if ($name) $this->node->setAttribute("name", $name);
+        if ($value) $this->node->setAttribute("value", $value);
+        if ($type) $this->node->setAttribute("type", $type);
+        if ($valuetype) $this->node->setAttribute("valuetype", $valuetype);
 
         // Global attributes
         if ($accesskey) $this->node->setAttribute("accesskey", $accesskey);

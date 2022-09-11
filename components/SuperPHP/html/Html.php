@@ -4,18 +4,20 @@ namespace SuperPHP;
 
 use DOMNode;
 
-class Address extends SuperPHPElement {
+class Html extends SuperPHPElement {
     public DOMNode $node;
 
     /**
-     * Address
+     * Html
      * 
-     * The address element represents the contact information for its nearest article or body element ancestor. If that is the body element, then the contact information applies to the document as a whole.
+     * The html element represents the root of an HTML document.
      *
      * @param SuperPHPElement|null $child
      * 
      * * Element-specific attributes:
-
+     * @param String|null manifest	Specifies the URI of a resource manifest indicating resources that should be cached locally. See [Using the application cache](https://developer.mozilla.org/en-US/docs/Web/HTML/Using_the_application_cache) for details.
+     * @param String|null version	undefined
+     * @param String|null xmlns	undefined
 * 
 * * Global attributes:
      * @param String|null accesskey	Provides a hint for generating a keyboard shortcut for the current element. This attribute consists of a space-separated list of characters. The browser should use the first one that exists on the computer keyboard layout.
@@ -198,7 +200,9 @@ class Address extends SuperPHPElement {
         SuperPHPElement $child = null,
 
         // Element-specific attributes:
-
+        String $manifest = null,
+        String $version = null,
+        String $xmlns = null,
 
         // Global attributes
         String $accesskey = null,
@@ -345,11 +349,13 @@ class Address extends SuperPHPElement {
         String $ariaDetails = null,
         String $ariaKeyshortcuts = null,
     ) {
-        $this->node = self::$dom->createElement("address");
+        $this->node = self::$dom->createElement("html");
         if ($child) $this->node->appendChild($child->node);
 
         // Element-specific attributes
-
+        if ($manifest) $this->node->setAttribute("manifest", $manifest);
+        if ($version) $this->node->setAttribute("version", $version);
+        if ($xmlns) $this->node->setAttribute("xmlns", $xmlns);
 
         // Global attributes
         if ($accesskey) $this->node->setAttribute("accesskey", $accesskey);

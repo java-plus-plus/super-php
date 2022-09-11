@@ -4,13 +4,13 @@ namespace SuperPHP;
 
 use DOMNode;
 
-class Address extends SuperPHPElement {
+class Template extends SuperPHPElement {
     public DOMNode $node;
 
     /**
-     * Address
+     * Template
      * 
-     * The address element represents the contact information for its nearest article or body element ancestor. If that is the body element, then the contact information applies to the document as a whole.
+     * The template element is used to declare fragments of HTML that can be cloned and inserted in the document by script.
      *
      * @param SuperPHPElement|null $child
      * 
@@ -345,7 +345,7 @@ class Address extends SuperPHPElement {
         String $ariaDetails = null,
         String $ariaKeyshortcuts = null,
     ) {
-        $this->node = self::$dom->createElement("address");
+        $this->node = self::$dom->createElement("template");
         if ($child) $this->node->appendChild($child->node);
 
         // Element-specific attributes

@@ -3,8 +3,6 @@
 namespace SuperPHP;
 
 require_once __DIR__ . "./SuperPHPElement.php";
-require_once __DIR__ . "./common/PlainText.php";
-
 require_once __DIR__ . "./html/Html.php";
 require_once __DIR__ . "./html/Head.php";
 require_once __DIR__ . "./html/Title.php";
@@ -55,7 +53,7 @@ require_once __DIR__ . "./html/Rt.php";
 require_once __DIR__ . "./html/Rp.php";
 require_once __DIR__ . "./html/Time.php";
 require_once __DIR__ . "./html/Code.php";
-require_once __DIR__ . "./html/HTMLVar.php";
+require_once __DIR__ . "./html/Var.php";
 require_once __DIR__ . "./html/Samp.php";
 require_once __DIR__ . "./html/Kbd.php";
 require_once __DIR__ . "./html/Sub.php";
@@ -72,10 +70,10 @@ require_once __DIR__ . "./html/Wbr.php";
 require_once __DIR__ . "./html/Ins.php";
 require_once __DIR__ . "./html/Del.php";
 require_once __DIR__ . "./html/Picture.php";
-require_once __DIR__ . "./html/Image.php";
+require_once __DIR__ . "./html/Img.php";
 require_once __DIR__ . "./html/Iframe.php";
 require_once __DIR__ . "./html/Embed.php";
-require_once __DIR__ . "./html/HTMLObject.php";
+require_once __DIR__ . "./html/Object.php";
 require_once __DIR__ . "./html/Param.php";
 require_once __DIR__ . "./html/Video.php";
 require_once __DIR__ . "./html/Audio.php";

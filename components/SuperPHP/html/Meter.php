@@ -4,18 +4,26 @@ namespace SuperPHP;
 
 use DOMNode;
 
-class Address extends SuperPHPElement {
+class Meter extends SuperPHPElement {
     public DOMNode $node;
 
     /**
-     * Address
+     * Meter
      * 
-     * The address element represents the contact information for its nearest article or body element ancestor. If that is the body element, then the contact information applies to the document as a whole.
+     * The meter element represents a scalar measurement within a known range, or a fractional value; for example disk usage, the relevance of a query result, or the fraction of a voting population to have selected a particular candidate.
      *
      * @param SuperPHPElement|null $child
      * 
      * * Element-specific attributes:
+     * @param String|null value	The current numeric value. This must be between the minimum and maximum values (`min` attribute and `max` attribute) if they are specified. If unspecified or malformed, the value is 0. If specified, but not within the range given by the `min` attribute and `max` attribute, the value is equal to the nearest end of the range.
 
+**Usage note:** Unless the `value` attribute is between `0` and `1` (inclusive), the `min` and `max` attributes should define the range so that the `value` attribute's value is within it.
+     * @param String|null min	The lower numeric bound of the measured range. This must be less than the maximum value (`max` attribute), if specified. If unspecified, the minimum value is 0.
+     * @param String|null max	The upper numeric bound of the measured range. This must be greater than the minimum value (`min` attribute), if specified. If unspecified, the maximum value is 1.
+     * @param String|null low	The upper numeric bound of the low end of the measured range. This must be greater than the minimum value (`min` attribute), and it also must be less than the high value and maximum value (`high` attribute and `max` attribute, respectively), if any are specified. If unspecified, or if less than the minimum value, the `low` value is equal to the minimum value.
+     * @param String|null high	The lower numeric bound of the high end of the measured range. This must be less than the maximum value (`max` attribute), and it also must be greater than the low value and minimum value (`low` attribute and **min** attribute, respectively), if any are specified. If unspecified, or if greater than the maximum value, the `high` value is equal to the maximum value.
+     * @param String|null optimum	This attribute indicates the optimal numeric value. It must be within the range (as defined by the `min` attribute and `max` attribute). When used with the `low` attribute and `high` attribute, it gives an indication where along the range is considered preferable. For example, if it is between the `min` attribute and the `low` attribute, then the lower range is considered preferred.
+     * @param String|null form	undefined
 * 
 * * Global attributes:
      * @param String|null accesskey	Provides a hint for generating a keyboard shortcut for the current element. This attribute consists of a space-separated list of characters. The browser should use the first one that exists on the computer keyboard layout.
@@ -198,7 +206,13 @@ class Address extends SuperPHPElement {
         SuperPHPElement $child = null,
 
         // Element-specific attributes:
-
+        String $value = null,
+        String $min = null,
+        String $max = null,
+        String $low = null,
+        String $high = null,
+        String $optimum = null,
+        String $form = null,
 
         // Global attributes
         String $accesskey = null,
@@ -345,11 +359,17 @@ class Address extends SuperPHPElement {
         String $ariaDetails = null,
         String $ariaKeyshortcuts = null,
     ) {
-        $this->node = self::$dom->createElement("address");
+        $this->node = self::$dom->createElement("meter");
         if ($child) $this->node->appendChild($child->node);
 
         // Element-specific attributes
-
+        if ($value) $this->node->setAttribute("value", $value);
+        if ($min) $this->node->setAttribute("min", $min);
+        if ($max) $this->node->setAttribute("max", $max);
+        if ($low) $this->node->setAttribute("low", $low);
+        if ($high) $this->node->setAttribute("high", $high);
+        if ($optimum) $this->node->setAttribute("optimum", $optimum);
+        if ($form) $this->node->setAttribute("form", $form);
 
         // Global attributes
         if ($accesskey) $this->node->setAttribute("accesskey", $accesskey);

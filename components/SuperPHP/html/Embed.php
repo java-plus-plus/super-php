@@ -4,18 +4,21 @@ namespace SuperPHP;
 
 use DOMNode;
 
-class Address extends SuperPHPElement {
+class Embed extends SuperPHPElement {
     public DOMNode $node;
 
     /**
-     * Address
+     * Embed
      * 
-     * The address element represents the contact information for its nearest article or body element ancestor. If that is the body element, then the contact information applies to the document as a whole.
+     * The embed element provides an integration point for an external (typically non-HTML) application or interactive content.
      *
      * @param SuperPHPElement|null $child
      * 
      * * Element-specific attributes:
-
+     * @param String|null src	The URL of the resource being embedded.
+     * @param String|null type	The MIME type to use to select the plug-in to instantiate.
+     * @param String|null width	The displayed width of the resource, in [CSS pixels](https://drafts.csswg.org/css-values/#px). This must be an absolute value; percentages are _not_ allowed.
+     * @param String|null height	The displayed height of the resource, in [CSS pixels](https://drafts.csswg.org/css-values/#px). This must be an absolute value; percentages are _not_ allowed.
 * 
 * * Global attributes:
      * @param String|null accesskey	Provides a hint for generating a keyboard shortcut for the current element. This attribute consists of a space-separated list of characters. The browser should use the first one that exists on the computer keyboard layout.
@@ -198,7 +201,10 @@ class Address extends SuperPHPElement {
         SuperPHPElement $child = null,
 
         // Element-specific attributes:
-
+        String $src = null,
+        String $type = null,
+        String $width = null,
+        String $height = null,
 
         // Global attributes
         String $accesskey = null,
@@ -345,11 +351,14 @@ class Address extends SuperPHPElement {
         String $ariaDetails = null,
         String $ariaKeyshortcuts = null,
     ) {
-        $this->node = self::$dom->createElement("address");
+        $this->node = self::$dom->createElement("embed");
         if ($child) $this->node->appendChild($child->node);
 
         // Element-specific attributes
-
+        if ($src) $this->node->setAttribute("src", $src);
+        if ($type) $this->node->setAttribute("type", $type);
+        if ($width) $this->node->setAttribute("width", $width);
+        if ($height) $this->node->setAttribute("height", $height);
 
         // Global attributes
         if ($accesskey) $this->node->setAttribute("accesskey", $accesskey);

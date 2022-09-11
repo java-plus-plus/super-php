@@ -4,18 +4,22 @@ namespace SuperPHP;
 
 use DOMNode;
 
-class Address extends SuperPHPElement {
+class Fieldset extends SuperPHPElement {
     public DOMNode $node;
 
     /**
-     * Address
+     * Fieldset
      * 
-     * The address element represents the contact information for its nearest article or body element ancestor. If that is the body element, then the contact information applies to the document as a whole.
+     * The fieldset element represents a set of form controls optionally grouped under a common name.
      *
      * @param SuperPHPElement|null $child
      * 
      * * Element-specific attributes:
+     * @param String|null disabled	If this Boolean attribute is set, all form controls that are descendants of the `<fieldset>`, are disabled, meaning they are not editable and won't be submitted along with the `<form>`. They won't receive any browsing events, like mouse clicks or focus-related events. By default browsers display such controls grayed out. Note that form elements inside the [`<legend>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/legend "The HTML <legend> element represents a caption for the content of its parent <fieldset>.") element won't be disabled.
+     * @param String|null form	This attribute takes the value of the `id` attribute of a [`<form>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form "The HTML <form> element represents a document section that contains interactive controls for submitting information to a web server.") element you want the `<fieldset>` to be part of, even if it is not inside the form.
+     * @param String|null name	The name associated with the group.
 
+**Note**: The caption for the fieldset is given by the first [`<legend>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/legend "The HTML <legend> element represents a caption for the content of its parent <fieldset>.") element nested inside it.
 * 
 * * Global attributes:
      * @param String|null accesskey	Provides a hint for generating a keyboard shortcut for the current element. This attribute consists of a space-separated list of characters. The browser should use the first one that exists on the computer keyboard layout.
@@ -198,7 +202,9 @@ class Address extends SuperPHPElement {
         SuperPHPElement $child = null,
 
         // Element-specific attributes:
-
+        String $disabled = null,
+        String $form = null,
+        String $name = null,
 
         // Global attributes
         String $accesskey = null,
@@ -345,11 +351,13 @@ class Address extends SuperPHPElement {
         String $ariaDetails = null,
         String $ariaKeyshortcuts = null,
     ) {
-        $this->node = self::$dom->createElement("address");
+        $this->node = self::$dom->createElement("fieldset");
         if ($child) $this->node->appendChild($child->node);
 
         // Element-specific attributes
-
+        if ($disabled) $this->node->setAttribute("disabled", $disabled);
+        if ($form) $this->node->setAttribute("form", $form);
+        if ($name) $this->node->setAttribute("name", $name);
 
         // Global attributes
         if ($accesskey) $this->node->setAttribute("accesskey", $accesskey);

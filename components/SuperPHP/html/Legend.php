@@ -4,13 +4,13 @@ namespace SuperPHP;
 
 use DOMNode;
 
-class Address extends SuperPHPElement {
+class Legend extends SuperPHPElement {
     public DOMNode $node;
 
     /**
-     * Address
+     * Legend
      * 
-     * The address element represents the contact information for its nearest article or body element ancestor. If that is the body element, then the contact information applies to the document as a whole.
+     * The legend element represents a caption for the rest of the contents of the legend element's parent fieldset element, if any.
      *
      * @param SuperPHPElement|null $child
      * 
@@ -345,7 +345,7 @@ class Address extends SuperPHPElement {
         String $ariaDetails = null,
         String $ariaKeyshortcuts = null,
     ) {
-        $this->node = self::$dom->createElement("address");
+        $this->node = self::$dom->createElement("legend");
         if ($child) $this->node->appendChild($child->node);
 
         // Element-specific attributes

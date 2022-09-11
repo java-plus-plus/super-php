@@ -4,18 +4,20 @@ namespace SuperPHP;
 
 use DOMNode;
 
-class Address extends SuperPHPElement {
+class Pre extends SuperPHPElement {
     public DOMNode $node;
 
     /**
-     * Address
+     * Pre
      * 
-     * The address element represents the contact information for its nearest article or body element ancestor. If that is the body element, then the contact information applies to the document as a whole.
+     * The pre element represents a block of preformatted text, in which structure is represented by typographic conventions rather than by elements.
      *
      * @param SuperPHPElement|null $child
      * 
      * * Element-specific attributes:
-
+     * @param String|null cols	undefined
+     * @param String|null width	undefined
+     * @param String|null wrap	undefined
 * 
 * * Global attributes:
      * @param String|null accesskey	Provides a hint for generating a keyboard shortcut for the current element. This attribute consists of a space-separated list of characters. The browser should use the first one that exists on the computer keyboard layout.
@@ -198,7 +200,9 @@ class Address extends SuperPHPElement {
         SuperPHPElement $child = null,
 
         // Element-specific attributes:
-
+        String $cols = null,
+        String $width = null,
+        String $wrap = null,
 
         // Global attributes
         String $accesskey = null,
@@ -345,11 +349,13 @@ class Address extends SuperPHPElement {
         String $ariaDetails = null,
         String $ariaKeyshortcuts = null,
     ) {
-        $this->node = self::$dom->createElement("address");
+        $this->node = self::$dom->createElement("pre");
         if ($child) $this->node->appendChild($child->node);
 
         // Element-specific attributes
-
+        if ($cols) $this->node->setAttribute("cols", $cols);
+        if ($width) $this->node->setAttribute("width", $width);
+        if ($wrap) $this->node->setAttribute("wrap", $wrap);
 
         // Global attributes
         if ($accesskey) $this->node->setAttribute("accesskey", $accesskey);

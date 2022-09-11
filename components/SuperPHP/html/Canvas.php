@@ -4,18 +4,20 @@ namespace SuperPHP;
 
 use DOMNode;
 
-class Address extends SuperPHPElement {
+class Canvas extends SuperPHPElement {
     public DOMNode $node;
 
     /**
-     * Address
+     * Canvas
      * 
-     * The address element represents the contact information for its nearest article or body element ancestor. If that is the body element, then the contact information applies to the document as a whole.
+     * The canvas element provides scripts with a resolution-dependent bitmap canvas, which can be used for rendering graphs, game graphics, art, or other visual images on the fly.
      *
      * @param SuperPHPElement|null $child
      * 
      * * Element-specific attributes:
-
+     * @param String|null width	The width of the coordinate space in CSS pixels. Defaults to 300.
+     * @param String|null height	The height of the coordinate space in CSS pixels. Defaults to 150.
+     * @param String|null mozOpaque	undefined
 * 
 * * Global attributes:
      * @param String|null accesskey	Provides a hint for generating a keyboard shortcut for the current element. This attribute consists of a space-separated list of characters. The browser should use the first one that exists on the computer keyboard layout.
@@ -198,7 +200,9 @@ class Address extends SuperPHPElement {
         SuperPHPElement $child = null,
 
         // Element-specific attributes:
-
+        String $width = null,
+        String $height = null,
+        String $mozOpaque = null,
 
         // Global attributes
         String $accesskey = null,
@@ -345,11 +349,13 @@ class Address extends SuperPHPElement {
         String $ariaDetails = null,
         String $ariaKeyshortcuts = null,
     ) {
-        $this->node = self::$dom->createElement("address");
+        $this->node = self::$dom->createElement("canvas");
         if ($child) $this->node->appendChild($child->node);
 
         // Element-specific attributes
-
+        if ($width) $this->node->setAttribute("width", $width);
+        if ($height) $this->node->setAttribute("height", $height);
+        if ($mozOpaque) $this->node->setAttribute("moz-opaque", $mozOpaque);
 
         // Global attributes
         if ($accesskey) $this->node->setAttribute("accesskey", $accesskey);

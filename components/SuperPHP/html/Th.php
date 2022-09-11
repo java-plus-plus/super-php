@@ -4,18 +4,26 @@ namespace SuperPHP;
 
 use DOMNode;
 
-class Address extends SuperPHPElement {
+class Th extends SuperPHPElement {
     public DOMNode $node;
 
     /**
-     * Address
+     * Th
      * 
-     * The address element represents the contact information for its nearest article or body element ancestor. If that is the body element, then the contact information applies to the document as a whole.
+     * The th element represents a header cell in a table.
      *
      * @param SuperPHPElement|null $child
      * 
      * * Element-specific attributes:
-
+     * @param String|null colspan	undefined
+     * @param String|null rowspan	undefined
+     * @param String|null headers	undefined
+     * @param String|null scope	undefined
+     * @param String|null sorted	undefined
+     * @param String|null abbr	This attribute contains a short abbreviated description of the cell's content. Some user-agents, such as speech readers, may present this description before the content itself.
+     * @param String|null align	undefined
+     * @param String|null axis	undefined
+     * @param String|null bgcolor	undefined
 * 
 * * Global attributes:
      * @param String|null accesskey	Provides a hint for generating a keyboard shortcut for the current element. This attribute consists of a space-separated list of characters. The browser should use the first one that exists on the computer keyboard layout.
@@ -198,7 +206,15 @@ class Address extends SuperPHPElement {
         SuperPHPElement $child = null,
 
         // Element-specific attributes:
-
+        String $colspan = null,
+        String $rowspan = null,
+        String $headers = null,
+        String $scope = null,
+        String $sorted = null,
+        String $abbr = null,
+        String $align = null,
+        String $axis = null,
+        String $bgcolor = null,
 
         // Global attributes
         String $accesskey = null,
@@ -345,11 +361,19 @@ class Address extends SuperPHPElement {
         String $ariaDetails = null,
         String $ariaKeyshortcuts = null,
     ) {
-        $this->node = self::$dom->createElement("address");
+        $this->node = self::$dom->createElement("th");
         if ($child) $this->node->appendChild($child->node);
 
         // Element-specific attributes
-
+        if ($colspan) $this->node->setAttribute("colspan", $colspan);
+        if ($rowspan) $this->node->setAttribute("rowspan", $rowspan);
+        if ($headers) $this->node->setAttribute("headers", $headers);
+        if ($scope) $this->node->setAttribute("scope", $scope);
+        if ($sorted) $this->node->setAttribute("sorted", $sorted);
+        if ($abbr) $this->node->setAttribute("abbr", $abbr);
+        if ($align) $this->node->setAttribute("align", $align);
+        if ($axis) $this->node->setAttribute("axis", $axis);
+        if ($bgcolor) $this->node->setAttribute("bgcolor", $bgcolor);
 
         // Global attributes
         if ($accesskey) $this->node->setAttribute("accesskey", $accesskey);

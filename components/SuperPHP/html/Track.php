@@ -4,18 +4,37 @@ namespace SuperPHP;
 
 use DOMNode;
 
-class Address extends SuperPHPElement {
+class Track extends SuperPHPElement {
     public DOMNode $node;
 
     /**
-     * Address
+     * Track
      * 
-     * The address element represents the contact information for its nearest article or body element ancestor. If that is the body element, then the contact information applies to the document as a whole.
+     * The track element allows authors to specify explicit external timed text tracks for media elements. It does not represent anything on its own.
      *
      * @param SuperPHPElement|null $child
      * 
      * * Element-specific attributes:
+     * @param String|null default	This attribute indicates that the track should be enabled unless the user's preferences indicate that another track is more appropriate. This may only be used on one `track` element per media element.
+     * @param String|null kind	How the text track is meant to be used. If omitted the default kind is `subtitles`. If the attribute is not present, it will use the `subtitles`. If the attribute contains an invalid value, it will use `metadata`. (Versions of Chrome earlier than 52 treated an invalid value as `subtitles`.) The following keywords are allowed:
 
+*   `subtitles`
+    *   Subtitles provide translation of content that cannot be understood by the viewer. For example dialogue or text that is not English in an English language film.
+    *   Subtitles may contain additional content, usually extra background information. For example the text at the beginning of the Star Wars films, or the date, time, and location of a scene.
+*   `captions`
+    *   Closed captions provide a transcription and possibly a translation of audio.
+    *   It may include important non-verbal information such as music cues or sound effects. It may indicate the cue's source (e.g. music, text, character).
+    *   Suitable for users who are deaf or when the sound is muted.
+*   `descriptions`
+    *   Textual description of the video content.
+    *   Suitable for users who are blind or where the video cannot be seen.
+*   `chapters`
+    *   Chapter titles are intended to be used when the user is navigating the media resource.
+*   `metadata`
+    *   Tracks used by scripts. Not visible to the user.
+     * @param String|null label	A user-readable title of the text track which is used by the browser when listing available text tracks.
+     * @param String|null src	Address of the track (`.vtt` file). Must be a valid URL. This attribute must be specified and its URL value must have the same origin as the document — unless the [`<audio>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/audio "The HTML <audio> element is used to embed sound content in documents. It may contain one or more audio sources, represented using the src attribute or the <source> element: the browser will choose the most suitable one. It can also be the destination for streamed media, using a MediaStream.") or [`<video>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video "The HTML Video element (<video>) embeds a media player which supports video playback into the document.") parent element of the `track` element has a [`crossorigin`](https://developer.mozilla.org/en-US/docs/Web/HTML/CORS_settings_attributes) attribute.
+     * @param String|null srclang	Language of the track text data. It must be a valid [BCP 47](https://r12a.github.io/app-subtags/) language tag. If the `kind` attribute is set to `subtitles,` then `srclang` must be defined.
 * 
 * * Global attributes:
      * @param String|null accesskey	Provides a hint for generating a keyboard shortcut for the current element. This attribute consists of a space-separated list of characters. The browser should use the first one that exists on the computer keyboard layout.
@@ -198,7 +217,11 @@ class Address extends SuperPHPElement {
         SuperPHPElement $child = null,
 
         // Element-specific attributes:
-
+        String $default = null,
+        String $kind = null,
+        String $label = null,
+        String $src = null,
+        String $srclang = null,
 
         // Global attributes
         String $accesskey = null,
@@ -345,11 +368,15 @@ class Address extends SuperPHPElement {
         String $ariaDetails = null,
         String $ariaKeyshortcuts = null,
     ) {
-        $this->node = self::$dom->createElement("address");
+        $this->node = self::$dom->createElement("track");
         if ($child) $this->node->appendChild($child->node);
 
         // Element-specific attributes
-
+        if ($default) $this->node->setAttribute("default", $default);
+        if ($kind) $this->node->setAttribute("kind", $kind);
+        if ($label) $this->node->setAttribute("label", $label);
+        if ($src) $this->node->setAttribute("src", $src);
+        if ($srclang) $this->node->setAttribute("srclang", $srclang);
 
         // Global attributes
         if ($accesskey) $this->node->setAttribute("accesskey", $accesskey);

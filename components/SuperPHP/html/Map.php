@@ -4,18 +4,18 @@ namespace SuperPHP;
 
 use DOMNode;
 
-class Address extends SuperPHPElement {
+class Map extends SuperPHPElement {
     public DOMNode $node;
 
     /**
-     * Address
+     * Map
      * 
-     * The address element represents the contact information for its nearest article or body element ancestor. If that is the body element, then the contact information applies to the document as a whole.
+     * The map element, in conjunction with an img element and any area element descendants, defines an image map. The element represents its children.
      *
      * @param SuperPHPElement|null $child
      * 
      * * Element-specific attributes:
-
+     * @param String|null name	The name attribute gives the map a name so that it can be referenced. The attribute must be present and must have a non-empty value with no space characters. The value of the name attribute must not be a compatibility-caseless match for the value of the name attribute of another map element in the same document. If the id attribute is also specified, both attributes must have the same value.
 * 
 * * Global attributes:
      * @param String|null accesskey	Provides a hint for generating a keyboard shortcut for the current element. This attribute consists of a space-separated list of characters. The browser should use the first one that exists on the computer keyboard layout.
@@ -198,7 +198,7 @@ class Address extends SuperPHPElement {
         SuperPHPElement $child = null,
 
         // Element-specific attributes:
-
+        String $name = null,
 
         // Global attributes
         String $accesskey = null,
@@ -345,11 +345,11 @@ class Address extends SuperPHPElement {
         String $ariaDetails = null,
         String $ariaKeyshortcuts = null,
     ) {
-        $this->node = self::$dom->createElement("address");
+        $this->node = self::$dom->createElement("map");
         if ($child) $this->node->appendChild($child->node);
 
         // Element-specific attributes
-
+        if ($name) $this->node->setAttribute("name", $name);
 
         // Global attributes
         if ($accesskey) $this->node->setAttribute("accesskey", $accesskey);

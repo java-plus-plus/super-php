@@ -4,18 +4,18 @@ namespace SuperPHP;
 
 use DOMNode;
 
-class Address extends SuperPHPElement {
+class Dd extends SuperPHPElement {
     public DOMNode $node;
 
     /**
-     * Address
+     * Dd
      * 
-     * The address element represents the contact information for its nearest article or body element ancestor. If that is the body element, then the contact information applies to the document as a whole.
+     * The dd element represents the description, definition, or value, part of a term-description group in a description list (dl element).
      *
      * @param SuperPHPElement|null $child
      * 
      * * Element-specific attributes:
-
+     * @param String|null nowrap	undefined
 * 
 * * Global attributes:
      * @param String|null accesskey	Provides a hint for generating a keyboard shortcut for the current element. This attribute consists of a space-separated list of characters. The browser should use the first one that exists on the computer keyboard layout.
@@ -198,7 +198,7 @@ class Address extends SuperPHPElement {
         SuperPHPElement $child = null,
 
         // Element-specific attributes:
-
+        String $nowrap = null,
 
         // Global attributes
         String $accesskey = null,
@@ -345,11 +345,11 @@ class Address extends SuperPHPElement {
         String $ariaDetails = null,
         String $ariaKeyshortcuts = null,
     ) {
-        $this->node = self::$dom->createElement("address");
+        $this->node = self::$dom->createElement("dd");
         if ($child) $this->node->appendChild($child->node);
 
         // Element-specific attributes
-
+        if ($nowrap) $this->node->setAttribute("nowrap", $nowrap);
 
         // Global attributes
         if ($accesskey) $this->node->setAttribute("accesskey", $accesskey);

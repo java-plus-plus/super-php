@@ -4,18 +4,26 @@ namespace SuperPHP;
 
 use DOMNode;
 
-class Address extends SuperPHPElement {
+class Base extends SuperPHPElement {
     public DOMNode $node;
 
     /**
-     * Address
+     * Base
      * 
-     * The address element represents the contact information for its nearest article or body element ancestor. If that is the body element, then the contact information applies to the document as a whole.
+     * The base element allows authors to specify the document base URL for the purposes of resolving relative URLs, and the name of the default browsing context for the purposes of following hyperlinks. The element does not represent any content beyond this information.
      *
      * @param SuperPHPElement|null $child
      * 
      * * Element-specific attributes:
+     * @param String|null href	The base URL to be used throughout the document for relative URL addresses. If this attribute is specified, this element must come before any other elements with attributes whose values are URLs. Absolute and relative URLs are allowed.
+     * @param String|null target	A name or keyword indicating the default location to display the result when hyperlinks or forms cause navigation, for elements that do not have an explicit target reference. It is a name of, or keyword for, a _browsing context_ (for example: tab, window, or inline frame). The following keywords have special meanings:
 
+*   `_self`: Load the result into the same browsing context as the current one. This value is the default if the attribute is not specified.
+*   `_blank`: Load the result into a new unnamed browsing context.
+*   `_parent`: Load the result into the parent browsing context of the current one. If there is no parent, this option behaves the same way as `_self`.
+*   `_top`: Load the result into the top-level browsing context (that is, the browsing context that is an ancestor of the current one, and has no parent). If there is no parent, this option behaves the same way as `_self`.
+
+If this attribute is specified, this element must come before any other elements with attributes whose values are URLs.
 * 
 * * Global attributes:
      * @param String|null accesskey	Provides a hint for generating a keyboard shortcut for the current element. This attribute consists of a space-separated list of characters. The browser should use the first one that exists on the computer keyboard layout.
@@ -198,7 +206,8 @@ class Address extends SuperPHPElement {
         SuperPHPElement $child = null,
 
         // Element-specific attributes:
-
+        String $href = null,
+        String $target = null,
 
         // Global attributes
         String $accesskey = null,
@@ -345,11 +354,12 @@ class Address extends SuperPHPElement {
         String $ariaDetails = null,
         String $ariaKeyshortcuts = null,
     ) {
-        $this->node = self::$dom->createElement("address");
+        $this->node = self::$dom->createElement("base");
         if ($child) $this->node->appendChild($child->node);
 
         // Element-specific attributes
-
+        if ($href) $this->node->setAttribute("href", $href);
+        if ($target) $this->node->setAttribute("target", $target);
 
         // Global attributes
         if ($accesskey) $this->node->setAttribute("accesskey", $accesskey);
