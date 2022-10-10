@@ -14,9 +14,10 @@ use SuperPHP\HTML;
 use SuperPHP\SuperPHP;
 use SuperPHP\PlainText;
 
-require_once __DIR__ . "/components/SimpleDB.php";
-require_once __DIR__ . "/components/SuperPHP/SuperPHP.php";
-require_once __DIR__ . "/components/SuperPHP/Material2/index.php";
+require_once __DIR__ . "/../plugins/SimpleDB/config/SimpleDBConfig.php";
+require_once __DIR__ . "/../plugins/SimpleDB/SimpleDB.php";
+require_once __DIR__ . "/../src/SuperPHP.php";
+require_once __DIR__ . "/../plugins/Material2/index.php";
 
 
 // $db = new SimpleDB(

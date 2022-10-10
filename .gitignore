@@ -1,0 +1,3 @@
+config/SimpleDBConfig.php
+config/GlobalConfig.php
+plugins/**
