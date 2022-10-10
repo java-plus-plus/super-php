@@ -13,11 +13,13 @@ class Style extends SuperPHPElement {
       * The style element allows authors to embed style information in their documents. The style element is one of several inputs to the styling processing model. The element does not represent content for the user.
       *
       * @param SuperPHPElement|null $child
+      * @param SuperPHPElement[]|null $children
+      * @param CustomAttr[]|null $customAttributes
       * 
       * * Element-specific attributes:
       * @param String|null media	This attribute defines which media the style should be applied to. Its value is a [media query](https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Media_queries), which defaults to `all` if the attribute is missing.
       * @param String|null nonce	A cryptographic nonce (number used once) used to whitelist inline styles in a [style-src Content-Security-Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/style-src). The server must generate a unique nonce value each time it transmits a policy. It is critical to provide a nonce that cannot be guessed as bypassing a resource’s policy is otherwise trivial.
-      * @param String|null type	This attribute defines the styling language as a MIME type (charset should not be specified). This attribute is optional and defaults to `text/css` if it is not specified — there is very little reason to include this in modern web documents.
+      * @param String|null $type	This attribute defines the styling language as a MIME type (charset should not be specified). This attribute is optional and defaults to `text/css` if it is not specified — there is very little reason to include this in modern web documents.
       * @param String|null scoped	undefined
       * @param String|null title	undefined
       * 
@@ -25,7 +27,9 @@ class Style extends SuperPHPElement {
       * @version 1.0.0 - 11 September 2022
       */
      function __construct(
-          SuperPHPElement $child = null,
+          public ?SuperPHPElement $child = null,
+          public ?array $children = null,
+          public ?array $customAttributes = null,
 
           // Element-specific attributes:
           String $media = null,
@@ -34,8 +38,19 @@ class Style extends SuperPHPElement {
           String $scoped = null,
           String $title = null,
      ) {
+          parent::__construct();
           $this->node = self::$dom->createElement("style");
-          if ($child) $this->node->appendChild($child->node);
+          if ($child) $this->node->appendChild($child->node->cloneNode(true));
+          if ($children) {
+               foreach ($children as $child) {
+                    $child && $this->node->appendChild($child->node->cloneNode(true));
+               }
+          }
+          if ($customAttributes) {
+               foreach ($customAttributes as $attr) {
+                    $this->node->setAttribute($attr->name, $attr->value);
+               }
+          }
 
           // Element-specific attributes
           if ($media) $this->node->setAttribute("media", $media);

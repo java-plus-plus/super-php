@@ -13,24 +13,26 @@ class Meta extends SuperPHPElement {
      * The meta element represents various kinds of metadata that cannot be expressed using the title, base, link, style, and script elements.
      *
      * @param SuperPHPElement|null $child
+     * @param SuperPHPElement[]|null $children
+     * @param CustomAttr[]|null $customAttributes
      * 
      * * Element-specific attributes:
-     * @param String|null name	This attribute defines the name of a piece of document-level metadata. It should not be set if one of the attributes [`itemprop`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes#attr-itemprop), [`http-equiv`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta#attr-http-equiv) or [`charset`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta#attr-charset) is also set.
+     * @param String|null $name	This attribute defines the name of a piece of document-level metadata. It should not be set if one of the attributes [`itemprop`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes#attr-itemprop), [`http-equiv`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta#attr-http-equiv) or [`charset`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta#attr-charset) is also set.
 
 This metadata name is associated with the value contained by the [`content`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta#attr-content) attribute. The possible values for the name attribute are:
 
-*   `application-name` which defines the name of the application running in the web page.
+     *   `application-name` which defines the name of the application running in the web page.
     
-    **Note:**
+     **Note:**
     
-    *   Browsers may use this to identify the application. It is different from the [`<title>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/title "The HTML Title element (<title>) defines the document's title that is shown in a browser's title bar or a page's tab.") element, which usually contain the application name, but may also contain information like the document name or a status.
-    *   Simple web pages shouldn't define an application-name.
+     *   Browsers may use this to identify the application. It is different from the [`<title>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/title "The HTML Title element (<title>) defines the document's title that is shown in a browser's title bar or a page's tab.") element, which usually contain the application name, but may also contain information like the document name or a status.
+     *   Simple web pages shouldn't define an application-name.
     
-*   `author` which defines the name of the document's author.
-*   `description` which contains a short and accurate summary of the content of the page. Several browsers, like Firefox and Opera, use this as the default description of bookmarked pages.
-*   `generator` which contains the identifier of the software that generated the page.
-*   `keywords` which contains words relevant to the page's content separated by commas.
-*   `referrer` which controls the [`Referer` HTTP header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Referer) attached to requests sent from the document:
+     *   `author` which defines the name of the document's author.
+     *   `description` which contains a short and accurate summary of the content of the page. Several browsers, like Firefox and Opera, use this as the default description of bookmarked pages.
+     *   `generator` which contains the identifier of the software that generated the page.
+     *   `keywords` which contains words relevant to the page's content separated by commas.
+     *   `referrer` which controls the [`Referer` HTTP header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Referer) attached to requests sent from the document:
     
     Values for the `content` attribute of `<meta name="referrer">`
     
@@ -66,19 +68,19 @@ This metadata name is associated with the value contained by the [`content`](htt
     
     Send the full URL (stripped of parameters) for same-origin or cross-origin requests.
     
-    **Notes:**
+     **Notes:**
     
-    *   Some browsers support the deprecated values of `always`, `default`, and `never` for referrer.
-    *   Dynamically inserting `<meta name="referrer">` (with [`document.write`](https://developer.mozilla.org/en-US/docs/Web/API/Document/write) or [`appendChild`](https://developer.mozilla.org/en-US/docs/Web/API/Node/appendChild)) makes the referrer behaviour unpredictable.
-    *   When several conflicting policies are defined, the no-referrer policy is applied.
+     *   Some browsers support the deprecated values of `always`, `default`, and `never` for referrer.
+     *   Dynamically inserting `<meta name="referrer">` (with [`document.write`](https://developer.mozilla.org/en-US/docs/Web/API/Document/write) or [`appendChild`](https://developer.mozilla.org/en-US/docs/Web/API/Node/appendChild)) makes the referrer behaviour unpredictable.
+     *   When several conflicting policies are defined, the no-referrer policy is applied.
     
 
 This attribute may also have a value taken from the extended list defined on [WHATWG Wiki MetaExtensions page](https://wiki.whatwg.org/wiki/MetaExtensions). Although none have been formally accepted yet, a few commonly used names are:
 
-*   `creator` which defines the name of the creator of the document, such as an organization or institution. If there are more than one, several [`<meta>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta "The HTML <meta> element represents metadata that cannot be represented by other HTML meta-related elements, like <base>, <link>, <script>, <style> or <title>.") elements should be used.
-*   `googlebot`, a synonym of `robots`, is only followed by Googlebot (the indexing crawler for Google).
-*   `publisher` which defines the name of the document's publisher.
-*   `robots` which defines the behaviour that cooperative crawlers, or "robots", should use with the page. It is a comma-separated list of the values below:
+     *   `creator` which defines the name of the creator of the document, such as an organization or institution. If there are more than one, several [`<meta>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta "The HTML <meta> element represents metadata that cannot be represented by other HTML meta-related elements, like <base>, <link>, <script>, <style> or <title>.") elements should be used.
+     *   `googlebot`, a synonym of `robots`, is only followed by Googlebot (the indexing crawler for Google).
+     *   `publisher` which defines the name of the document's publisher.
+     *   `robots` which defines the behaviour that cooperative crawlers, or "robots", should use with the page. It is a comma-separated list of the values below:
     
     Values for the content of `<meta name="robots">`
     
@@ -148,16 +150,16 @@ This attribute may also have a value taken from the extended list defined on [WH
     
     [Bing](https://www.bing.com/webmaster/help/which-robots-metatags-does-bing-support-5198d240)
     
-    **Notes:**
+     **Notes:**
     
-    *   Only cooperative robots follow these rules. Do not expect to prevent e-mail harvesters with them.
-    *   The robot still needs to access the page in order to read these rules. To prevent bandwidth consumption, use a _[robots.txt](https://developer.mozilla.org/en-US/docs/Glossary/robots.txt "robots.txt: Robots.txt is a file which is usually placed in the root of any website. It decides whether crawlers are permitted or forbidden access to the web site.")_ file.
-    *   If you want to remove a page, `noindex` will work, but only after the robot visits the page again. Ensure that the `robots.txt` file is not preventing revisits.
-    *   Some values are mutually exclusive, like `index` and `noindex`, or `follow` and `nofollow`. In these cases the robot's behaviour is undefined and may vary between them.
-    *   Some crawler robots, like Google, Yahoo and Bing, support the same values for the HTTP header `X-Robots-Tag`; this allows non-HTML documents like images to use these rules.
+     *   Only cooperative robots follow these rules. Do not expect to prevent e-mail harvesters with them.
+     *   The robot still needs to access the page in order to read these rules. To prevent bandwidth consumption, use a _[robots.txt](https://developer.mozilla.org/en-US/docs/Glossary/robots.txt "robots.txt: Robots.txt is a file which is usually placed in the root of any website. It decides whether crawlers are permitted or forbidden access to the web site.")_ file.
+     *   If you want to remove a page, `noindex` will work, but only after the robot visits the page again. Ensure that the `robots.txt` file is not preventing revisits.
+     *   Some values are mutually exclusive, like `index` and `noindex`, or `follow` and `nofollow`. In these cases the robot's behaviour is undefined and may vary between them.
+     *   Some crawler robots, like Google, Yahoo and Bing, support the same values for the HTTP header `X-Robots-Tag`; this allows non-HTML documents like images to use these rules.
     
-*   `slurp`, is a synonym of `robots`, but only for Slurp - the crawler for Yahoo Search.
-*   `viewport`, which gives hints about the size of the initial size of the [viewport](https://developer.mozilla.org/en-US/docs/Glossary/viewport "viewport: A viewport represents a polygonal (normally rectangular) area in computer graphics that is currently being viewed. In web browser terms, it refers to the part of the document you're viewing which is currently visible in its window (or the screen, if the document is being viewed in full screen mode). Content outside the viewport is not visible onscreen until scrolled into view."). Used by mobile devices only.
+     *   `slurp`, is a synonym of `robots`, but only for Slurp - the crawler for Yahoo Search.
+     *   `viewport`, which gives hints about the size of the initial size of the [viewport](https://developer.mozilla.org/en-US/docs/Glossary/viewport "viewport: A viewport represents a polygonal (normally rectangular) area in computer graphics that is currently being viewed. In web browser terms, it refers to the part of the document you're viewing which is currently visible in its window (or the screen, if the document is being viewed in full screen mode). Content outside the viewport is not visible onscreen until scrolled into view."). Used by mobile devices only.
     
     Values for the content of `<meta name="viewport">`
     
@@ -218,86 +220,86 @@ This attribute may also have a value taken from the extended list defined on [WH
     
     See also: [`@viewport`](https://developer.mozilla.org/en-US/docs/Web/CSS/@viewport "The @viewport CSS at-rule lets you configure the viewport through which the document is viewed. It's primarily used for mobile devices, but is also used by desktop browsers that support features like "snap to edge" (such as Microsoft Edge).")
     
-    **Notes:**
+     **Notes:**
     
-    *   Though unstandardized, this declaration is respected by most mobile browsers due to de-facto dominance.
-    *   The default values may vary between devices and browsers.
-    *   To learn about this declaration in Firefox for Mobile, see [this article](https://developer.mozilla.org/en-US/docs/Mobile/Viewport_meta_tag "Mobile/Viewport meta tag").
+     *   Though unstandardized, this declaration is respected by most mobile browsers due to de-facto dominance.
+     *   The default values may vary between devices and browsers.
+     *   To learn about this declaration in Firefox for Mobile, see [this article](https://developer.mozilla.org/en-US/docs/Mobile/Viewport_meta_tag "Mobile/Viewport meta tag").
      * @param String|null httpEquiv	Defines a pragma directive. The attribute is named `**http-equiv**(alent)` because all the allowed values are names of particular HTTP headers:
 
-*   `"content-language"`  
+     *   `"content-language"`  
     Defines the default language of the page. It can be overridden by the [lang](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/lang) attribute on any element.
     
-    **Warning:** Do not use this value, as it is obsolete. Prefer the `lang` attribute on the [`<html>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/html "The HTML <html> element represents the root (top-level element) of an HTML document, so it is also referred to as the root element. All other elements must be descendants of this element.") element.
+     **Warning:** Do not use this value, as it is obsolete. Prefer the `lang` attribute on the [`<html>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/html "The HTML <html> element represents the root (top-level element) of an HTML document, so it is also referred to as the root element. All other elements must be descendants of this element.") element.
     
-*   `"content-security-policy"`  
+     *   `"content-security-policy"`  
     Allows page authors to define a [content policy](https://developer.mozilla.org/en-US/docs/Web/Security/CSP/CSP_policy_directives) for the current page. Content policies mostly specify allowed server origins and script endpoints which help guard against cross-site scripting attacks.
-*   `"content-type"`  
+     *   `"content-type"`  
     Defines the [MIME type](https://developer.mozilla.org/en-US/docs/Glossary/MIME_type) of the document, followed by its character encoding. It follows the same syntax as the HTTP `content-type` entity-header field, but as it is inside a HTML page, most values other than `text/html` are impossible. Therefore the valid syntax for its `content` is the string '`text/html`' followed by a character set with the following syntax: '`; charset=_IANAcharset_`', where `IANAcharset` is the _preferred MIME name_ for a character set as [defined by the IANA.](https://www.iana.org/assignments/character-sets)
     
-    **Warning:** Do not use this value, as it is obsolete. Use the [`charset`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta#attr-charset) attribute on the [`<meta>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta "The HTML <meta> element represents metadata that cannot be represented by other HTML meta-related elements, like <base>, <link>, <script>, <style> or <title>.") element.
+     **Warning:** Do not use this value, as it is obsolete. Use the [`charset`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta#attr-charset) attribute on the [`<meta>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta "The HTML <meta> element represents metadata that cannot be represented by other HTML meta-related elements, like <base>, <link>, <script>, <style> or <title>.") element.
     
-    **Note:** As [`<meta>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta "The HTML <meta> element represents metadata that cannot be represented by other HTML meta-related elements, like <base>, <link>, <script>, <style> or <title>.") can't change documents' types in XHTML or HTML5's XHTML serialization, never set the MIME type to an XHTML MIME type with `<meta>`.
+     **Note:** As [`<meta>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta "The HTML <meta> element represents metadata that cannot be represented by other HTML meta-related elements, like <base>, <link>, <script>, <style> or <title>.") can't change documents' types in XHTML or HTML5's XHTML serialization, never set the MIME type to an XHTML MIME type with `<meta>`.
     
-*   `"refresh"`  
+     *   `"refresh"`  
     This instruction specifies:
-    *   The number of seconds until the page should be reloaded - only if the [`content`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta#attr-content) attribute contains a positive integer.
-    *   The number of seconds until the page should redirect to another - only if the [`content`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta#attr-content) attribute contains a positive integer followed by the string '`;url=`', and a valid URL.
-*   `"set-cookie"`  
+     *   The number of seconds until the page should be reloaded - only if the [`content`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta#attr-content) attribute contains a positive integer.
+     *   The number of seconds until the page should redirect to another - only if the [`content`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta#attr-content) attribute contains a positive integer followed by the string '`;url=`', and a valid URL.
+     *   `"set-cookie"`  
     Defines a [cookie](https://developer.mozilla.org/en-US/docs/cookie) for the page. Its content must follow the syntax defined in the [IETF HTTP Cookie Specification](https://tools.ietf.org/html/draft-ietf-httpstate-cookie-14).
     
-    **Warning:** Do not use this instruction, as it is obsolete. Use the HTTP header [`Set-Cookie`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie) instead.
+     **Warning:** Do not use this instruction, as it is obsolete. Use the HTTP header [`Set-Cookie`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie) instead.
      * @param String|null content	This attribute contains the value for the [`http-equiv`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta#attr-http-equiv) or [`name`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta#attr-name) attribute, depending on which is used.
      * @param String|null charset	This attribute declares the page's character encoding. It must contain a [standard IANA MIME name for character encodings](https://www.iana.org/assignments/character-sets). Although the standard doesn't request a specific encoding, it suggests:
 
-*   Authors are encouraged to use [`UTF-8`](https://developer.mozilla.org/en-US/docs/Glossary/UTF-8).
-*   Authors should not use ASCII-incompatible encodings to avoid security risk: browsers not supporting them may interpret harmful content as HTML. This happens with the `JIS_C6226-1983`, `JIS_X0212-1990`, `HZ-GB-2312`, `JOHAB`, the ISO-2022 family and the EBCDIC family.
+     *   Authors are encouraged to use [`UTF-8`](https://developer.mozilla.org/en-US/docs/Glossary/UTF-8).
+     *   Authors should not use ASCII-incompatible encodings to avoid security risk: browsers not supporting them may interpret harmful content as HTML. This happens with the `JIS_C6226-1983`, `JIS_X0212-1990`, `HZ-GB-2312`, `JOHAB`, the ISO-2022 family and the EBCDIC family.
 
-**Note:** ASCII-incompatible encodings are those that don't map the 8-bit code points `0x20` to `0x7E` to the `0x0020` to `0x007E` Unicode code points)
+     **Note:** ASCII-incompatible encodings are those that don't map the 8-bit code points `0x20` to `0x7E` to the `0x0020` to `0x007E` Unicode code points)
 
-*   Authors **must not** use `CESU-8`, `UTF-7`, `BOCU-1` and/or `SCSU` as [cross-site scripting](https://developer.mozilla.org/en-US/docs/Glossary/Cross-site_scripting) attacks with these encodings have been demonstrated.
-*   Authors should not use `UTF-32` because not all HTML5 encoding algorithms can distinguish it from `UTF-16`.
+     *   Authors **must not** use `CESU-8`, `UTF-7`, `BOCU-1` and/or `SCSU` as [cross-site scripting](https://developer.mozilla.org/en-US/docs/Glossary/Cross-site_scripting) attacks with these encodings have been demonstrated.
+     *   Authors should not use `UTF-32` because not all HTML5 encoding algorithms can distinguish it from `UTF-16`.
 
-**Notes:**
+     **Notes:**
 
-*   The declared character encoding must match the one the page was saved with to avoid garbled characters and security holes.
-*   The [`<meta>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta "The HTML <meta> element represents metadata that cannot be represented by other HTML meta-related elements, like <base>, <link>, <script>, <style> or <title>.") element declaring the encoding must be inside the [`<head>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/head "The HTML <head> element provides general information (metadata) about the document, including its title and links to its scripts and style sheets.") element and **within the first 1024 bytes** of the HTML as some browsers only look at those bytes before choosing an encoding.
-*   This [`<meta>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta "The HTML <meta> element represents metadata that cannot be represented by other HTML meta-related elements, like <base>, <link>, <script>, <style> or <title>.") element is only one part of the [algorithm to determine a page's character set](https://www.whatwg.org/specs/web-apps/current-work/multipage/parsing.html#encoding-sniffing-algorithm "Algorithm charset page"). The [`Content-Type` header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Type) and any [Byte-Order Marks](https://developer.mozilla.org/en-US/docs/Glossary/Byte-Order_Mark "The definition of that term (Byte-Order Marks) has not been written yet; please consider contributing it!") override this element.
-*   It is strongly recommended to define the character encoding. If a page's encoding is undefined, cross-scripting techniques are possible, such as the [`UTF-7` fallback cross-scripting technique](https://code.google.com/p/doctype-mirror/wiki/ArticleUtf7).
-*   The [`<meta>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta "The HTML <meta> element represents metadata that cannot be represented by other HTML meta-related elements, like <base>, <link>, <script>, <style> or <title>.") element with a `charset` attribute is a synonym for the pre-HTML5 `<meta http-equiv="Content-Type" content="text/html; charset=_IANAcharset_">`, where _`IANAcharset`_ contains the value of the equivalent [`charset`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta#attr-charset) attribute. This syntax is still allowed, although no longer recommended.
+     *   The declared character encoding must match the one the page was saved with to avoid garbled characters and security holes.
+     *   The [`<meta>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta "The HTML <meta> element represents metadata that cannot be represented by other HTML meta-related elements, like <base>, <link>, <script>, <style> or <title>.") element declaring the encoding must be inside the [`<head>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/head "The HTML <head> element provides general information (metadata) about the document, including its title and links to its scripts and style sheets.") element and **within the first 1024 bytes** of the HTML as some browsers only look at those bytes before choosing an encoding.
+     *   This [`<meta>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta "The HTML <meta> element represents metadata that cannot be represented by other HTML meta-related elements, like <base>, <link>, <script>, <style> or <title>.") element is only one part of the [algorithm to determine a page's character set](https://www.whatwg.org/specs/web-apps/current-work/multipage/parsing.html#encoding-sniffing-algorithm "Algorithm charset page"). The [`Content-Type` header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Type) and any [Byte-Order Marks](https://developer.mozilla.org/en-US/docs/Glossary/Byte-Order_Mark "The definition of that term (Byte-Order Marks) has not been written yet; please consider contributing it!") override this element.
+     *   It is strongly recommended to define the character encoding. If a page's encoding is undefined, cross-scripting techniques are possible, such as the [`UTF-7` fallback cross-scripting technique](https://code.google.com/p/doctype-mirror/wiki/ArticleUtf7).
+     *   The [`<meta>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta "The HTML <meta> element represents metadata that cannot be represented by other HTML meta-related elements, like <base>, <link>, <script>, <style> or <title>.") element with a `charset` attribute is a synonym for the pre-HTML5 `<meta http-equiv="Content-Type" content="text/html; charset=_IANAcharset_">`, where _`IANAcharset`_ contains the value of the equivalent [`charset`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta#attr-charset) attribute. This syntax is still allowed, although no longer recommended.
      * @param String|null scheme	undefined
-* 
-* * Global attributes:
-     * @param String|null accesskey	Provides a hint for generating a keyboard shortcut for the current element. This attribute consists of a space-separated list of characters. The browser should use the first one that exists on the computer keyboard layout.
+     * 
+     * * Global attributes:
+     * @param String|null $accesskey	Provides a hint for generating a keyboard shortcut for the current element. This attribute consists of a space-separated list of characters. The browser should use the first one that exists on the computer keyboard layout.
      * @param String|null autocapitalize	Controls whether and how text input is automatically capitalized as it is entered/edited by the user. It can have the following values:
 
-*   `off` or `none`, no autocapitalization is applied (all letters default to lowercase)
-*   `on` or `sentences`, the first letter of each sentence defaults to a capital letter; all other letters default to lowercase
-*   `words`, the first letter of each word defaults to a capital letter; all other letters default to lowercase
-*   `characters`, all letters should default to uppercase
-     * @param String|null class	A space-separated list of the classes of the element. Classes allows CSS and JavaScript to select and access specific elements via the [class selectors](https://developer.mozilla.org/docs/Web/CSS/Class_selectors) or functions like the method [`Document.getElementsByClassName()`](https://developer.mozilla.org/docs/Web/API/Document/getElementsByClassName "returns an array-like object of all child elements which have all of the given class names.").
-     * @param String|null contenteditable	An enumerated attribute indicating if the element should be editable by the user. If so, the browser modifies its widget to allow editing. The attribute must take one of the following values:
+     *   `off` or `none`, no autocapitalization is applied (all letters default to lowercase)
+     *   `on` or `sentences`, the first letter of each sentence defaults to a capital letter; all other letters default to lowercase
+     *   `words`, the first letter of each word defaults to a capital letter; all other letters default to lowercase
+     *   `characters`, all letters should default to uppercase
+     * @param String[]|null $class	A space-separated list of the classes of the element. Classes allows CSS and JavaScript to select and access specific elements via the [class selectors](https://developer.mozilla.org/docs/Web/CSS/Class_selectors) or functions like the method [`Document.getElementsByClassName()`](https://developer.mozilla.org/docs/Web/API/Document/getElementsByClassName "returns an array-like object of all child elements which have all of the given class names.").
+     * @param String|null $contenteditable	An enumerated attribute indicating if the element should be editable by the user. If so, the browser modifies its widget to allow editing. The attribute must take one of the following values:
 
-*   `true` or the _empty string_, which indicates that the element must be editable;
-*   `false`, which indicates that the element must not be editable.
+     *   `true` or the _empty string_, which indicates that the element must be editable;
+     *   `false`, which indicates that the element must not be editable.
      * @param String|null contextmenu	The `[**id**](#attr-id)` of a [`<menu>`](https://developer.mozilla.org/docs/Web/HTML/Element/menu "The HTML <menu> element represents a group of commands that a user can perform or activate. This includes both list menus, which might appear across the top of a screen, as well as context menus, such as those that might appear underneath a button after it has been clicked.") to use as the contextual menu for this element.
-     * @param String|null dir	An enumerated attribute indicating the directionality of the element's text. It can have the following values:
+     * @param String|null $dir	An enumerated attribute indicating the directionality of the element's text. It can have the following values:
 
-*   `ltr`, which means _left to right_ and is to be used for languages that are written from the left to the right (like English);
-*   `rtl`, which means _right to left_ and is to be used for languages that are written from the right to the left (like Arabic);
-*   `auto`, which lets the user agent decide. It uses a basic algorithm as it parses the characters inside the element until it finds a character with a strong directionality, then it applies that directionality to the whole element.
-     * @param String|null draggable	An enumerated attribute indicating whether the element can be dragged, using the [Drag and Drop API](https://developer.mozilla.org/docs/DragDrop/Drag_and_Drop). It can have the following values:
+     *   `ltr`, which means _left to right_ and is to be used for languages that are written from the left to the right (like English);
+     *   `rtl`, which means _right to left_ and is to be used for languages that are written from the right to the left (like Arabic);
+     *   `auto`, which lets the user agent decide. It uses a basic algorithm as it parses the characters inside the element until it finds a character with a strong directionality, then it applies that directionality to the whole element.
+     * @param String|null $draggable	An enumerated attribute indicating whether the element can be dragged, using the [Drag and Drop API](https://developer.mozilla.org/docs/DragDrop/Drag_and_Drop). It can have the following values:
 
-*   `true`, which indicates that the element may be dragged
-*   `false`, which indicates that the element may not be dragged.
-     * @param String|null dropzone	An enumerated attribute indicating what types of content can be dropped on an element, using the [Drag and Drop API](https://developer.mozilla.org/docs/DragDrop/Drag_and_Drop). It can have the following values:
+     *   `true`, which indicates that the element may be dragged
+     *   `false`, which indicates that the element may not be dragged.
+     * @param String|null $dropzone	An enumerated attribute indicating what types of content can be dropped on an element, using the [Drag and Drop API](https://developer.mozilla.org/docs/DragDrop/Drag_and_Drop). It can have the following values:
 
-*   `copy`, which indicates that dropping will create a copy of the element that was dragged
-*   `move`, which indicates that the element that was dragged will be moved to this new location.
-*   `link`, will create a link to the dragged data.
-     * @param String|null exportparts	Used to transitively export shadow parts from a nested shadow tree into a containing light tree.
-     * @param String|null hidden	A Boolean attribute indicates that the element is not yet, or is no longer, _relevant_. For example, it can be used to hide elements of the page that can't be used until the login process has been completed. The browser won't render such elements. This attribute must not be used to hide content that could legitimately be shown.
-     * @param String|null id	Defines a unique identifier (ID) which must be unique in the whole document. Its purpose is to identify the element when linking (using a fragment identifier), scripting, or styling (with CSS).
+     *   `copy`, which indicates that dropping will create a copy of the element that was dragged
+     *   `move`, which indicates that the element that was dragged will be moved to this new location.
+     *   `link`, will create a link to the dragged data.
+     * @param String|null $exportparts	Used to transitively export shadow parts from a nested shadow tree into a containing light tree.
+     * @param String|null $hidden	A Boolean attribute indicates that the element is not yet, or is no longer, _relevant_. For example, it can be used to hide elements of the page that can't be used until the login process has been completed. The browser won't render such elements. This attribute must not be used to hide content that could legitimately be shown.
+     * @param String|null $id	Defines a unique identifier (ID) which must be unique in the whole document. Its purpose is to identify the element when linking (using a fragment identifier), scripting, or styling (with CSS).
      * @param String|null inputmode	Provides a hint to browsers as to the type of virtual keyboard configuration to use when editing this element or its contents. Used primarily on [`<input>`](https://developer.mozilla.org/docs/Web/HTML/Element/input "The HTML <input> element is used to create interactive controls for web-based forms in order to accept data from the user; a wide variety of types of input data and control widgets are available, depending on the device and user agent.") elements, but is usable on any element while in `[contenteditable](https://developer.mozilla.org/docs/Web/HTML/Global_attributes#attr-contenteditable)` mode.
      * @param String|null is	Allows you to specify that a standard HTML element should behave like a registered custom built-in element (see [Using custom elements](https://developer.mozilla.org/docs/Web/Web_Components/Using_custom_elements) for more details).
      * @param String|null itemid	The unique, global identifier of an item.
@@ -311,19 +313,19 @@ This attribute may also have a value taken from the extended list defined on [WH
      * @param String|null slot	Assigns a slot in a [shadow DOM](https://developer.mozilla.org/docs/Web/Web_Components/Shadow_DOM) shadow tree to an element: An element with a `slot` attribute is assigned to the slot created by the [`<slot>`](https://developer.mozilla.org/docs/Web/HTML/Element/slot "The HTML <slot> element—part of the Web Components technology suite—is a placeholder inside a web component that you can fill with your own markup, which lets you create separate DOM trees and present them together.") element whose `[name](https://developer.mozilla.org/docs/Web/HTML/Element/slot#attr-name)` attribute's value matches that `slot` attribute's value.
      * @param String|null spellcheck	An enumerated attribute defines whether the element may be checked for spelling errors. It may have the following values:
 
-*   `true`, which indicates that the element should be, if possible, checked for spelling errors;
-*   `false`, which indicates that the element should not be checked for spelling errors.
+     *   `true`, which indicates that the element should be, if possible, checked for spelling errors;
+     *   `false`, which indicates that the element should not be checked for spelling errors.
      * @param String|null style	Contains [CSS](https://developer.mozilla.org/docs/Web/CSS) styling declarations to be applied to the element. Note that it is recommended for styles to be defined in a separate file or files. This attribute and the [`<style>`](https://developer.mozilla.org/docs/Web/HTML/Element/style "The HTML <style> element contains style information for a document, or part of a document.") element have mainly the purpose of allowing for quick styling, for example for testing purposes.
      * @param String|null tabindex	An integer attribute indicating if the element can take input focus (is _focusable_), if it should participate to sequential keyboard navigation, and if so, at what position. It can take several values:
 
-*   a _negative value_ means that the element should be focusable, but should not be reachable via sequential keyboard navigation;
-*   `0` means that the element should be focusable and reachable via sequential keyboard navigation, but its relative order is defined by the platform convention;
-*   a _positive value_ means that the element should be focusable and reachable via sequential keyboard navigation; the order in which the elements are focused is the increasing value of the [**tabindex**](#attr-tabindex). If several elements share the same tabindex, their relative order follows their relative positions in the document.
+     *   a _negative value_ means that the element should be focusable, but should not be reachable via sequential keyboard navigation;
+     *   `0` means that the element should be focusable and reachable via sequential keyboard navigation, but its relative order is defined by the platform convention;
+     *   a _positive value_ means that the element should be focusable and reachable via sequential keyboard navigation; the order in which the elements are focused is the increasing value of the [**tabindex**](#attr-tabindex). If several elements share the same tabindex, their relative order follows their relative positions in the document.
      * @param String|null title	Contains a text representing advisory information related to the element it belongs to. Such information can typically, but not necessarily, be presented to the user as a tooltip.
      * @param String|null translate	An enumerated attribute that is used to specify whether an element's attribute values and the values of its [`Text`](https://developer.mozilla.org/docs/Web/API/Text "The Text interface represents the textual content of Element or Attr. If an element has no markup within its content, it has a single child implementing Text that contains the element's text. However, if the element contains markup, it is parsed into information items and Text nodes that form its children.") node children are to be translated when the page is localized, or whether to leave them unchanged. It can have the following values:
 
-*   empty string and `yes`, which indicates that the element will be translated.
-*   `no`, which indicates that the element will not be translated.
+     *   empty string and `yes`, which indicates that the element will be translated.
+     *   `no`, which indicates that the element will not be translated.
      * @param String|null onabort	The loading of a resource has been aborted.
      * @param String|null onblur	An element has lost focus (does not bubble).
      * @param String|null oncanplay	The user agent can play the media, but estimates that not enough data has been loaded to play the media up to its end without having to stop for further buffering of content.
@@ -442,165 +444,174 @@ This attribute may also have a value taken from the extended list defined on [WH
      * @param String|null ariaKeyshortcuts	Indicates keyboard shortcuts that an author has implemented to activate or give focus to an element.
      * 
      * @author Jishnu Raj <jishnurajpp2@email.com>
-    * @version 1.0.0 - 11 September 2022
+     * @version 1.0.0 - 11 September 2022
      */
     function __construct(
-        SuperPHPElement $child = null,
+        public ?SuperPHPElement $child = null,
+        public ?array $children = null,
+        public ?array $customAttributes = null,
 
         // Element-specific attributes:
-        String $name = null,
-        String $httpEquiv = null,
-        String $content = null,
-        String $charset = null,
-        String $scheme = null,
+        public ?String $name = null,
+        public ?String $httpEquiv = null,
+        public ?String $content = null,
+        public ?String $charset = null,
+        public ?String $scheme = null,
 
         // Global attributes
-        String $accesskey = null,
-        String $autocapitalize = null,
-        String $class = null,
-        String $contenteditable = null,
-        String $contextmenu = null,
-        String $dir = null,
-        String $draggable = null,
-        String $dropzone = null,
-        String $exportparts = null,
-        String $hidden = null,
-        String $id = null,
-        String $inputmode = null,
-        String $is = null,
-        String $itemid = null,
-        String $itemprop = null,
-        String $itemref = null,
-        String $itemscope = null,
-        String $itemtype = null,
-        String $lang = null,
-        String $part = null,
-        String $role = null,
-        String $slot = null,
-        String $spellcheck = null,
-        String $style = null,
-        String $tabindex = null,
-        String $title = null,
-        String $translate = null,
-        String $onabort = null,
-        String $onblur = null,
-        String $oncanplay = null,
-        String $oncanplaythrough = null,
-        String $onchange = null,
-        String $onclick = null,
-        String $oncontextmenu = null,
-        String $ondblclick = null,
-        String $ondrag = null,
-        String $ondragend = null,
-        String $ondragenter = null,
-        String $ondragleave = null,
-        String $ondragover = null,
-        String $ondragstart = null,
-        String $ondrop = null,
-        String $ondurationchange = null,
-        String $onemptied = null,
-        String $onended = null,
-        String $onerror = null,
-        String $onfocus = null,
-        String $onformchange = null,
-        String $onforminput = null,
-        String $oninput = null,
-        String $oninvalid = null,
-        String $onkeydown = null,
-        String $onkeypress = null,
-        String $onkeyup = null,
-        String $onload = null,
-        String $onloadeddata = null,
-        String $onloadedmetadata = null,
-        String $onloadstart = null,
-        String $onmousedown = null,
-        String $onmousemove = null,
-        String $onmouseout = null,
-        String $onmouseover = null,
-        String $onmouseup = null,
-        String $onmousewheel = null,
-        String $onmouseenter = null,
-        String $onmouseleave = null,
-        String $onpause = null,
-        String $onplay = null,
-        String $onplaying = null,
-        String $onprogress = null,
-        String $onratechange = null,
-        String $onreset = null,
-        String $onresize = null,
-        String $onreadystatechange = null,
-        String $onscroll = null,
-        String $onseeked = null,
-        String $onseeking = null,
-        String $onselect = null,
-        String $onshow = null,
-        String $onstalled = null,
-        String $onsubmit = null,
-        String $onsuspend = null,
-        String $ontimeupdate = null,
-        String $onvolumechange = null,
-        String $onwaiting = null,
-        String $onpointercancel = null,
-        String $onpointerdown = null,
-        String $onpointerenter = null,
-        String $onpointerleave = null,
-        String $onpointerlockchange = null,
-        String $onpointerlockerror = null,
-        String $onpointermove = null,
-        String $onpointerout = null,
-        String $onpointerover = null,
-        String $onpointerup = null,
-        String $ariaActivedescendant = null,
-        String $ariaAtomic = null,
-        String $ariaAutocomplete = null,
-        String $ariaBusy = null,
-        String $ariaChecked = null,
-        String $ariaColcount = null,
-        String $ariaColindex = null,
-        String $ariaColspan = null,
-        String $ariaControls = null,
-        String $ariaCurrent = null,
-        String $ariaDescribedby = null,
-        String $ariaDisabled = null,
-        String $ariaDropeffect = null,
-        String $ariaErrormessage = null,
-        String $ariaExpanded = null,
-        String $ariaFlowto = null,
-        String $ariaGrabbed = null,
-        String $ariaHaspopup = null,
-        String $ariaHidden = null,
-        String $ariaInvalid = null,
-        String $ariaLabel = null,
-        String $ariaLabelledby = null,
-        String $ariaLevel = null,
-        String $ariaLive = null,
-        String $ariaModal = null,
-        String $ariaMultiline = null,
-        String $ariaMultiselectable = null,
-        String $ariaOrientation = null,
-        String $ariaOwns = null,
-        String $ariaPlaceholder = null,
-        String $ariaPosinset = null,
-        String $ariaPressed = null,
-        String $ariaReadonly = null,
-        String $ariaRelevant = null,
-        String $ariaRequired = null,
-        String $ariaRoledescription = null,
-        String $ariaRowcount = null,
-        String $ariaRowindex = null,
-        String $ariaRowspan = null,
-        String $ariaSelected = null,
-        String $ariaSetsize = null,
-        String $ariaSort = null,
-        String $ariaValuemax = null,
-        String $ariaValuemin = null,
-        String $ariaValuenow = null,
-        String $ariaValuetext = null,
-        String $ariaDetails = null,
-        String $ariaKeyshortcuts = null,
+        public ?String $accesskey = null,
+        public ?String $autocapitalize = null,
+        public ?String $class = null,
+        public ?String $contenteditable = null,
+        public ?String $contextmenu = null,
+        public ?String $dir = null,
+        public ?String $draggable = null,
+        public ?String $dropzone = null,
+        public ?String $exportparts = null,
+        public ?String $hidden = null,
+        public ?String $id = null,
+        public ?String $inputmode = null,
+        public ?String $is = null,
+        public ?String $itemid = null,
+        public ?String $itemprop = null,
+        public ?String $itemref = null,
+        public ?String $itemscope = null,
+        public ?String $itemtype = null,
+        public ?String $lang = null,
+        public ?String $part = null,
+        public ?String $role = null,
+        public ?String $slot = null,
+        public ?String $spellcheck = null,
+        public ?String $style = null,
+        public ?String $tabindex = null,
+        public ?String $title = null,
+        public ?String $translate = null,
+        public ?String $onabort = null,
+        public ?String $onblur = null,
+        public ?String $oncanplay = null,
+        public ?String $oncanplaythrough = null,
+        public ?String $onchange = null,
+        public ?String $onclick = null,
+        public ?String $oncontextmenu = null,
+        public ?String $ondblclick = null,
+        public ?String $ondrag = null,
+        public ?String $ondragend = null,
+        public ?String $ondragenter = null,
+        public ?String $ondragleave = null,
+        public ?String $ondragover = null,
+        public ?String $ondragstart = null,
+        public ?String $ondrop = null,
+        public ?String $ondurationchange = null,
+        public ?String $onemptied = null,
+        public ?String $onended = null,
+        public ?String $onerror = null,
+        public ?String $onfocus = null,
+        public ?String $onformchange = null,
+        public ?String $onforminput = null,
+        public ?String $oninput = null,
+        public ?String $oninvalid = null,
+        public ?String $onkeydown = null,
+        public ?String $onkeypress = null,
+        public ?String $onkeyup = null,
+        public ?String $onload = null,
+        public ?String $onloadeddata = null,
+        public ?String $onloadedmetadata = null,
+        public ?String $onloadstart = null,
+        public ?String $onmousedown = null,
+        public ?String $onmousemove = null,
+        public ?String $onmouseout = null,
+        public ?String $onmouseover = null,
+        public ?String $onmouseup = null,
+        public ?String $onmousewheel = null,
+        public ?String $onmouseenter = null,
+        public ?String $onmouseleave = null,
+        public ?String $onpause = null,
+        public ?String $onplay = null,
+        public ?String $onplaying = null,
+        public ?String $onprogress = null,
+        public ?String $onratechange = null,
+        public ?String $onreset = null,
+        public ?String $onresize = null,
+        public ?String $onreadystatechange = null,
+        public ?String $onscroll = null,
+        public ?String $onseeked = null,
+        public ?String $onseeking = null,
+        public ?String $onselect = null,
+        public ?String $onshow = null,
+        public ?String $onstalled = null,
+        public ?String $onsubmit = null,
+        public ?String $onsuspend = null,
+        public ?String $ontimeupdate = null,
+        public ?String $onvolumechange = null,
+        public ?String $onwaiting = null,
+        public ?String $onpointercancel = null,
+        public ?String $onpointerdown = null,
+        public ?String $onpointerenter = null,
+        public ?String $onpointerleave = null,
+        public ?String $onpointerlockchange = null,
+        public ?String $onpointerlockerror = null,
+        public ?String $onpointermove = null,
+        public ?String $onpointerout = null,
+        public ?String $onpointerover = null,
+        public ?String $onpointerup = null,
+        public ?String $ariaActivedescendant = null,
+        public ?String $ariaAtomic = null,
+        public ?String $ariaAutocomplete = null,
+        public ?String $ariaBusy = null,
+        public ?String $ariaChecked = null,
+        public ?String $ariaColcount = null,
+        public ?String $ariaColindex = null,
+        public ?String $ariaColspan = null,
+        public ?String $ariaControls = null,
+        public ?String $ariaCurrent = null,
+        public ?String $ariaDescribedby = null,
+        public ?String $ariaDisabled = null,
+        public ?String $ariaDropeffect = null,
+        public ?String $ariaErrormessage = null,
+        public ?String $ariaExpanded = null,
+        public ?String $ariaFlowto = null,
+        public ?String $ariaGrabbed = null,
+        public ?String $ariaHaspopup = null,
+        public ?String $ariaHidden = null,
+        public ?String $ariaInvalid = null,
+        public ?String $ariaLabel = null,
+        public ?String $ariaLabelledby = null,
+        public ?String $ariaLevel = null,
+        public ?String $ariaLive = null,
+        public ?String $ariaModal = null,
+        public ?String $ariaMultiline = null,
+        public ?String $ariaMultiselectable = null,
+        public ?String $ariaOrientation = null,
+        public ?String $ariaOwns = null,
+        public ?String $ariaPlaceholder = null,
+        public ?String $ariaPosinset = null,
+        public ?String $ariaPressed = null,
+        public ?String $ariaReadonly = null,
+        public ?String $ariaRelevant = null,
+        public ?String $ariaRequired = null,
+        public ?String $ariaRoledescription = null,
+        public ?String $ariaRowcount = null,
+        public ?String $ariaRowindex = null,
+        public ?String $ariaRowspan = null,
+        public ?String $ariaSelected = null,
+        public ?String $ariaSetsize = null,
+        public ?String $ariaSort = null,
+        public ?String $ariaValuemax = null,
+        public ?String $ariaValuemin = null,
+        public ?String $ariaValuenow = null,
+        public ?String $ariaValuetext = null,
+        public ?String $ariaDetails = null,
+        public ?String $ariaKeyshortcuts = null,
     ) {
+
+        parent::__construct();
         $this->node = self::$dom->createElement("meta");
-        if ($child) $this->node->appendChild($child->node);
+        if ($child) $this->node->appendChild($child->node->cloneNode(true));
+        if ($children) {
+            foreach ($children as $child) {
+                $child && $this->node->appendChild($child->node->cloneNode(true));
+            }
+        }
 
         // Element-specific attributes
         if ($name) $this->node->setAttribute("name", $name);
@@ -612,7 +623,7 @@ This attribute may also have a value taken from the extended list defined on [WH
         // Global attributes
         if ($accesskey) $this->node->setAttribute("accesskey", $accesskey);
         if ($autocapitalize) $this->node->setAttribute("autocapitalize", $autocapitalize);
-        if ($class) $this->node->setAttribute("class", $class);
+        if ($class) $this->node->setAttribute("class", implode(" ", $class));
         if ($contenteditable) $this->node->setAttribute("contenteditable", $contenteditable);
         if ($contextmenu) $this->node->setAttribute("contextmenu", $contextmenu);
         if ($dir) $this->node->setAttribute("dir", $dir);

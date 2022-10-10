@@ -14,6 +14,7 @@ class Abbr extends SuperPHPElement {
      * Tip: Use the global title attribute to show the description for the abbreviation/acronym when you mouse over the element.
      *
      * @param SuperPHPElement|null $child
+     * @param SuperPHPElement[]|null $children
      * 
      * * Global attributes:
      * @param String|null $accesskey	Specifies a shortcut key to activate/focus an element
@@ -50,8 +51,15 @@ class Abbr extends SuperPHPElement {
         String $title = null,
         String $translate = null,
     ) {
+
+        parent::__construct();
         $this->node = self::$dom->createElement("abbr");
         if ($child) $this->node->appendChild($child->node);
+        if ($children) {
+            foreach ($children as $child) {
+                $this->node->appendChild($child->node);
+            }
+        }
 
         // Global attributes
         if ($accesskey) $this->node->setAttribute("accesskey", $accesskey);

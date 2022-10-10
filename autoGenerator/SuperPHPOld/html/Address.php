@@ -15,6 +15,7 @@ class Address extends SuperPHPElement {
      * The text in the <address> element usually renders in italic, and browsers will always add a line break before and after the <address> element.
      *
      * @param SuperPHPElement|null $child
+     * @param SuperPHPElement[]|null $children
      * 
      * * Global attributes:
      * accesskey	Specifies a shortcut key to activate/focus an element
@@ -51,8 +52,15 @@ class Address extends SuperPHPElement {
         String $title = null,
         String $translate = null,
     ) {
+
+        parent::__construct();
         $this->node = self::$dom->createElement("address");
         if ($child) $this->node->appendChild($child->node);
+        if ($children) {
+            foreach ($children as $child) {
+                $this->node->appendChild($child->node);
+            }
+        }
 
         // Global attributes
         if ($accesskey) $this->node->setAttribute("accesskey", $accesskey);

@@ -24,6 +24,7 @@ class Typography extends SuperPHPElement {
      * Used for adding different text formats to the output text.
      *
      * @param SuperPHPElement|null $child
+     * @param SuperPHPElement[]|null $children
      * 
      * * Global attributes:
      * @param String|null $accesskey	Specifies a shortcut key to activate/focus an element
@@ -76,8 +77,15 @@ class Typography extends SuperPHPElement {
         ])) {
             throw new Error("Unsupported typography variant");
         }
+
+        parent::__construct();
         $this->node = self::$dom->createElement($variant);
         if ($child) $this->node->appendChild($child->node);
+        if ($children) {
+            foreach ($children as $child) {
+                $this->node->appendChild($child->node);
+            }
+        }
 
         // Global attributes
         if ($accesskey) $this->node->setAttribute("accesskey", $accesskey);

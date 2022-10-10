@@ -31,6 +31,8 @@ class HTML extends SuperPHPElement {
     function __construct(
         $children = []
     ) {
+
+        parent::__construct();
         $this->node = self::$dom->createElement("html");
         foreach ($children as $child) {
             $this->node->appendChild($child->node);
@@ -41,6 +43,8 @@ class HTML extends SuperPHPElement {
 class Head extends SuperPHPElement {
     public DOMNode $node;
     function __construct($children = []) {
+
+        parent::__construct();
         $this->node = self::$dom->createElement("head");
         foreach ($children as $child) {
             $this->node->appendChild($child->node);
@@ -51,6 +55,8 @@ class Head extends SuperPHPElement {
 class Body extends SuperPHPElement {
     public DOMNode $node;
     function __construct($children = []) {
+
+        parent::__construct();
         $this->node = self::$dom->createElement("body");
         foreach ($children as $child) {
             $this->node->appendChild($child->node);
@@ -61,6 +67,8 @@ class Body extends SuperPHPElement {
 class Title extends SuperPHPElement {
     public DOMNode $node;
     function __construct(PlainText $title) {
+
+        parent::__construct();
         $this->node = self::$dom->createElement("title");
         $this->node->appendChild($title->node);
     }
@@ -69,6 +77,8 @@ class Title extends SuperPHPElement {
 class Button extends SuperPHPElement {
     public DOMNode $node;
     function __construct($children = []) {
+
+        parent::__construct();
         $this->node = self::$dom->createElement("button");
         foreach ($children as $child) {
             $this->node->appendChild($child->node);

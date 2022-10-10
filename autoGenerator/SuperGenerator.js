@@ -42,6 +42,7 @@ class ${tagName} extends SuperPHPElement {
      * ${tag.description.value}
      *
      * @param SuperPHPElement|null $child
+      * @param SuperPHPElement[]|null $children
      * 
      * * Element-specific attributes:
 ${tag.attributes.map(attr => `     * @param String|null ${camelize(attr.name)}\t${attr.description && attr.description.value}`).join("\n")}
@@ -64,8 +65,14 @@ ${tag.attributes.map(attr => `        String $${camelize(attr.name)} = null,`).j
         // Global attributes
 ${HTMLData.globalAttributes.map(attr => `        String $${camelize(attr.name)} = null,`).join("\n")}
     ) {
-        $this->node = self::$dom->createElement("${tag.name}");
+                  parent::__construct();
+          $this->node = self::$dom->createElement("${tag.name}");
         if ($child) $this->node->appendChild($child->node);
+          if ($children) {
+               foreach ($children as $child) {
+                    $this->node->appendChild($child->node);
+               }
+          }
 
         // Element-specific attributes
 ${tag.attributes.map(attr => `        if ($${camelize(attr.name)}) $this->node->setAttribute("${attr.name}", $${camelize(attr.name)});`).join("\n")}

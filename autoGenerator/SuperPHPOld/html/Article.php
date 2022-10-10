@@ -21,6 +21,7 @@ class Article extends SuperPHPElement {
      * Note: The <article> element does not render as anything special in a browser. However, you can use CSS to style the <article> element (see example below).
      *
      * @param SuperPHPElement|null $child
+     * @param SuperPHPElement[]|null $children
      * 
      * * Global attributes:
      * @param String|null $accesskey	Specifies a shortcut key to activate/focus an element
@@ -57,8 +58,15 @@ class Article extends SuperPHPElement {
         String $title = null,
         String $translate = null,
     ) {
+
+        parent::__construct();
         $this->node = self::$dom->createElement("article");
         if ($child) $this->node->appendChild($child->node);
+        if ($children) {
+            foreach ($children as $child) {
+                $this->node->appendChild($child->node);
+            }
+        }
 
         // Global attributes
         if ($accesskey) $this->node->setAttribute("accesskey", $accesskey);

@@ -19,6 +19,7 @@ class Audio extends SuperPHPElement {
      * There are three supported audio formats in HTML: MP3, WAV, and OGG.
      *
      * @param SuperPHPElement|null $child
+     * @param SuperPHPElement[]|null $children
      * 
      *  * Attributes:
      * @param String|null $autoplay	Specifies that the audio will start playing as soon as it is ready
@@ -74,8 +75,15 @@ class Audio extends SuperPHPElement {
         String $title = null,
         String $translate = null,
     ) {
+
+        parent::__construct();
         $this->node = self::$dom->createElement("audio");
         if ($child) $this->node->appendChild($child->node);
+        if ($children) {
+            foreach ($children as $child) {
+                $this->node->appendChild($child->node);
+            }
+        }
 
         // Aattributes
         if ($autoplay) $this->node->setAttribute("autoplay", $autoplay);

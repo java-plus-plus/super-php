@@ -13,6 +13,8 @@ class Link extends SuperPHPElement {
       * The link element allows authors to link their document to other resources.
       *
       * @param SuperPHPElement|null $child
+      * @param SuperPHPElement[]|null $children
+      * @param CustomAttr[]|null $customAttributes
       * 
       * * Element-specific attributes:
       * @param String|null href	This attribute specifies the [URL](https://developer.mozilla.org/en-US/docs/Glossary/URL "URL: Uniform Resource Locator (URL) is a text string specifying where a resource can be found on the Internet.") of the linked resource. A URL can be absolute or relative.
@@ -35,7 +37,7 @@ If the attribute is not present, the resource is fetched without a [CORS](https:
       *   In HTML 4, this can only be a simple white-space-separated list of media description literals, i.e., [media types and groups](https://developer.mozilla.org/en-US/docs/Web/CSS/@media), where defined and allowed as values for this attribute, such as `print`, `screen`, `aural`, `braille`. HTML5 extended this to any kind of [media queries](https://developer.mozilla.org/en-US/docs/Web/CSS/Media_queries), which are a superset of the allowed values of HTML 4.
       *   Browsers not supporting [CSS3 Media Queries](https://developer.mozilla.org/en-US/docs/Web/CSS/Media_queries) won't necessarily recognize the adequate link; do not forget to set fallback links, the restricted set of media queries defined in HTML 4.
       * @param String|null hreflang	This attribute indicates the language of the linked resource. It is purely advisory. Allowed values are determined by [BCP47](https://www.ietf.org/rfc/bcp/bcp47.txt). Use this attribute only if the [`href`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attr-href) attribute is present.
-      * @param String|null type	This attribute is used to define the type of the content linked to. The value of the attribute should be a MIME type such as **text/html**, **text/css**, and so on. The common use of this attribute is to define the type of stylesheet being referenced (such as **text/css**), but given that CSS is the only stylesheet language used on the web, not only is it possible to omit the `type` attribute, but is actually now recommended practice. It is also used on `rel="preload"` link types, to make sure the browser only downloads file types that it supports.
+      * @param String|null $type	This attribute is used to define the type of the content linked to. The value of the attribute should be a MIME type such as **text/html**, **text/css**, and so on. The common use of this attribute is to define the type of stylesheet being referenced (such as **text/css**), but given that CSS is the only stylesheet language used on the web, not only is it possible to omit the `type` attribute, but is actually now recommended practice. It is also used on `rel="preload"` link types, to make sure the browser only downloads file types that it supports.
       * @param String|null sizes	This attribute defines the sizes of the icons for visual media contained in the resource. It must be present only if the [`rel`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link#attr-rel) contains a value of `icon` or a non-standard type such as Apple's `apple-touch-icon`. It may have the following values:
 
       *   `any`, meaning that the icon can be scaled to any size as it is in a vector format, like `image/svg+xml`.
@@ -52,7 +54,9 @@ If the attribute is not present, the resource is fetched without a [CORS](https:
       * @version 1.0.0 - 11 September 2022
       */
      function __construct(
-          SuperPHPElement $child = null,
+          public ?SuperPHPElement $child = null,
+          public ?array $children = null,
+          public ?array $customAttributes = null,
 
           // Element-specific attributes:
           String $href = null,
@@ -68,8 +72,19 @@ If the attribute is not present, the resource is fetched without a [CORS](https:
           String $referrerpolicy = null,
           String $title = null,
      ) {
+          parent::__construct();
           $this->node = self::$dom->createElement("link");
-          if ($child) $this->node->appendChild($child->node);
+          if ($child) $this->node->appendChild($child->node->cloneNode(true));
+          if ($children) {
+               foreach ($children as $child) {
+                    $child && $this->node->appendChild($child->node->cloneNode(true));
+               }
+          }
+          if ($customAttributes) {
+               foreach ($customAttributes as $attr) {
+                    $this->node->setAttribute($attr->name, $attr->value);
+               }
+          }
 
           // Element-specific attributes
           if ($href) $this->node->setAttribute("href", $href);

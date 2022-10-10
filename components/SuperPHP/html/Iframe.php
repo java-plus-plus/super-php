@@ -13,11 +13,13 @@ class Iframe extends SuperPHPElement {
       * The iframe element represents a nested browsing context.
       *
       * @param SuperPHPElement|null $child
+      * @param SuperPHPElement[]|null $children
+      * @param CustomAttr[]|null $customAttributes
       * 
       * * Element-specific attributes:
       * @param String|null src	The URL of the page to embed. Use a value of `about:blank` to embed an empty page that conforms to the [same-origin policy](https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy#Inherited_origins). Also note that programatically removing an `<iframe>`'s src attribute (e.g. via [`Element.removeAttribute()`](https://developer.mozilla.org/en-US/docs/Web/API/Element/removeAttribute "The Element method removeAttribute() removes the attribute with the specified name from the element.")) causes `about:blank` to be loaded in the frame in Firefox (from version 65), Chromium-based browsers, and Safari/iOS.
       * @param String|null srcdoc	Inline HTML to embed, overriding the `src` attribute. If a browser does not support the `srcdoc` attribute, it will fall back to the URL in the `src` attribute.
-      * @param String|null name	A targetable name for the embedded browsing context. This can be used in the `target` attribute of the [`<a>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a "The HTML <a> element (or anchor element) creates a hyperlink to other web pages, files, locations within the same page, email addresses, or any other URL."), [`<form>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form "The HTML <form> element represents a document section that contains interactive controls for submitting information to a web server."), or [`<base>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base "The HTML <base> element specifies the base URL to use for all relative URLs contained within a document. There can be only one <base> element in a document.") elements; the `formtarget` attribute of the [`<input>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input "The HTML <input> element is used to create interactive controls for web-based forms in order to accept data from the user; a wide variety of types of input data and control widgets are available, depending on the device and user agent.") or [`<button>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button "The HTML <button> element represents a clickable button, which can be used in forms or anywhere in a document that needs simple, standard button functionality.") elements; or the `windowName` parameter in the [`window.open()`](https://developer.mozilla.org/en-US/docs/Web/API/Window/open "The Window interface's open() method loads the specified resource into the browsing context (window, <iframe> or tab) with the specified name. If the name doesn't exist, then a new window is opened and the specified resource is loaded into its browsing context.") method.
+      * @param String|null $name	A targetable name for the embedded browsing context. This can be used in the `target` attribute of the [`<a>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a "The HTML <a> element (or anchor element) creates a hyperlink to other web pages, files, locations within the same page, email addresses, or any other URL."), [`<form>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form "The HTML <form> element represents a document section that contains interactive controls for submitting information to a web server."), or [`<base>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base "The HTML <base> element specifies the base URL to use for all relative URLs contained within a document. There can be only one <base> element in a document.") elements; the `formtarget` attribute of the [`<input>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input "The HTML <input> element is used to create interactive controls for web-based forms in order to accept data from the user; a wide variety of types of input data and control widgets are available, depending on the device and user agent.") or [`<button>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button "The HTML <button> element represents a clickable button, which can be used in forms or anywhere in a document that needs simple, standard button functionality.") elements; or the `windowName` parameter in the [`window.open()`](https://developer.mozilla.org/en-US/docs/Web/API/Window/open "The Window interface's open() method loads the specified resource into the browsing context (window, <iframe> or tab) with the specified name. If the name doesn't exist, then a new window is opened and the specified resource is loaded into its browsing context.") method.
       * @param String|null sandbox	Applies extra restrictions to the content in the frame. The value of the attribute can either be empty to apply all restrictions, or space-separated tokens to lift particular restrictions:
 
       *   `allow-forms`: Allows the resource to submit forms. If this keyword is not used, form submission is blocked.
@@ -49,36 +51,36 @@ class Iframe extends SuperPHPElement {
       * @param String|null referrerpolicy	undefined
       * 
       * * Global attributes:
-      * @param String|null accesskey	Provides a hint for generating a keyboard shortcut for the current element. This attribute consists of a space-separated list of characters. The browser should use the first one that exists on the computer keyboard layout.
+      * @param String|null $accesskey	Provides a hint for generating a keyboard shortcut for the current element. This attribute consists of a space-separated list of characters. The browser should use the first one that exists on the computer keyboard layout.
       * @param String|null autocapitalize	Controls whether and how text input is automatically capitalized as it is entered/edited by the user. It can have the following values:
 
       *   `off` or `none`, no autocapitalization is applied (all letters default to lowercase)
       *   `on` or `sentences`, the first letter of each sentence defaults to a capital letter; all other letters default to lowercase
       *   `words`, the first letter of each word defaults to a capital letter; all other letters default to lowercase
       *   `characters`, all letters should default to uppercase
-      * @param String|null class	A space-separated list of the classes of the element. Classes allows CSS and JavaScript to select and access specific elements via the [class selectors](https://developer.mozilla.org/docs/Web/CSS/Class_selectors) or functions like the method [`Document.getElementsByClassName()`](https://developer.mozilla.org/docs/Web/API/Document/getElementsByClassName "returns an array-like object of all child elements which have all of the given class names.").
-      * @param String|null contenteditable	An enumerated attribute indicating if the element should be editable by the user. If so, the browser modifies its widget to allow editing. The attribute must take one of the following values:
+      * @param String[]|null $class	A space-separated list of the classes of the element. Classes allows CSS and JavaScript to select and access specific elements via the [class selectors](https://developer.mozilla.org/docs/Web/CSS/Class_selectors) or functions like the method [`Document.getElementsByClassName()`](https://developer.mozilla.org/docs/Web/API/Document/getElementsByClassName "returns an array-like object of all child elements which have all of the given class names.").
+      * @param String|null $contenteditable	An enumerated attribute indicating if the element should be editable by the user. If so, the browser modifies its widget to allow editing. The attribute must take one of the following values:
 
       *   `true` or the _empty string_, which indicates that the element must be editable;
       *   `false`, which indicates that the element must not be editable.
       * @param String|null contextmenu	The `[**id**](#attr-id)` of a [`<menu>`](https://developer.mozilla.org/docs/Web/HTML/Element/menu "The HTML <menu> element represents a group of commands that a user can perform or activate. This includes both list menus, which might appear across the top of a screen, as well as context menus, such as those that might appear underneath a button after it has been clicked.") to use as the contextual menu for this element.
-      * @param String|null dir	An enumerated attribute indicating the directionality of the element's text. It can have the following values:
+      * @param String|null $dir	An enumerated attribute indicating the directionality of the element's text. It can have the following values:
 
       *   `ltr`, which means _left to right_ and is to be used for languages that are written from the left to the right (like English);
       *   `rtl`, which means _right to left_ and is to be used for languages that are written from the right to the left (like Arabic);
       *   `auto`, which lets the user agent decide. It uses a basic algorithm as it parses the characters inside the element until it finds a character with a strong directionality, then it applies that directionality to the whole element.
-      * @param String|null draggable	An enumerated attribute indicating whether the element can be dragged, using the [Drag and Drop API](https://developer.mozilla.org/docs/DragDrop/Drag_and_Drop). It can have the following values:
+      * @param String|null $draggable	An enumerated attribute indicating whether the element can be dragged, using the [Drag and Drop API](https://developer.mozilla.org/docs/DragDrop/Drag_and_Drop). It can have the following values:
 
       *   `true`, which indicates that the element may be dragged
       *   `false`, which indicates that the element may not be dragged.
-      * @param String|null dropzone	An enumerated attribute indicating what types of content can be dropped on an element, using the [Drag and Drop API](https://developer.mozilla.org/docs/DragDrop/Drag_and_Drop). It can have the following values:
+      * @param String|null $dropzone	An enumerated attribute indicating what types of content can be dropped on an element, using the [Drag and Drop API](https://developer.mozilla.org/docs/DragDrop/Drag_and_Drop). It can have the following values:
 
       *   `copy`, which indicates that dropping will create a copy of the element that was dragged
       *   `move`, which indicates that the element that was dragged will be moved to this new location.
       *   `link`, will create a link to the dragged data.
-      * @param String|null exportparts	Used to transitively export shadow parts from a nested shadow tree into a containing light tree.
-      * @param String|null hidden	A Boolean attribute indicates that the element is not yet, or is no longer, _relevant_. For example, it can be used to hide elements of the page that can't be used until the login process has been completed. The browser won't render such elements. This attribute must not be used to hide content that could legitimately be shown.
-      * @param String|null id	Defines a unique identifier (ID) which must be unique in the whole document. Its purpose is to identify the element when linking (using a fragment identifier), scripting, or styling (with CSS).
+      * @param String|null $exportparts	Used to transitively export shadow parts from a nested shadow tree into a containing light tree.
+      * @param String|null $hidden	A Boolean attribute indicates that the element is not yet, or is no longer, _relevant_. For example, it can be used to hide elements of the page that can't be used until the login process has been completed. The browser won't render such elements. This attribute must not be used to hide content that could legitimately be shown.
+      * @param String|null $id	Defines a unique identifier (ID) which must be unique in the whole document. Its purpose is to identify the element when linking (using a fragment identifier), scripting, or styling (with CSS).
       * @param String|null inputmode	Provides a hint to browsers as to the type of virtual keyboard configuration to use when editing this element or its contents. Used primarily on [`<input>`](https://developer.mozilla.org/docs/Web/HTML/Element/input "The HTML <input> element is used to create interactive controls for web-based forms in order to accept data from the user; a wide variety of types of input data and control widgets are available, depending on the device and user agent.") elements, but is usable on any element while in `[contenteditable](https://developer.mozilla.org/docs/Web/HTML/Global_attributes#attr-contenteditable)` mode.
       * @param String|null is	Allows you to specify that a standard HTML element should behave like a registered custom built-in element (see [Using custom elements](https://developer.mozilla.org/docs/Web/Web_Components/Using_custom_elements) for more details).
       * @param String|null itemid	The unique, global identifier of an item.
@@ -226,7 +228,9 @@ class Iframe extends SuperPHPElement {
       * @version 1.0.0 - 11 September 2022
       */
      function __construct(
-          SuperPHPElement $child = null,
+          public ?SuperPHPElement $child = null,
+          public ?array $children = null,
+          public ?array $customAttributes = null,
 
           // Element-specific attributes:
           String $src = null,
@@ -244,152 +248,163 @@ class Iframe extends SuperPHPElement {
           String $referrerpolicy = null,
 
           // Global attributes
-          String $accesskey = null,
-          String $autocapitalize = null,
-          String $class = null,
-          String $contenteditable = null,
-          String $contextmenu = null,
-          String $dir = null,
-          String $draggable = null,
-          String $dropzone = null,
-          String $exportparts = null,
-          String $hidden = null,
-          String $id = null,
-          String $inputmode = null,
-          String $is = null,
-          String $itemid = null,
-          String $itemprop = null,
-          String $itemref = null,
-          String $itemscope = null,
-          String $itemtype = null,
-          String $lang = null,
-          String $part = null,
-          String $role = null,
-          String $slot = null,
-          String $spellcheck = null,
-          String $style = null,
-          String $tabindex = null,
-          String $title = null,
-          String $translate = null,
-          String $onabort = null,
-          String $onblur = null,
-          String $oncanplay = null,
-          String $oncanplaythrough = null,
-          String $onchange = null,
-          String $onclick = null,
-          String $oncontextmenu = null,
-          String $ondblclick = null,
-          String $ondrag = null,
-          String $ondragend = null,
-          String $ondragenter = null,
-          String $ondragleave = null,
-          String $ondragover = null,
-          String $ondragstart = null,
-          String $ondrop = null,
-          String $ondurationchange = null,
-          String $onemptied = null,
-          String $onended = null,
-          String $onerror = null,
-          String $onfocus = null,
-          String $onformchange = null,
-          String $onforminput = null,
-          String $oninput = null,
-          String $oninvalid = null,
-          String $onkeydown = null,
-          String $onkeypress = null,
-          String $onkeyup = null,
-          String $onload = null,
-          String $onloadeddata = null,
-          String $onloadedmetadata = null,
-          String $onloadstart = null,
-          String $onmousedown = null,
-          String $onmousemove = null,
-          String $onmouseout = null,
-          String $onmouseover = null,
-          String $onmouseup = null,
-          String $onmousewheel = null,
-          String $onmouseenter = null,
-          String $onmouseleave = null,
-          String $onpause = null,
-          String $onplay = null,
-          String $onplaying = null,
-          String $onprogress = null,
-          String $onratechange = null,
-          String $onreset = null,
-          String $onresize = null,
-          String $onreadystatechange = null,
-          String $onscroll = null,
-          String $onseeked = null,
-          String $onseeking = null,
-          String $onselect = null,
-          String $onshow = null,
-          String $onstalled = null,
-          String $onsubmit = null,
-          String $onsuspend = null,
-          String $ontimeupdate = null,
-          String $onvolumechange = null,
-          String $onwaiting = null,
-          String $onpointercancel = null,
-          String $onpointerdown = null,
-          String $onpointerenter = null,
-          String $onpointerleave = null,
-          String $onpointerlockchange = null,
-          String $onpointerlockerror = null,
-          String $onpointermove = null,
-          String $onpointerout = null,
-          String $onpointerover = null,
-          String $onpointerup = null,
-          String $ariaActivedescendant = null,
-          String $ariaAtomic = null,
-          String $ariaAutocomplete = null,
-          String $ariaBusy = null,
-          String $ariaChecked = null,
-          String $ariaColcount = null,
-          String $ariaColindex = null,
-          String $ariaColspan = null,
-          String $ariaControls = null,
-          String $ariaCurrent = null,
-          String $ariaDescribedby = null,
-          String $ariaDisabled = null,
-          String $ariaDropeffect = null,
-          String $ariaErrormessage = null,
-          String $ariaExpanded = null,
-          String $ariaFlowto = null,
-          String $ariaGrabbed = null,
-          String $ariaHaspopup = null,
-          String $ariaHidden = null,
-          String $ariaInvalid = null,
-          String $ariaLabel = null,
-          String $ariaLabelledby = null,
-          String $ariaLevel = null,
-          String $ariaLive = null,
-          String $ariaModal = null,
-          String $ariaMultiline = null,
-          String $ariaMultiselectable = null,
-          String $ariaOrientation = null,
-          String $ariaOwns = null,
-          String $ariaPlaceholder = null,
-          String $ariaPosinset = null,
-          String $ariaPressed = null,
-          String $ariaReadonly = null,
-          String $ariaRelevant = null,
-          String $ariaRequired = null,
-          String $ariaRoledescription = null,
-          String $ariaRowcount = null,
-          String $ariaRowindex = null,
-          String $ariaRowspan = null,
-          String $ariaSelected = null,
-          String $ariaSetsize = null,
-          String $ariaSort = null,
-          String $ariaValuemax = null,
-          String $ariaValuemin = null,
-          String $ariaValuenow = null,
-          String $ariaValuetext = null,
-          String $ariaDetails = null,
-          String $ariaKeyshortcuts = null,
+          public ?String $accesskey = null,
+          public ?String $autocapitalize = null,
+          public ?array $class = null,
+          public ?String $contenteditable = null,
+          public ?String $contextmenu = null,
+          public ?String $dir = null,
+          public ?String $draggable = null,
+          public ?String $dropzone = null,
+          public ?String $exportparts = null,
+          public ?String $hidden = null,
+          public ?String $id = null,
+          public ?String $inputmode = null,
+          public ?String $is = null,
+          public ?String $itemid = null,
+          public ?String $itemprop = null,
+          public ?String $itemref = null,
+          public ?String $itemscope = null,
+          public ?String $itemtype = null,
+          public ?String $lang = null,
+          public ?String $part = null,
+          public ?String $role = null,
+          public ?String $slot = null,
+          public ?String $spellcheck = null,
+          public ?String $style = null,
+          public ?String $tabindex = null,
+          public ?String $title = null,
+          public ?String $translate = null,
+          public ?String $onabort = null,
+          public ?String $onblur = null,
+          public ?String $oncanplay = null,
+          public ?String $oncanplaythrough = null,
+          public ?String $onchange = null,
+          public ?String $onclick = null,
+          public ?String $oncontextmenu = null,
+          public ?String $ondblclick = null,
+          public ?String $ondrag = null,
+          public ?String $ondragend = null,
+          public ?String $ondragenter = null,
+          public ?String $ondragleave = null,
+          public ?String $ondragover = null,
+          public ?String $ondragstart = null,
+          public ?String $ondrop = null,
+          public ?String $ondurationchange = null,
+          public ?String $onemptied = null,
+          public ?String $onended = null,
+          public ?String $onerror = null,
+          public ?String $onfocus = null,
+          public ?String $onformchange = null,
+          public ?String $onforminput = null,
+          public ?String $oninput = null,
+          public ?String $oninvalid = null,
+          public ?String $onkeydown = null,
+          public ?String $onkeypress = null,
+          public ?String $onkeyup = null,
+          public ?String $onload = null,
+          public ?String $onloadeddata = null,
+          public ?String $onloadedmetadata = null,
+          public ?String $onloadstart = null,
+          public ?String $onmousedown = null,
+          public ?String $onmousemove = null,
+          public ?String $onmouseout = null,
+          public ?String $onmouseover = null,
+          public ?String $onmouseup = null,
+          public ?String $onmousewheel = null,
+          public ?String $onmouseenter = null,
+          public ?String $onmouseleave = null,
+          public ?String $onpause = null,
+          public ?String $onplay = null,
+          public ?String $onplaying = null,
+          public ?String $onprogress = null,
+          public ?String $onratechange = null,
+          public ?String $onreset = null,
+          public ?String $onresize = null,
+          public ?String $onreadystatechange = null,
+          public ?String $onscroll = null,
+          public ?String $onseeked = null,
+          public ?String $onseeking = null,
+          public ?String $onselect = null,
+          public ?String $onshow = null,
+          public ?String $onstalled = null,
+          public ?String $onsubmit = null,
+          public ?String $onsuspend = null,
+          public ?String $ontimeupdate = null,
+          public ?String $onvolumechange = null,
+          public ?String $onwaiting = null,
+          public ?String $onpointercancel = null,
+          public ?String $onpointerdown = null,
+          public ?String $onpointerenter = null,
+          public ?String $onpointerleave = null,
+          public ?String $onpointerlockchange = null,
+          public ?String $onpointerlockerror = null,
+          public ?String $onpointermove = null,
+          public ?String $onpointerout = null,
+          public ?String $onpointerover = null,
+          public ?String $onpointerup = null,
+          public ?String $ariaActivedescendant = null,
+          public ?String $ariaAtomic = null,
+          public ?String $ariaAutocomplete = null,
+          public ?String $ariaBusy = null,
+          public ?String $ariaChecked = null,
+          public ?String $ariaColcount = null,
+          public ?String $ariaColindex = null,
+          public ?String $ariaColspan = null,
+          public ?String $ariaControls = null,
+          public ?String $ariaCurrent = null,
+          public ?String $ariaDescribedby = null,
+          public ?String $ariaDisabled = null,
+          public ?String $ariaDropeffect = null,
+          public ?String $ariaErrormessage = null,
+          public ?String $ariaExpanded = null,
+          public ?String $ariaFlowto = null,
+          public ?String $ariaGrabbed = null,
+          public ?String $ariaHaspopup = null,
+          public ?String $ariaHidden = null,
+          public ?String $ariaInvalid = null,
+          public ?String $ariaLabel = null,
+          public ?String $ariaLabelledby = null,
+          public ?String $ariaLevel = null,
+          public ?String $ariaLive = null,
+          public ?String $ariaModal = null,
+          public ?String $ariaMultiline = null,
+          public ?String $ariaMultiselectable = null,
+          public ?String $ariaOrientation = null,
+          public ?String $ariaOwns = null,
+          public ?String $ariaPlaceholder = null,
+          public ?String $ariaPosinset = null,
+          public ?String $ariaPressed = null,
+          public ?String $ariaReadonly = null,
+          public ?String $ariaRelevant = null,
+          public ?String $ariaRequired = null,
+          public ?String $ariaRoledescription = null,
+          public ?String $ariaRowcount = null,
+          public ?String $ariaRowindex = null,
+          public ?String $ariaRowspan = null,
+          public ?String $ariaSelected = null,
+          public ?String $ariaSetsize = null,
+          public ?String $ariaSort = null,
+          public ?String $ariaValuemax = null,
+          public ?String $ariaValuemin = null,
+          public ?String $ariaValuenow = null,
+          public ?String $ariaValuetext = null,
+          public ?String $ariaDetails = null,
+          public ?String $ariaKeyshortcuts = null,
      ) {
+          parent::__construct();
           $this->node = self::$dom->createElement("iframe");
-          if ($child) $this->node->appendChild($child->node);
+          if ($child) $this->node->appendChild($child->node->cloneNode(true));
+          if ($children) {
+               foreach ($children as $child) {
+                    $child && $this->node->appendChild($child->node->cloneNode(true));
+               }
+          }
+          if ($customAttributes) {
+               foreach ($customAttributes as $attr) {
+                    $this->node->setAttribute($attr->name, $attr->value);
+               }
+          }
 
           // Element-specific attributes
           if ($src) $this->node->setAttribute("src", $src);
@@ -409,7 +424,7 @@ class Iframe extends SuperPHPElement {
           // Global attributes
           if ($accesskey) $this->node->setAttribute("accesskey", $accesskey);
           if ($autocapitalize) $this->node->setAttribute("autocapitalize", $autocapitalize);
-          if ($class) $this->node->setAttribute("class", $class);
+          if ($class) $this->node->setAttribute("class", implode(" ", $class));
           if ($contenteditable) $this->node->setAttribute("contenteditable", $contenteditable);
           if ($contextmenu) $this->node->setAttribute("contextmenu", $contextmenu);
           if ($dir) $this->node->setAttribute("dir", $dir);

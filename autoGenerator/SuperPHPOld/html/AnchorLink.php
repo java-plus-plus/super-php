@@ -112,6 +112,8 @@ class AnchorLink extends SuperPHPElement {
         String $title = null,
         String $translate = null,
     ) {
+
+        parent::__construct();
         $this->node = self::$dom->createElement("a");
         if ($download) $this->node->setAttribute("download", $download);
         if ($href) $this->node->setAttribute("href", $href);

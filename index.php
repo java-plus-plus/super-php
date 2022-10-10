@@ -1,34 +1,74 @@
 <?php
 
+use Material2\ContainedButton;
+use Material2\Material2Icon;
+use Material2\Material2Import;
+use Material2\Material2Initialize;
+use Material2\OutlinedButton;
+use Material2\TextButton;
 use SuperPHP\Abbr;
-use SuperPHP\Address;
-use SuperPHP\AnchorLink;
-use SuperPHP\Article;
-use SuperPHP\Audio;
 use SuperPHP\Body;
-use SuperPHP\Button;
-use SuperPHP\Comment;
+use SuperPHP\Div;
 use SuperPHP\Head;
 use SuperPHP\HTML;
-use SuperPHP\LineBreak;
 use SuperPHP\SuperPHP;
 use SuperPHP\PlainText;
-use SuperPHP\Title;
-use SuperPHP\Typography;
 
 require_once __DIR__ . "/components/SimpleDB.php";
 require_once __DIR__ . "/components/SuperPHP/SuperPHP.php";
-require_once __DIR__ . "/components/MyCustomWidgetSample.php";
+require_once __DIR__ . "/components/SuperPHP/Material2/index.php";
 
 
 // $db = new SimpleDB(
 //     debug: true
 // );
 
+
+// print_r($myButton);
+$spacer = new Div(style: "width: 200px; height: 20px;");
+
 new SuperPHP(
     fn () => new HTML(
-        child: new Body(
-            child: new PlainText("Go to Google"),
-        ),
+        children: [
+            new Head(children: [
+                new Material2Import(),
+            ]),
+            new Body(children: [
+                new TextButton(
+                    class: ["mdc-button"],
+                    child: new PlainText("Click me!")
+                ),
+                $spacer,
+                new OutlinedButton(
+                    class: ["mdc-button"],
+                    child: new PlainText("Click me!")
+                ),
+                $spacer,
+                new ContainedButton(
+                    class: ["mdc-button"],
+                    child: new PlainText("Click me!"),
+                    icon: new Material2Icon("favorite"),
+                ),
+
+                $spacer,
+                new Abbr(
+                    child: new PlainText("A single child"),
+                    children: [
+                        new PlainText("All its Children"),
+                    ],
+                    class: ["Test", "btn"]
+                ),
+                new Material2Initialize()
+            ])
+        ],
     ),
 );
+
+// echo (new SuperPHP(
+//     fn () => new HTML(
+//         child: new Button(
+//             child: new PlainText("Go to Google"),
+//         ),
+//     ),
+//     false
+// ))->html;
