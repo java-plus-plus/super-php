@@ -4,43 +4,29 @@ namespace SuperPHP;
 
 use DOMNode;
 
-class AnchorLink extends SuperPHPElement {
+class Select extends SuperPHPElement {
      public DOMNode $node;
 
      /**
-      * AnchorLink
+      * Select
       * 
-      * If the a element has an href attribute, then it represents a hyperlink (a hypertext anchor) labeled by its contents.
+      * The select element represents a control for selecting amongst a set of options.
       *
       * @param SuperPHPElement|null $child
       * @param SuperPHPElement[]|null $children
       * @param CustomAttr[]|null $customAttributes
       * 
       * * Element-specific attributes:
-      * @param String|null href	Contains a URL or a URL fragment that the hyperlink points to.
-      * @param String|null target	Specifies where to display the linked URL. It is a name of, or keyword for, a _browsing context_: a tab, window, or `<iframe>`. The following keywords have special meanings:
+      * @param String|null $autocomplete	A [`DOMString`](https://developer.mozilla.org/en-US/docs/Web/API/DOMString "DOMString is a UTF-16 String. As JavaScript already uses such strings, DOMString is mapped directly to a String.") providing a hint for a [user agent's](https://developer.mozilla.org/en-US/docs/Glossary/user_agent "user agent's: A user agent is a computer program representing a person, for example, a browser in a Web context.") autocomplete feature. See [The HTML autocomplete attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete) for a complete list of values and details on how to use autocomplete.
+      * @param String|null $autofocus	This Boolean attribute lets you specify that a form control should have input focus when the page loads. Only one form element in a document can have the `autofocus` attribute.
+      * @param String|null $disabled	This Boolean attribute indicates that the user cannot interact with the control. If this attribute is not specified, the control inherits its setting from the containing element, for example `fieldset`; if there is no containing element with the `disabled` attribute set, then the control is enabled.
+      * @param String|null $form	This attribute lets you specify the form element to which the select element is associated (that is, its "form owner"). If this attribute is specified, its value must be the same as the `id` of a form element in the same document. This enables you to place select elements anywhere within a document, not just as descendants of their form elements.
+      * @param String|null multiple	This Boolean attribute indicates that multiple options can be selected in the list. If it is not specified, then only one option can be selected at a time. When `multiple` is specified, most browsers will show a scrolling list box instead of a single line dropdown.
+      * @param String|null $name	This attribute is used to specify the name of the control.
+      * @param String|null required	A Boolean attribute indicating that an option with a non-empty string value must be selected.
+      * @param String|null size	If the control is presented as a scrolling list box (e.g. when `multiple` is specified), this attribute represents the number of rows in the list that should be visible at one time. Browsers are not required to present a select element as a scrolled list box. The default value is 0.
 
-      *   `_self`: Load the URL into the same browsing context as the current one. This is the default behavior.
-      *   `_blank`: Load the URL into a new browsing context. This is usually a tab, but users can configure browsers to use new windows instead.
-      *   `_parent`: Load the URL into the parent browsing context of the current one. If there is no parent, this behaves the same way as `_self`.
-      *   `_top`: Load the URL into the top-level browsing context (that is, the "highest" browsing context that is an ancestor of the current one, and has no parent). If there is no parent, this behaves the same way as `_self`.
-
-      **Note:** When using `target`, consider adding `rel="noreferrer"` to avoid exploitation of the `window.opener` API.
-
-      **Note:** Linking to another page using `target="_blank"` will run the new page on the same process as your page. If the new page is executing expensive JS, your page's performance may suffer. To avoid this use `rel="noopener"`.
-      * @param String|null download	This attribute instructs browsers to download a URL instead of navigating to it, so the user will be prompted to save it as a local file. If the attribute has a value, it is used as the pre-filled file name in the Save prompt (the user can still change the file name if they want). There are no restrictions on allowed values, though `/` and `\` are converted to underscores. Most file systems limit some punctuation in file names, and browsers will adjust the suggested name accordingly.
-
-      **Notes:**
-
-      *   This attribute only works for [same-origin URLs](https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy).
-      *   Although HTTP(s) URLs need to be in the same-origin, [`blob:` URLs](https://developer.mozilla.org/en-US/docs/Web/API/URL.createObjectURL) and [`data:` URLs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs) are allowed so that content generated by JavaScript, such as pictures created in an image-editor Web app, can be downloaded.
-      *   If the HTTP header [`Content-Disposition:`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Disposition) gives a different filename than this attribute, the HTTP header takes priority over this attribute.
-      *   If `Content-Disposition:` is set to `inline`, Firefox prioritizes `Content-Disposition`, like the filename case, while Chrome prioritizes the `download` attribute.
-      * @param String|null ping	Contains a space-separated list of URLs to which, when the hyperlink is followed, [`POST`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/POST "The HTTP POST method sends data to the server. The type of the body of the request is indicated by the Content-Type header.") requests with the body `PING` will be sent by the browser (in the background). Typically used for tracking.
-      * @param String|null rel	Specifies the relationship of the target object to the link object. The value is a space-separated list of [link types](https://developer.mozilla.org/en-US/docs/Web/HTML/Link_types).
-      * @param String|null hreflang	This attribute indicates the human language of the linked resource. It is purely advisory, with no built-in functionality. Allowed values are determined by [BCP47](https://www.ietf.org/rfc/bcp/bcp47.txt "Tags for Identifying Languages").
-      * @param String|null $type	Specifies the media type in the form of a [MIME type](https://developer.mozilla.org/en-US/docs/Glossary/MIME_type "MIME type: A MIME type (now properly called "media type", but also sometimes "content type") is a string sent along with a file indicating the type of the file (describing the content format, for example, a sound file might be labeled audio/ogg, or an image file image/png).") for the linked URL. It is purely advisory, with no built-in functionality.
-      * @param String|null referrerpolicy	undefined
+      **Note:** According to the HTML5 specification, the default value for size should be 1; however, in practice, this has been found to break some web sites, and no other browser currently does that, so Mozilla has opted to continue to return 0 for the time being with Firefox.
       * 
       * * Global attributes:
       * @param String|null $accesskey	Provides a hint for generating a keyboard shortcut for the current element. This attribute consists of a space-separated list of characters. The browser should use the first one that exists on the computer keyboard layout.
@@ -225,14 +211,14 @@ class AnchorLink extends SuperPHPElement {
           public ?array $customAttributes = null,
 
           // Element-specific attributes:
-          String $href = null,
-          String $target = null,
-          String $download = null,
-          String $ping = null,
-          String $rel = null,
-          String $hreflang = null,
-          String $type = null,
-          String $referrerpolicy = null,
+          String $autocomplete = null,
+          String $autofocus = null,
+          String $disabled = null,
+          String $form = null,
+          String $multiple = null,
+          String $name = null,
+          String $required = null,
+          String $size = null,
 
           // Global attributes
           public ?String $accesskey = null,
@@ -380,7 +366,7 @@ class AnchorLink extends SuperPHPElement {
           public ?String $ariaKeyshortcuts = null,
      ) {
           parent::__construct();
-          $this->node = self::$dom->createElement("a");
+          $this->node = self::$dom->createElement("select");
           if ($child) $this->node->appendChild($child->node->cloneNode(true));
           if ($children) {
                foreach ($children as $child) {
@@ -394,14 +380,14 @@ class AnchorLink extends SuperPHPElement {
           }
 
           // Element-specific attributes
-          if ($href) $this->node->setAttribute("href", $href);
-          if ($target) $this->node->setAttribute("target", $target);
-          if ($download) $this->node->setAttribute("download", $download);
-          if ($ping) $this->node->setAttribute("ping", $ping);
-          if ($rel) $this->node->setAttribute("rel", $rel);
-          if ($hreflang) $this->node->setAttribute("hreflang", $hreflang);
-          if ($type) $this->node->setAttribute("type", $type);
-          if ($referrerpolicy) $this->node->setAttribute("referrerpolicy", $referrerpolicy);
+          if ($autocomplete) $this->node->setAttribute("autocomplete", $autocomplete);
+          if ($autofocus) $this->node->setAttribute("autofocus", $autofocus);
+          if ($disabled) $this->node->setAttribute("disabled", $disabled);
+          if ($form) $this->node->setAttribute("form", $form);
+          if ($multiple) $this->node->setAttribute("multiple", $multiple);
+          if ($name) $this->node->setAttribute("name", $name);
+          if ($required) $this->node->setAttribute("required", $required);
+          if ($size) $this->node->setAttribute("size", $size);
 
           // Global attributes
           if ($accesskey) $this->node->setAttribute("accesskey", $accesskey);

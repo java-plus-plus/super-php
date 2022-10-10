@@ -4,51 +4,50 @@ namespace SuperPHP;
 
 use DOMNode;
 
-class Audio extends SuperPHPElement {
+class Button extends SuperPHPElement {
     public DOMNode $node;
 
     /**
-     * Audio
+     * Button
      * 
-     * An audio element represents a sound or audio stream.
+     * The button element represents a button labeled by its contents.
      *
      * @param SuperPHPElement|null $child
      * @param SuperPHPElement[]|null $children
      * @param CustomAttr[]|null $customAttributes
      * 
      * * Element-specific attributes:
-     * @param String|null src	The URL of the audio to embed. This is subject to [HTTP access controls](https://developer.mozilla.org/en-US/docs/HTTP_access_control). This is optional; you may instead use the [`<source>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/source "The HTML <source> element specifies multiple media resources for the <picture>, the <audio> element, or the <video> element.") element within the audio block to specify the audio to embed.
-     * @param String|null crossorigin	This enumerated attribute indicates whether to use CORS to fetch the related image. [CORS-enabled resources](https://developer.mozilla.org/en-US/docs/CORS_Enabled_Image) can be reused in the [`<canvas>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/canvas "Use the HTML <canvas> element with either the canvas scripting API or the WebGL API to draw graphics and animations.") element without being _tainted_. The allowed values are:
+     * @param String|null $autofocus	This Boolean attribute lets you specify that the button should have input focus when the page loads, unless the user overrides it, for example by typing in a different control. Only one form-associated element in a document can have this attribute specified.
+     * @param String|null $disabled	This Boolean attribute indicates that the user cannot interact with the button. If this attribute is not specified, the button inherits its setting from the containing element, for example [`<fieldset>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/fieldset "The HTML <fieldset> element is used to group several controls as well as labels (<label>) within a web form."); if there is no containing element with the **disabled** attribute set, then the button is enabled.
+     * Firefox will, unlike other browsers, by default, [persist the dynamic disabled state](https://stackoverflow.com/questions/5985839/bug-with-firefox-disabled-attribute-of-input-not-resetting-when-refreshing) of a [`<button>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button "The HTML <button> element represents a clickable button, which can be used in forms or anywhere in a document that needs simple, standard button functionality.") across page loads. Use the [`autocomplete`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attr-autocomplete) attribute to control this feature.
+     * @param String|null $form	The form element that the button is associated with (its _form owner_). The value of the attribute must be the **id** attribute of a [`<form>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form "The HTML <form> element represents a document section that contains interactive controls for submitting information to a web server.") element in the same document. If this attribute is not specified, the `<button>` element will be associated to an ancestor [`<form>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form "The HTML <form> element represents a document section that contains interactive controls for submitting information to a web server.") element, if one exists. This attribute enables you to associate `<button>` elements to [`<form>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form "The HTML <form> element represents a document section that contains interactive controls for submitting information to a web server.") elements anywhere within a document, not just as descendants of [`<form>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form "The HTML <form> element represents a document section that contains interactive controls for submitting information to a web server.") elements.
+     * @param String|null $formaction	The URI of a program that processes the information submitted by the button. If specified, it overrides the [`action`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form#attr-action) attribute of the button's form owner.
+     * @param String|null $formenctype	If the button is a submit button, this attribute specifies the type of content that is used to submit the form to the server. Possible values are:
 
-anonymous
+     *   `application/x-www-form-urlencoded`: The default value if the attribute is not specified.
+     *   `multipart/form-data`: Use this value if you are using an [`<input>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input "The HTML <input> element is used to create interactive controls for web-based forms in order to accept data from the user; a wide variety of types of input data and control widgets are available, depending on the device and user agent.") element with the [`type`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-type) attribute set to `file`.
+     *   `text/plain`
+     * If this attribute is specified, it overrides the [`enctype`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form#attr-enctype) attribute of the button's form owner.
+     * @param String|null $formmethod	If the button is a submit button, this attribute specifies the HTTP method that the browser uses to submit the form. Possible values are:
 
-Sends a cross-origin request without a credential. In other words, it sends the `Origin:` HTTP header without a cookie, X.509 certificate, or performing HTTP Basic authentication. If the server does not give credentials to the origin site (by not setting the `Access-Control-Allow-Origin:` HTTP header), the image will be _tainted_, and its usage restricted.
+     *   `post`: The data from the form are included in the body of the form and sent to the server.
+     *   `get`: The data from the form are appended to the **form** attribute URI, with a '?' as a separator, and the resulting URI is sent to the server. Use this method when the form has no side-effects and contains only ASCII characters.
+     * If specified, this attribute overrides the [`method`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form#attr-method) attribute of the button's form owner.
+     * @param String|null $formnovalidate	If the button is a submit button, this Boolean attribute specifies that the form is not to be validated when it is submitted. If this attribute is specified, it overrides the [`novalidate`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form#attr-novalidate) attribute of the button's form owner.
+     * @param String|null $formtarget	If the button is a submit button, this attribute is a name or keyword indicating where to display the response that is received after submitting the form. This is a name of, or keyword for, a _browsing context_ (for example, tab, window, or inline frame). If this attribute is specified, it overrides the [`target`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form#attr-target) attribute of the button's form owner. The following keywords have special meanings:
 
-use-credentials
+     *   `_self`: Load the response into the same browsing context as the current one. This value is the default if the attribute is not specified.
+     *   `_blank`: Load the response into a new unnamed browsing context.
+     *   `_parent`: Load the response into the parent browsing context of the current one. If there is no parent, this option behaves the same way as `_self`.
+     *   `_top`: Load the response into the top-level browsing context (that is, the browsing context that is an ancestor of the current one, and has no parent). If there is no parent, this option behaves the same way as `_self`.
+     * @param String|null $name	The name of the button, which is submitted with the form data.
+     * @param String|null $type	The type of the button. Possible values are:
 
-Sends a cross-origin request with a credential. In other words, it sends the `Origin:` HTTP header with a cookie, a certificate, or performing HTTP Basic authentication. If the server does not give credentials to the origin site (through `Access-Control-Allow-Credentials:` HTTP header), the image will be _tainted_ and its usage restricted.
-
-When not present, the resource is fetched without a CORS request (i.e. without sending the `Origin:` HTTP header), preventing its non-tainted used in [`<canvas>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/canvas "Use the HTML <canvas> element with either the canvas scripting API or the WebGL API to draw graphics and animations.") elements. If invalid, it is handled as if the enumerated keyword **anonymous** was used. See [CORS settings attributes](https://developer.mozilla.org/en-US/docs/HTML/CORS_settings_attributes) for additional information.
-     * @param String|null preload	This enumerated attribute is intended to provide a hint to the browser about what the author thinks will lead to the best user experience. It may have one of the following values:
-
-     *   `none`: Indicates that the audio should not be preloaded.
-     *   `metadata`: Indicates that only audio metadata (e.g. length) is fetched.
-     *   `auto`: Indicates that the whole audio file can be downloaded, even if the user is not expected to use it.
-     *   _empty string_: A synonym of the `auto` value.
-
-If not set, `preload`'s default value is browser-defined (i.e. each browser may have its own default value). The spec advises it to be set to `metadata`.
-
-     **Usage notes:**
-
-     *   The `autoplay` attribute has precedence over `preload`. If `autoplay` is specified, the browser would obviously need to start downloading the audio for playback.
-     *   The browser is not forced by the specification to follow the value of this attribute; it is a mere hint.
-     * @param String|null autoplay	A Boolean attribute: if specified, the audio will automatically begin playback as soon as it can do so, without waiting for the entire audio file to finish downloading.
-
-     **Note**: Sites that automatically play audio (or videos with an audio track) can be an unpleasant experience for users, so should be avoided when possible. If you must offer autoplay functionality, you should make it opt-in (requiring a user to specifically enable it). However, this can be useful when creating media elements whose source will be set at a later time, under user control.
-     * @param String|null mediagroup	undefined
-     * @param String|null loop	A Boolean attribute: if specified, the audio player will automatically seek back to the start upon reaching the end of the audio.
-     * @param String|null muted	A Boolean attribute that indicates whether the audio will be initially silenced. Its default value is `false`.
-     * @param String|null controls	If this attribute is present, the browser will offer controls to allow the user to control audio playback, including volume, seeking, and pause/resume playback.
+     *   `submit`: The button submits the form data to the server. This is the default if the attribute is not specified, or if the attribute is dynamically changed to an empty or invalid value.
+     *   `reset`: The button resets all the controls to their initial values.
+     *   `button`: The button has no default behavior. It can have client-side scripts associated with the element's events, which are triggered when the events occur.
+     * @param String|null $value	The initial value of the button. It defines the value associated with the button which is submitted with the form data. This value is passed to the server in params when the form is submitted.
+     * @param String|null $autocomplete	undefined
      * 
      * * Global attributes:
      * @param String|null $accesskey	Provides a hint for generating a keyboard shortcut for the current element. This attribute consists of a space-separated list of characters. The browser should use the first one that exists on the computer keyboard layout.
@@ -233,14 +232,18 @@ If not set, `preload`'s default value is browser-defined (i.e. each browser may 
         public ?array $customAttributes = null,
 
         // Element-specific attributes:
-        String $src = null,
-        String $crossorigin = null,
-        String $preload = null,
-        String $autoplay = null,
-        String $mediagroup = null,
-        String $loop = null,
-        String $muted = null,
-        String $controls = null,
+        public ?String $autofocus = null,
+        public ?String $disabled = null,
+        public ?String $form = null,
+        public ?String $formaction = null,
+        public ?String $formenctype = null,
+        public ?String $formmethod = null,
+        public ?String $formnovalidate = null,
+        public ?String $formtarget = null,
+        public ?String $name = null,
+        public ?String $type = null,
+        public ?String $value = null,
+        public ?String $autocomplete = null,
 
         // Global attributes
         public ?String $accesskey = null,
@@ -387,8 +390,9 @@ If not set, `preload`'s default value is browser-defined (i.e. each browser may 
         public ?String $ariaDetails = null,
         public ?String $ariaKeyshortcuts = null,
     ) {
+
         parent::__construct();
-        $this->node = self::$dom->createElement("audio");
+        $this->node = self::$dom->createElement("button");
         if ($child) $this->node->appendChild($child->node->cloneNode(true));
         if ($children) {
             foreach ($children as $child) {
@@ -402,14 +406,18 @@ If not set, `preload`'s default value is browser-defined (i.e. each browser may 
         }
 
         // Element-specific attributes
-        if ($src) $this->node->setAttribute("src", $src);
-        if ($crossorigin) $this->node->setAttribute("crossorigin", $crossorigin);
-        if ($preload) $this->node->setAttribute("preload", $preload);
-        if ($autoplay) $this->node->setAttribute("autoplay", $autoplay);
-        if ($mediagroup) $this->node->setAttribute("mediagroup", $mediagroup);
-        if ($loop) $this->node->setAttribute("loop", $loop);
-        if ($muted) $this->node->setAttribute("muted", $muted);
-        if ($controls) $this->node->setAttribute("controls", $controls);
+        if ($autofocus) $this->node->setAttribute("autofocus", $autofocus);
+        if ($disabled) $this->node->setAttribute("disabled", $disabled);
+        if ($form) $this->node->setAttribute("form", $form);
+        if ($formaction) $this->node->setAttribute("formaction", $formaction);
+        if ($formenctype) $this->node->setAttribute("formenctype", $formenctype);
+        if ($formmethod) $this->node->setAttribute("formmethod", $formmethod);
+        if ($formnovalidate) $this->node->setAttribute("formnovalidate", $formnovalidate);
+        if ($formtarget) $this->node->setAttribute("formtarget", $formtarget);
+        if ($name) $this->node->setAttribute("name", $name);
+        if ($type) $this->node->setAttribute("type", $type);
+        if ($value) $this->node->setAttribute("value", $value);
+        if ($autocomplete) $this->node->setAttribute("autocomplete", $autocomplete);
 
         // Global attributes
         if ($accesskey) $this->node->setAttribute("accesskey", $accesskey);

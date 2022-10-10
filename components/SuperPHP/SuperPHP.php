@@ -2,86 +2,133 @@
 
 namespace SuperPHP;
 
-require_once __DIR__ . "./html/SuperPHPElement.php";
-require_once __DIR__ . "./html/Comment.php";
-require_once __DIR__ . "./html/PlainText.php";
+require_once __DIR__ . "./SuperPHPElement.php";
+require_once __DIR__ . "./common/PlainText.php";
+require_once __DIR__ . "./common/Comment.php";
+require_once __DIR__ . "./common/Typography.php";
+require_once __DIR__ . "./common/Fragment.php";
+
+require_once __DIR__ . "./html/Abbr.php";
 require_once __DIR__ . "./html/Address.php";
 require_once __DIR__ . "./html/AnchorLink.php";
-require_once __DIR__ . "./html/Abbr.php";
+require_once __DIR__ . "./html/Area.php";
 require_once __DIR__ . "./html/Article.php";
+require_once __DIR__ . "./html/Aside.php";
 require_once __DIR__ . "./html/Audio.php";
-require_once __DIR__ . "./html/Typography.php";
+require_once __DIR__ . "./html/B.php";
+require_once __DIR__ . "./html/Base.php";
+require_once __DIR__ . "./html/Bdi.php";
+require_once __DIR__ . "./html/Bdo.php";
+require_once __DIR__ . "./html/Blockquote.php";
+require_once __DIR__ . "./html/Body.php";
+require_once __DIR__ . "./html/Br.php";
+require_once __DIR__ . "./html/Button.php";
+require_once __DIR__ . "./html/Canvas.php";
+require_once __DIR__ . "./html/Caption.php";
+require_once __DIR__ . "./html/Cite.php";
+require_once __DIR__ . "./html/Code.php";
+require_once __DIR__ . "./html/Col.php";
+require_once __DIR__ . "./html/Colgroup.php";
+require_once __DIR__ . "./html/Datalist.php";
+require_once __DIR__ . "./html/Dd.php";
+require_once __DIR__ . "./html/Del.php";
+require_once __DIR__ . "./html/Details.php";
+require_once __DIR__ . "./html/Dfn.php";
+require_once __DIR__ . "./html/Dialog.php";
+require_once __DIR__ . "./html/Div.php";
+require_once __DIR__ . "./html/Dl.php";
+require_once __DIR__ . "./html/Dt.php";
+require_once __DIR__ . "./html/Em.php";
+require_once __DIR__ . "./html/Embed.php";
+require_once __DIR__ . "./html/Fieldset.php";
+require_once __DIR__ . "./html/Figcaption.php";
+require_once __DIR__ . "./html/Figure.php";
+require_once __DIR__ . "./html/Footer.php";
+require_once __DIR__ . "./html/Form.php";
+require_once __DIR__ . "./html/H1.php";
+require_once __DIR__ . "./html/H2.php";
+require_once __DIR__ . "./html/H3.php";
+require_once __DIR__ . "./html/H4.php";
+require_once __DIR__ . "./html/H5.php";
+require_once __DIR__ . "./html/H6.php";
+require_once __DIR__ . "./html/Head.php";
+require_once __DIR__ . "./html/Header.php";
+require_once __DIR__ . "./html/Hr.php";
+require_once __DIR__ . "./html/Html.php";
+require_once __DIR__ . "./html/HTMLObject.php";
+require_once __DIR__ . "./html/HTMLVar.php";
+require_once __DIR__ . "./html/I.php";
+require_once __DIR__ . "./html/Iframe.php";
+require_once __DIR__ . "./html/Image.php";
+require_once __DIR__ . "./html/Input.php";
+require_once __DIR__ . "./html/Ins.php";
+require_once __DIR__ . "./html/Kbd.php";
+require_once __DIR__ . "./html/Label.php";
+require_once __DIR__ . "./html/Legend.php";
+require_once __DIR__ . "./html/Li.php";
+require_once __DIR__ . "./html/Link.php";
+require_once __DIR__ . "./html/Main.php";
+require_once __DIR__ . "./html/Map.php";
+require_once __DIR__ . "./html/Mark.php";
+require_once __DIR__ . "./html/Meta.php";
+require_once __DIR__ . "./html/Meter.php";
+require_once __DIR__ . "./html/Nav.php";
+require_once __DIR__ . "./html/Noscript.php";
+require_once __DIR__ . "./html/Ol.php";
+require_once __DIR__ . "./html/Optgroup.php";
+require_once __DIR__ . "./html/Option.php";
+require_once __DIR__ . "./html/Output.php";
+require_once __DIR__ . "./html/P.php";
+require_once __DIR__ . "./html/Param.php";
+require_once __DIR__ . "./html/Picture.php";
+require_once __DIR__ . "./html/Pre.php";
+require_once __DIR__ . "./html/Progress.php";
+require_once __DIR__ . "./html/Q.php";
+require_once __DIR__ . "./html/Rb.php";
+require_once __DIR__ . "./html/Rp.php";
+require_once __DIR__ . "./html/Rt.php";
+require_once __DIR__ . "./html/Ruby.php";
+require_once __DIR__ . "./html/S.php";
+require_once __DIR__ . "./html/Samp.php";
+require_once __DIR__ . "./html/Script.php";
+require_once __DIR__ . "./html/Section.php";
+require_once __DIR__ . "./html/Select.php";
+require_once __DIR__ . "./html/Small.php";
+require_once __DIR__ . "./html/Source.php";
+require_once __DIR__ . "./html/Span.php";
+require_once __DIR__ . "./html/Strong.php";
+require_once __DIR__ . "./html/Style.php";
+require_once __DIR__ . "./html/Sub.php";
+require_once __DIR__ . "./html/Summary.php";
+require_once __DIR__ . "./html/Sup.php";
+require_once __DIR__ . "./html/Table.php";
+require_once __DIR__ . "./html/Tbody.php";
+require_once __DIR__ . "./html/Td.php";
+require_once __DIR__ . "./html/Template.php";
+require_once __DIR__ . "./html/Textarea.php";
+require_once __DIR__ . "./html/Tfoot.php";
+require_once __DIR__ . "./html/Th.php";
+require_once __DIR__ . "./html/Thead.php";
+require_once __DIR__ . "./html/Time.php";
+require_once __DIR__ . "./html/Title.php";
+require_once __DIR__ . "./html/Tr.php";
+require_once __DIR__ . "./html/Track.php";
+require_once __DIR__ . "./html/U.php";
+require_once __DIR__ . "./html/Ul.php";
+require_once __DIR__ . "./html/Video.php";
+require_once __DIR__ . "./html/Wbr.php";
 
-
-use DOMNode;
 
 class SuperPHP extends SuperPHPElement {
-    function __construct($cb) {
+    public $html = null;
+
+    function __construct($cb, $printOutput = true) {
         parent::__construct();
         $output = $cb();
         self::$dom->appendChild($output->node);
         self::$dom->preserveWhiteSpace = false;
         self::$dom->formatOutput = true;
-        echo self::$dom->saveHTML();
-    }
-}
-
-class HTML extends SuperPHPElement {
-    public DOMNode $node;
-    function __construct(
-        $children = []
-    ) {
-        $this->node = self::$dom->createElement("html");
-        foreach ($children as $child) {
-            $this->node->appendChild($child->node);
-        }
-    }
-}
-
-class Head extends SuperPHPElement {
-    public DOMNode $node;
-    function __construct($children = []) {
-        $this->node = self::$dom->createElement("head");
-        foreach ($children as $child) {
-            $this->node->appendChild($child->node);
-        }
-    }
-}
-
-class Body extends SuperPHPElement {
-    public DOMNode $node;
-    function __construct($children = []) {
-        $this->node = self::$dom->createElement("body");
-        foreach ($children as $child) {
-            $this->node->appendChild($child->node);
-        }
-    }
-}
-
-class Title extends SuperPHPElement {
-    public DOMNode $node;
-    function __construct(PlainText $title) {
-        $this->node = self::$dom->createElement("title");
-        $this->node->appendChild($title->node);
-    }
-}
-
-class Button extends SuperPHPElement {
-    public DOMNode $node;
-    function __construct($children = []) {
-        $this->node = self::$dom->createElement("button");
-        foreach ($children as $child) {
-            $this->node->appendChild($child->node);
-        }
-    }
-}
-
-class LineBreak extends SuperPHPElement {
-    public DOMNode $node;
-    function __construct(int $count = 1) {
-        $this->node = self::$dom->createDocumentFragment();
-        for ($i = 0; $i < $count; $i++) {
-            $this->node->appendChild(self::$dom->createElement("br"));
-        }
+        $this->html = self::$dom->saveHTML();
+        if ($printOutput) echo $this->html;
     }
 }

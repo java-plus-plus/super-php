@@ -4,42 +4,50 @@ namespace SuperPHP;
 
 use DOMNode;
 
-class AnchorLink extends SuperPHPElement {
+class Iframe extends SuperPHPElement {
      public DOMNode $node;
 
      /**
-      * AnchorLink
+      * Iframe
       * 
-      * If the a element has an href attribute, then it represents a hyperlink (a hypertext anchor) labeled by its contents.
+      * The iframe element represents a nested browsing context.
       *
       * @param SuperPHPElement|null $child
       * @param SuperPHPElement[]|null $children
       * @param CustomAttr[]|null $customAttributes
       * 
       * * Element-specific attributes:
-      * @param String|null href	Contains a URL or a URL fragment that the hyperlink points to.
-      * @param String|null target	Specifies where to display the linked URL. It is a name of, or keyword for, a _browsing context_: a tab, window, or `<iframe>`. The following keywords have special meanings:
+      * @param String|null src	The URL of the page to embed. Use a value of `about:blank` to embed an empty page that conforms to the [same-origin policy](https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy#Inherited_origins). Also note that programatically removing an `<iframe>`'s src attribute (e.g. via [`Element.removeAttribute()`](https://developer.mozilla.org/en-US/docs/Web/API/Element/removeAttribute "The Element method removeAttribute() removes the attribute with the specified name from the element.")) causes `about:blank` to be loaded in the frame in Firefox (from version 65), Chromium-based browsers, and Safari/iOS.
+      * @param String|null srcdoc	Inline HTML to embed, overriding the `src` attribute. If a browser does not support the `srcdoc` attribute, it will fall back to the URL in the `src` attribute.
+      * @param String|null $name	A targetable name for the embedded browsing context. This can be used in the `target` attribute of the [`<a>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a "The HTML <a> element (or anchor element) creates a hyperlink to other web pages, files, locations within the same page, email addresses, or any other URL."), [`<form>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form "The HTML <form> element represents a document section that contains interactive controls for submitting information to a web server."), or [`<base>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base "The HTML <base> element specifies the base URL to use for all relative URLs contained within a document. There can be only one <base> element in a document.") elements; the `formtarget` attribute of the [`<input>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input "The HTML <input> element is used to create interactive controls for web-based forms in order to accept data from the user; a wide variety of types of input data and control widgets are available, depending on the device and user agent.") or [`<button>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button "The HTML <button> element represents a clickable button, which can be used in forms or anywhere in a document that needs simple, standard button functionality.") elements; or the `windowName` parameter in the [`window.open()`](https://developer.mozilla.org/en-US/docs/Web/API/Window/open "The Window interface's open() method loads the specified resource into the browsing context (window, <iframe> or tab) with the specified name. If the name doesn't exist, then a new window is opened and the specified resource is loaded into its browsing context.") method.
+      * @param String|null sandbox	Applies extra restrictions to the content in the frame. The value of the attribute can either be empty to apply all restrictions, or space-separated tokens to lift particular restrictions:
 
-      *   `_self`: Load the URL into the same browsing context as the current one. This is the default behavior.
-      *   `_blank`: Load the URL into a new browsing context. This is usually a tab, but users can configure browsers to use new windows instead.
-      *   `_parent`: Load the URL into the parent browsing context of the current one. If there is no parent, this behaves the same way as `_self`.
-      *   `_top`: Load the URL into the top-level browsing context (that is, the "highest" browsing context that is an ancestor of the current one, and has no parent). If there is no parent, this behaves the same way as `_self`.
+      *   `allow-forms`: Allows the resource to submit forms. If this keyword is not used, form submission is blocked.
+      *   `allow-modals`: Lets the resource [open modal windows](https://html.spec.whatwg.org/multipage/origin.html#sandboxed-modals-flag).
+      *   `allow-orientation-lock`: Lets the resource [lock the screen orientation](https://developer.mozilla.org/en-US/docs/Web/API/Screen/lockOrientation).
+      *   `allow-pointer-lock`: Lets the resource use the [Pointer Lock API](https://developer.mozilla.org/en-US/docs/WebAPI/Pointer_Lock).
+      *   `allow-popups`: Allows popups (such as `window.open()`, `target="_blank"`, or `showModalDialog()`). If this keyword is not used, the popup will silently fail to open.
+      *   `allow-popups-to-escape-sandbox`: Lets the sandboxed document open new windows without those windows inheriting the sandboxing. For example, this can safely sandbox an advertisement without forcing the same restrictions upon the page the ad links to.
+      *   `allow-presentation`: Lets the resource start a [presentation session](https://developer.mozilla.org/en-US/docs/Web/API/PresentationRequest).
+      *   `allow-same-origin`: If this token is not used, the resource is treated as being from a special origin that always fails the [same-origin policy](https://developer.mozilla.org/en-US/docs/Glossary/same-origin_policy "same-origin policy: The same-origin policy is a critical security mechanism that restricts how a document or script loaded from one origin can interact with a resource from another origin.").
+      *   `allow-scripts`: Lets the resource run scripts (but not create popup windows).
+      *   `allow-storage-access-by-user-activation` : Lets the resource request access to the parent's storage capabilities with the [Storage Access API](https://developer.mozilla.org/en-US/docs/Web/API/Storage_Access_API).
+      *   `allow-top-navigation`: Lets the resource navigate the top-level browsing context (the one named `_top`).
+      *   `allow-top-navigation-by-user-activation`: Lets the resource navigate the top-level browsing context, but only if initiated by a user gesture.
 
-      **Note:** When using `target`, consider adding `rel="noreferrer"` to avoid exploitation of the `window.opener` API.
+      **Notes about sandboxing:**
 
-      **Note:** Linking to another page using `target="_blank"` will run the new page on the same process as your page. If the new page is executing expensive JS, your page's performance may suffer. To avoid this use `rel="noopener"`.
-      * @param String|null download	This attribute instructs browsers to download a URL instead of navigating to it, so the user will be prompted to save it as a local file. If the attribute has a value, it is used as the pre-filled file name in the Save prompt (the user can still change the file name if they want). There are no restrictions on allowed values, though `/` and `\` are converted to underscores. Most file systems limit some punctuation in file names, and browsers will adjust the suggested name accordingly.
-
-      **Notes:**
-
-      *   This attribute only works for [same-origin URLs](https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy).
-      *   Although HTTP(s) URLs need to be in the same-origin, [`blob:` URLs](https://developer.mozilla.org/en-US/docs/Web/API/URL.createObjectURL) and [`data:` URLs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs) are allowed so that content generated by JavaScript, such as pictures created in an image-editor Web app, can be downloaded.
-      *   If the HTTP header [`Content-Disposition:`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Disposition) gives a different filename than this attribute, the HTTP header takes priority over this attribute.
-      *   If `Content-Disposition:` is set to `inline`, Firefox prioritizes `Content-Disposition`, like the filename case, while Chrome prioritizes the `download` attribute.
-      * @param String|null ping	Contains a space-separated list of URLs to which, when the hyperlink is followed, [`POST`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/POST "The HTTP POST method sends data to the server. The type of the body of the request is indicated by the Content-Type header.") requests with the body `PING` will be sent by the browser (in the background). Typically used for tracking.
-      * @param String|null rel	Specifies the relationship of the target object to the link object. The value is a space-separated list of [link types](https://developer.mozilla.org/en-US/docs/Web/HTML/Link_types).
-      * @param String|null hreflang	This attribute indicates the human language of the linked resource. It is purely advisory, with no built-in functionality. Allowed values are determined by [BCP47](https://www.ietf.org/rfc/bcp/bcp47.txt "Tags for Identifying Languages").
-      * @param String|null $type	Specifies the media type in the form of a [MIME type](https://developer.mozilla.org/en-US/docs/Glossary/MIME_type "MIME type: A MIME type (now properly called "media type", but also sometimes "content type") is a string sent along with a file indicating the type of the file (describing the content format, for example, a sound file might be labeled audio/ogg, or an image file image/png).") for the linked URL. It is purely advisory, with no built-in functionality.
+      *   When the embedded document has the same origin as the embedding page, it is **strongly discouraged** to use both `allow-scripts` and `allow-same-origin`, as that lets the embedded document remove the `sandbox` attribute — making it no more secure than not using the `sandbox` attribute at all.
+      *   Sandboxing is useless if the attacker can display content outside a sandboxed `iframe` — such as if the viewer opens the frame in a new tab. Such content should be also served from a _separate origin_ to limit potential damage.
+      *   The `sandbox` attribute is unsupported in Internet Explorer 9 and earlier.
+      * @param String|null seamless	undefined
+      * @param String|null allowfullscreen	Set to `true` if the `<iframe>` can activate fullscreen mode by calling the [`requestFullscreen()`](https://developer.mozilla.org/en-US/docs/Web/API/Element/requestFullscreen "The Element.requestFullscreen() method issues an asynchronous request to make the element be displayed in full-screen mode.") method.
+      * @param String|null width	The width of the frame in CSS pixels. Default is `300`.
+      * @param String|null height	The height of the frame in CSS pixels. Default is `150`.
+      * @param String|null allow	undefined
+      * @param String|null allowPaymentRequest	undefined
+      * @param String|null csp	undefined
+      * @param String|null importance	undefined
       * @param String|null referrerpolicy	undefined
       * 
       * * Global attributes:
@@ -225,13 +233,18 @@ class AnchorLink extends SuperPHPElement {
           public ?array $customAttributes = null,
 
           // Element-specific attributes:
-          String $href = null,
-          String $target = null,
-          String $download = null,
-          String $ping = null,
-          String $rel = null,
-          String $hreflang = null,
-          String $type = null,
+          String $src = null,
+          String $srcdoc = null,
+          String $name = null,
+          String $sandbox = null,
+          String $seamless = null,
+          String $allowfullscreen = null,
+          String $width = null,
+          String $height = null,
+          String $allow = null,
+          String $allowPaymentRequest = null,
+          String $csp = null,
+          String $importance = null,
           String $referrerpolicy = null,
 
           // Global attributes
@@ -380,7 +393,7 @@ class AnchorLink extends SuperPHPElement {
           public ?String $ariaKeyshortcuts = null,
      ) {
           parent::__construct();
-          $this->node = self::$dom->createElement("a");
+          $this->node = self::$dom->createElement("iframe");
           if ($child) $this->node->appendChild($child->node->cloneNode(true));
           if ($children) {
                foreach ($children as $child) {
@@ -394,13 +407,18 @@ class AnchorLink extends SuperPHPElement {
           }
 
           // Element-specific attributes
-          if ($href) $this->node->setAttribute("href", $href);
-          if ($target) $this->node->setAttribute("target", $target);
-          if ($download) $this->node->setAttribute("download", $download);
-          if ($ping) $this->node->setAttribute("ping", $ping);
-          if ($rel) $this->node->setAttribute("rel", $rel);
-          if ($hreflang) $this->node->setAttribute("hreflang", $hreflang);
-          if ($type) $this->node->setAttribute("type", $type);
+          if ($src) $this->node->setAttribute("src", $src);
+          if ($srcdoc) $this->node->setAttribute("srcdoc", $srcdoc);
+          if ($name) $this->node->setAttribute("name", $name);
+          if ($sandbox) $this->node->setAttribute("sandbox", $sandbox);
+          if ($seamless) $this->node->setAttribute("seamless", $seamless);
+          if ($allowfullscreen) $this->node->setAttribute("allowfullscreen", $allowfullscreen);
+          if ($width) $this->node->setAttribute("width", $width);
+          if ($height) $this->node->setAttribute("height", $height);
+          if ($allow) $this->node->setAttribute("allow", $allow);
+          if ($allowPaymentRequest) $this->node->setAttribute("allowpaymentrequest", $allowPaymentRequest);
+          if ($csp) $this->node->setAttribute("csp", $csp);
+          if ($importance) $this->node->setAttribute("importance", $importance);
           if ($referrerpolicy) $this->node->setAttribute("referrerpolicy", $referrerpolicy);
 
           // Global attributes

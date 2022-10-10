@@ -4,51 +4,30 @@ namespace SuperPHP;
 
 use DOMNode;
 
-class Audio extends SuperPHPElement {
+
+class Typography extends SuperPHPElement {
     public DOMNode $node;
 
+    public const Paragraph = "p";
+    public const BoldText = "b";
+    public const Underlined = "u";
+    public const Italic = "i";
+    public const H1 = "h1";
+    public const H2 = "h2";
+    public const H3 = "h3";
+    public const H4 = "h4";
+    public const H5 = "h5";
+    public const H6 = "h6";
+
     /**
-     * Audio
+     * Typography
      * 
-     * An audio element represents a sound or audio stream.
+     * The Typography element represents a section heading.
      *
      * @param SuperPHPElement|null $child
      * @param SuperPHPElement[]|null $children
-     * @param CustomAttr[]|null $customAttributes
+     * @param String|null $variant
      * 
-     * * Element-specific attributes:
-     * @param String|null src	The URL of the audio to embed. This is subject to [HTTP access controls](https://developer.mozilla.org/en-US/docs/HTTP_access_control). This is optional; you may instead use the [`<source>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/source "The HTML <source> element specifies multiple media resources for the <picture>, the <audio> element, or the <video> element.") element within the audio block to specify the audio to embed.
-     * @param String|null crossorigin	This enumerated attribute indicates whether to use CORS to fetch the related image. [CORS-enabled resources](https://developer.mozilla.org/en-US/docs/CORS_Enabled_Image) can be reused in the [`<canvas>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/canvas "Use the HTML <canvas> element with either the canvas scripting API or the WebGL API to draw graphics and animations.") element without being _tainted_. The allowed values are:
-
-anonymous
-
-Sends a cross-origin request without a credential. In other words, it sends the `Origin:` HTTP header without a cookie, X.509 certificate, or performing HTTP Basic authentication. If the server does not give credentials to the origin site (by not setting the `Access-Control-Allow-Origin:` HTTP header), the image will be _tainted_, and its usage restricted.
-
-use-credentials
-
-Sends a cross-origin request with a credential. In other words, it sends the `Origin:` HTTP header with a cookie, a certificate, or performing HTTP Basic authentication. If the server does not give credentials to the origin site (through `Access-Control-Allow-Credentials:` HTTP header), the image will be _tainted_ and its usage restricted.
-
-When not present, the resource is fetched without a CORS request (i.e. without sending the `Origin:` HTTP header), preventing its non-tainted used in [`<canvas>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/canvas "Use the HTML <canvas> element with either the canvas scripting API or the WebGL API to draw graphics and animations.") elements. If invalid, it is handled as if the enumerated keyword **anonymous** was used. See [CORS settings attributes](https://developer.mozilla.org/en-US/docs/HTML/CORS_settings_attributes) for additional information.
-     * @param String|null preload	This enumerated attribute is intended to provide a hint to the browser about what the author thinks will lead to the best user experience. It may have one of the following values:
-
-     *   `none`: Indicates that the audio should not be preloaded.
-     *   `metadata`: Indicates that only audio metadata (e.g. length) is fetched.
-     *   `auto`: Indicates that the whole audio file can be downloaded, even if the user is not expected to use it.
-     *   _empty string_: A synonym of the `auto` value.
-
-If not set, `preload`'s default value is browser-defined (i.e. each browser may have its own default value). The spec advises it to be set to `metadata`.
-
-     **Usage notes:**
-
-     *   The `autoplay` attribute has precedence over `preload`. If `autoplay` is specified, the browser would obviously need to start downloading the audio for playback.
-     *   The browser is not forced by the specification to follow the value of this attribute; it is a mere hint.
-     * @param String|null autoplay	A Boolean attribute: if specified, the audio will automatically begin playback as soon as it can do so, without waiting for the entire audio file to finish downloading.
-
-     **Note**: Sites that automatically play audio (or videos with an audio track) can be an unpleasant experience for users, so should be avoided when possible. If you must offer autoplay functionality, you should make it opt-in (requiring a user to specifically enable it). However, this can be useful when creating media elements whose source will be set at a later time, under user control.
-     * @param String|null mediagroup	undefined
-     * @param String|null loop	A Boolean attribute: if specified, the audio player will automatically seek back to the start upon reaching the end of the audio.
-     * @param String|null muted	A Boolean attribute that indicates whether the audio will be initially silenced. Its default value is `false`.
-     * @param String|null controls	If this attribute is present, the browser will offer controls to allow the user to control audio playback, including volume, seeking, and pause/resume playback.
      * 
      * * Global attributes:
      * @param String|null $accesskey	Provides a hint for generating a keyboard shortcut for the current element. This attribute consists of a space-separated list of characters. The browser should use the first one that exists on the computer keyboard layout.
@@ -230,17 +209,7 @@ If not set, `preload`'s default value is browser-defined (i.e. each browser may 
     function __construct(
         public ?SuperPHPElement $child = null,
         public ?array $children = null,
-        public ?array $customAttributes = null,
-
-        // Element-specific attributes:
-        String $src = null,
-        String $crossorigin = null,
-        String $preload = null,
-        String $autoplay = null,
-        String $mediagroup = null,
-        String $loop = null,
-        String $muted = null,
-        String $controls = null,
+        public ?String $variant = "p",
 
         // Global attributes
         public ?String $accesskey = null,
@@ -387,29 +356,30 @@ If not set, `preload`'s default value is browser-defined (i.e. each browser may 
         public ?String $ariaDetails = null,
         public ?String $ariaKeyshortcuts = null,
     ) {
-        parent::__construct();
-        $this->node = self::$dom->createElement("audio");
-        if ($child) $this->node->appendChild($child->node->cloneNode(true));
-        if ($children) {
-            foreach ($children as $child) {
-                $child && $this->node->appendChild($child->node->cloneNode(true));
-            }
-        }
-        if ($customAttributes) {
-            foreach ($customAttributes as $attr) {
-                $this->node->setAttribute($attr->name, $attr->value);
-            }
+        if (!in_array($variant, [
+            self::Paragraph,
+            self::BoldText,
+            self::Underlined,
+            self::Italic,
+            self::H1,
+            self::H2,
+            self::H3,
+            self::H4,
+            self::H5,
+            self::H6,
+        ])) {
+            throw new \Error("Unsupported typography variant");
         }
 
-        // Element-specific attributes
-        if ($src) $this->node->setAttribute("src", $src);
-        if ($crossorigin) $this->node->setAttribute("crossorigin", $crossorigin);
-        if ($preload) $this->node->setAttribute("preload", $preload);
-        if ($autoplay) $this->node->setAttribute("autoplay", $autoplay);
-        if ($mediagroup) $this->node->setAttribute("mediagroup", $mediagroup);
-        if ($loop) $this->node->setAttribute("loop", $loop);
-        if ($muted) $this->node->setAttribute("muted", $muted);
-        if ($controls) $this->node->setAttribute("controls", $controls);
+
+        parent::__construct();
+        $this->node = self::$dom->createElement($variant);
+        if ($child) $this->node->appendChild($child->node);
+        if ($children) {
+            foreach ($children as $child) {
+                $this->node->appendChild($child->node);
+            }
+        }
 
         // Global attributes
         if ($accesskey) $this->node->setAttribute("accesskey", $accesskey);

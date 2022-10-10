@@ -4,43 +4,46 @@ namespace SuperPHP;
 
 use DOMNode;
 
-class AnchorLink extends SuperPHPElement {
+class Textarea extends SuperPHPElement {
      public DOMNode $node;
 
      /**
-      * AnchorLink
+      * Textarea
       * 
-      * If the a element has an href attribute, then it represents a hyperlink (a hypertext anchor) labeled by its contents.
+      * The textarea element represents a multiline plain text edit control for the element's raw value. The contents of the control represent the control's default value.
       *
       * @param SuperPHPElement|null $child
       * @param SuperPHPElement[]|null $children
       * @param CustomAttr[]|null $customAttributes
       * 
       * * Element-specific attributes:
-      * @param String|null href	Contains a URL or a URL fragment that the hyperlink points to.
-      * @param String|null target	Specifies where to display the linked URL. It is a name of, or keyword for, a _browsing context_: a tab, window, or `<iframe>`. The following keywords have special meanings:
+      * @param String|null $autocomplete	This attribute indicates whether the value of the control can be automatically completed by the browser. Possible values are:
 
-      *   `_self`: Load the URL into the same browsing context as the current one. This is the default behavior.
-      *   `_blank`: Load the URL into a new browsing context. This is usually a tab, but users can configure browsers to use new windows instead.
-      *   `_parent`: Load the URL into the parent browsing context of the current one. If there is no parent, this behaves the same way as `_self`.
-      *   `_top`: Load the URL into the top-level browsing context (that is, the "highest" browsing context that is an ancestor of the current one, and has no parent). If there is no parent, this behaves the same way as `_self`.
+      *   `off`: The user must explicitly enter a value into this field for every use, or the document provides its own auto-completion method; the browser does not automatically complete the entry.
+      *   `on`: The browser can automatically complete the value based on values that the user has entered during previous uses.
 
-      **Note:** When using `target`, consider adding `rel="noreferrer"` to avoid exploitation of the `window.opener` API.
+If the `autocomplete` attribute is not specified on a `<textarea>` element, then the browser uses the `autocomplete` attribute value of the `<textarea>` element's form owner. The form owner is either the [`<form>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form "The HTML <form> element represents a document section that contains interactive controls for submitting information to a web server.") element that this `<textarea>` element is a descendant of or the form element whose `id` is specified by the `form` attribute of the input element. For more information, see the [`autocomplete`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form#attr-autocomplete) attribute in [`<form>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form "The HTML <form> element represents a document section that contains interactive controls for submitting information to a web server.").
+      * @param String|null $autofocus	This Boolean attribute lets you specify that a form control should have input focus when the page loads. Only one form-associated element in a document can have this attribute specified.
+      * @param String|null cols	The visible width of the text control, in average character widths. If it is specified, it must be a positive integer. If it is not specified, the default value is `20`.
+      * @param String|null $dirname	undefined
+      * @param String|null $disabled	This Boolean attribute indicates that the user cannot interact with the control. If this attribute is not specified, the control inherits its setting from the containing element, for example [`<fieldset>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/fieldset "The HTML <fieldset> element is used to group several controls as well as labels (<label>) within a web form."); if there is no containing element when the `disabled` attribute is set, the control is enabled.
+      * @param String|null $form	The form element that the `<textarea>` element is associated with (its "form owner"). The value of the attribute must be the `id` of a form element in the same document. If this attribute is not specified, the `<textarea>` element must be a descendant of a form element. This attribute enables you to place `<textarea>` elements anywhere within a document, not just as descendants of form elements.
+      * @param String|null maxlength	The maximum number of characters (unicode code points) that the user can enter. If this value isn't specified, the user can enter an unlimited number of characters.
+      * @param String|null minlength	The minimum number of characters (unicode code points) required that the user should enter.
+      * @param String|null $name	The name of the control.
+      * @param String|null placeholder	A hint to the user of what can be entered in the control. Carriage returns or line-feeds within the placeholder text must be treated as line breaks when rendering the hint.
 
-      **Note:** Linking to another page using `target="_blank"` will run the new page on the same process as your page. If the new page is executing expensive JS, your page's performance may suffer. To avoid this use `rel="noopener"`.
-      * @param String|null download	This attribute instructs browsers to download a URL instead of navigating to it, so the user will be prompted to save it as a local file. If the attribute has a value, it is used as the pre-filled file name in the Save prompt (the user can still change the file name if they want). There are no restrictions on allowed values, though `/` and `\` are converted to underscores. Most file systems limit some punctuation in file names, and browsers will adjust the suggested name accordingly.
+      **Note:** Placeholders should only be used to show an example of the type of data that should be entered into a form; they are _not_ a substitute for a proper [`<label>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/label "The HTML <label> element represents a caption for an item in a user interface.") element tied to the input. See [Labels and placeholders](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#Labels_and_placeholders "The HTML <input> element is used to create interactive controls for web-based forms in order to accept data from the user; a wide variety of types of input data and control widgets are available, depending on the device and user agent.") in [<input>: The Input (Form Input) element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input "The HTML <input> element is used to create interactive controls for web-based forms in order to accept data from the user; a wide variety of types of input data and control widgets are available, depending on the device and user agent.") for a full explanation.
+      * @param String|null readonly	This Boolean attribute indicates that the user cannot modify the value of the control. Unlike the `disabled` attribute, the `readonly` attribute does not prevent the user from clicking or selecting in the control. The value of a read-only control is still submitted with the form.
+      * @param String|null required	This attribute specifies that the user must fill in a value before submitting a form.
+      * @param String|null rows	The number of visible text lines for the control.
+      * @param String|null wrap	Indicates how the control wraps text. Possible values are:
 
-      **Notes:**
+      *   `hard`: The browser automatically inserts line breaks (CR+LF) so that each line has no more than the width of the control; the `cols` attribute must also be specified for this to take effect.
+      *   `soft`: The browser ensures that all line breaks in the value consist of a CR+LF pair, but does not insert any additional line breaks.
+      *   `off` : Like `soft` but changes appearance to `white-space: pre` so line segments exceeding `cols` are not wrapped and the `<textarea>` becomes horizontally scrollable.
 
-      *   This attribute only works for [same-origin URLs](https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy).
-      *   Although HTTP(s) URLs need to be in the same-origin, [`blob:` URLs](https://developer.mozilla.org/en-US/docs/Web/API/URL.createObjectURL) and [`data:` URLs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs) are allowed so that content generated by JavaScript, such as pictures created in an image-editor Web app, can be downloaded.
-      *   If the HTTP header [`Content-Disposition:`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Disposition) gives a different filename than this attribute, the HTTP header takes priority over this attribute.
-      *   If `Content-Disposition:` is set to `inline`, Firefox prioritizes `Content-Disposition`, like the filename case, while Chrome prioritizes the `download` attribute.
-      * @param String|null ping	Contains a space-separated list of URLs to which, when the hyperlink is followed, [`POST`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/POST "The HTTP POST method sends data to the server. The type of the body of the request is indicated by the Content-Type header.") requests with the body `PING` will be sent by the browser (in the background). Typically used for tracking.
-      * @param String|null rel	Specifies the relationship of the target object to the link object. The value is a space-separated list of [link types](https://developer.mozilla.org/en-US/docs/Web/HTML/Link_types).
-      * @param String|null hreflang	This attribute indicates the human language of the linked resource. It is purely advisory, with no built-in functionality. Allowed values are determined by [BCP47](https://www.ietf.org/rfc/bcp/bcp47.txt "Tags for Identifying Languages").
-      * @param String|null $type	Specifies the media type in the form of a [MIME type](https://developer.mozilla.org/en-US/docs/Glossary/MIME_type "MIME type: A MIME type (now properly called "media type", but also sometimes "content type") is a string sent along with a file indicating the type of the file (describing the content format, for example, a sound file might be labeled audio/ogg, or an image file image/png).") for the linked URL. It is purely advisory, with no built-in functionality.
-      * @param String|null referrerpolicy	undefined
+If this attribute is not specified, `soft` is its default value.
       * 
       * * Global attributes:
       * @param String|null $accesskey	Provides a hint for generating a keyboard shortcut for the current element. This attribute consists of a space-separated list of characters. The browser should use the first one that exists on the computer keyboard layout.
@@ -225,14 +228,20 @@ class AnchorLink extends SuperPHPElement {
           public ?array $customAttributes = null,
 
           // Element-specific attributes:
-          String $href = null,
-          String $target = null,
-          String $download = null,
-          String $ping = null,
-          String $rel = null,
-          String $hreflang = null,
-          String $type = null,
-          String $referrerpolicy = null,
+          String $autocomplete = null,
+          String $autofocus = null,
+          String $cols = null,
+          String $dirname = null,
+          String $disabled = null,
+          String $form = null,
+          String $maxlength = null,
+          String $minlength = null,
+          String $name = null,
+          String $placeholder = null,
+          String $readonly = null,
+          String $required = null,
+          String $rows = null,
+          String $wrap = null,
 
           // Global attributes
           public ?String $accesskey = null,
@@ -380,7 +389,7 @@ class AnchorLink extends SuperPHPElement {
           public ?String $ariaKeyshortcuts = null,
      ) {
           parent::__construct();
-          $this->node = self::$dom->createElement("a");
+          $this->node = self::$dom->createElement("textarea");
           if ($child) $this->node->appendChild($child->node->cloneNode(true));
           if ($children) {
                foreach ($children as $child) {
@@ -394,14 +403,20 @@ class AnchorLink extends SuperPHPElement {
           }
 
           // Element-specific attributes
-          if ($href) $this->node->setAttribute("href", $href);
-          if ($target) $this->node->setAttribute("target", $target);
-          if ($download) $this->node->setAttribute("download", $download);
-          if ($ping) $this->node->setAttribute("ping", $ping);
-          if ($rel) $this->node->setAttribute("rel", $rel);
-          if ($hreflang) $this->node->setAttribute("hreflang", $hreflang);
-          if ($type) $this->node->setAttribute("type", $type);
-          if ($referrerpolicy) $this->node->setAttribute("referrerpolicy", $referrerpolicy);
+          if ($autocomplete) $this->node->setAttribute("autocomplete", $autocomplete);
+          if ($autofocus) $this->node->setAttribute("autofocus", $autofocus);
+          if ($cols) $this->node->setAttribute("cols", $cols);
+          if ($dirname) $this->node->setAttribute("dirname", $dirname);
+          if ($disabled) $this->node->setAttribute("disabled", $disabled);
+          if ($form) $this->node->setAttribute("form", $form);
+          if ($maxlength) $this->node->setAttribute("maxlength", $maxlength);
+          if ($minlength) $this->node->setAttribute("minlength", $minlength);
+          if ($name) $this->node->setAttribute("name", $name);
+          if ($placeholder) $this->node->setAttribute("placeholder", $placeholder);
+          if ($readonly) $this->node->setAttribute("readonly", $readonly);
+          if ($required) $this->node->setAttribute("required", $required);
+          if ($rows) $this->node->setAttribute("rows", $rows);
+          if ($wrap) $this->node->setAttribute("wrap", $wrap);
 
           // Global attributes
           if ($accesskey) $this->node->setAttribute("accesskey", $accesskey);

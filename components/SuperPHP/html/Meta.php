@@ -4,51 +4,270 @@ namespace SuperPHP;
 
 use DOMNode;
 
-class Audio extends SuperPHPElement {
+class Meta extends SuperPHPElement {
     public DOMNode $node;
 
     /**
-     * Audio
+     * Meta
      * 
-     * An audio element represents a sound or audio stream.
+     * The meta element represents various kinds of metadata that cannot be expressed using the title, base, link, style, and script elements.
      *
      * @param SuperPHPElement|null $child
      * @param SuperPHPElement[]|null $children
      * @param CustomAttr[]|null $customAttributes
      * 
      * * Element-specific attributes:
-     * @param String|null src	The URL of the audio to embed. This is subject to [HTTP access controls](https://developer.mozilla.org/en-US/docs/HTTP_access_control). This is optional; you may instead use the [`<source>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/source "The HTML <source> element specifies multiple media resources for the <picture>, the <audio> element, or the <video> element.") element within the audio block to specify the audio to embed.
-     * @param String|null crossorigin	This enumerated attribute indicates whether to use CORS to fetch the related image. [CORS-enabled resources](https://developer.mozilla.org/en-US/docs/CORS_Enabled_Image) can be reused in the [`<canvas>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/canvas "Use the HTML <canvas> element with either the canvas scripting API or the WebGL API to draw graphics and animations.") element without being _tainted_. The allowed values are:
+     * @param String|null $name	This attribute defines the name of a piece of document-level metadata. It should not be set if one of the attributes [`itemprop`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes#attr-itemprop), [`http-equiv`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta#attr-http-equiv) or [`charset`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta#attr-charset) is also set.
 
-anonymous
+This metadata name is associated with the value contained by the [`content`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta#attr-content) attribute. The possible values for the name attribute are:
 
-Sends a cross-origin request without a credential. In other words, it sends the `Origin:` HTTP header without a cookie, X.509 certificate, or performing HTTP Basic authentication. If the server does not give credentials to the origin site (by not setting the `Access-Control-Allow-Origin:` HTTP header), the image will be _tainted_, and its usage restricted.
+     *   `application-name` which defines the name of the application running in the web page.
+    
+     **Note:**
+    
+     *   Browsers may use this to identify the application. It is different from the [`<title>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/title "The HTML Title element (<title>) defines the document's title that is shown in a browser's title bar or a page's tab.") element, which usually contain the application name, but may also contain information like the document name or a status.
+     *   Simple web pages shouldn't define an application-name.
+    
+     *   `author` which defines the name of the document's author.
+     *   `description` which contains a short and accurate summary of the content of the page. Several browsers, like Firefox and Opera, use this as the default description of bookmarked pages.
+     *   `generator` which contains the identifier of the software that generated the page.
+     *   `keywords` which contains words relevant to the page's content separated by commas.
+     *   `referrer` which controls the [`Referer` HTTP header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Referer) attached to requests sent from the document:
+    
+    Values for the `content` attribute of `<meta name="referrer">`
+    
+    `no-referrer`
+    
+    Do not send a HTTP `Referrer` header.
+    
+    `origin`
+    
+    Send the [origin](https://developer.mozilla.org/en-US/docs/Glossary/Origin) of the document.
+    
+    `no-referrer-when-downgrade`
+    
+    Send the [origin](https://developer.mozilla.org/en-US/docs/Glossary/Origin) as a referrer to URLs as secure as the current page, (https→https), but does not send a referrer to less secure URLs (https→http). This is the default behaviour.
+    
+    `origin-when-cross-origin`
+    
+    Send the full URL (stripped of parameters) for same-origin requests, but only send the [origin](https://developer.mozilla.org/en-US/docs/Glossary/Origin) for other cases.
+    
+    `same-origin`
+    
+    A referrer will be sent for [same-site origins](https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy), but cross-origin requests will contain no referrer information.
+    
+    `strict-origin`
+    
+    Only send the origin of the document as the referrer to a-priori as-much-secure destination (HTTPS->HTTPS), but don't send it to a less secure destination (HTTPS->HTTP).
+    
+    `strict-origin-when-cross-origin`
+    
+    Send a full URL when performing a same-origin request, only send the origin of the document to a-priori as-much-secure destination (HTTPS->HTTPS), and send no header to a less secure destination (HTTPS->HTTP).
+    
+    `unsafe-URL`
+    
+    Send the full URL (stripped of parameters) for same-origin or cross-origin requests.
+    
+     **Notes:**
+    
+     *   Some browsers support the deprecated values of `always`, `default`, and `never` for referrer.
+     *   Dynamically inserting `<meta name="referrer">` (with [`document.write`](https://developer.mozilla.org/en-US/docs/Web/API/Document/write) or [`appendChild`](https://developer.mozilla.org/en-US/docs/Web/API/Node/appendChild)) makes the referrer behaviour unpredictable.
+     *   When several conflicting policies are defined, the no-referrer policy is applied.
+    
 
-use-credentials
+This attribute may also have a value taken from the extended list defined on [WHATWG Wiki MetaExtensions page](https://wiki.whatwg.org/wiki/MetaExtensions). Although none have been formally accepted yet, a few commonly used names are:
 
-Sends a cross-origin request with a credential. In other words, it sends the `Origin:` HTTP header with a cookie, a certificate, or performing HTTP Basic authentication. If the server does not give credentials to the origin site (through `Access-Control-Allow-Credentials:` HTTP header), the image will be _tainted_ and its usage restricted.
+     *   `creator` which defines the name of the creator of the document, such as an organization or institution. If there are more than one, several [`<meta>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta "The HTML <meta> element represents metadata that cannot be represented by other HTML meta-related elements, like <base>, <link>, <script>, <style> or <title>.") elements should be used.
+     *   `googlebot`, a synonym of `robots`, is only followed by Googlebot (the indexing crawler for Google).
+     *   `publisher` which defines the name of the document's publisher.
+     *   `robots` which defines the behaviour that cooperative crawlers, or "robots", should use with the page. It is a comma-separated list of the values below:
+    
+    Values for the content of `<meta name="robots">`
+    
+    Value
+    
+    Description
+    
+    Used by
+    
+    `index`
+    
+    Allows the robot to index the page (default).
+    
+    All
+    
+    `noindex`
+    
+    Requests the robot to not index the page.
+    
+    All
+    
+    `follow`
+    
+    Allows the robot to follow the links on the page (default).
+    
+    All
+    
+    `nofollow`
+    
+    Requests the robot to not follow the links on the page.
+    
+    All
+    
+    `none`
+    
+    Equivalent to `noindex, nofollow`
+    
+    [Google](https://support.google.com/webmasters/answer/79812)
+    
+    `noodp`
+    
+    Prevents using the [Open Directory Project](https://www.dmoz.org/) description, if any, as the page description in search engine results.
+    
+    [Google](https://support.google.com/webmasters/answer/35624#nodmoz), [Yahoo](https://help.yahoo.com/kb/search-for-desktop/meta-tags-robotstxt-yahoo-search-sln2213.html#cont5), [Bing](https://www.bing.com/webmaster/help/which-robots-metatags-does-bing-support-5198d240)
+    
+    `noarchive`
+    
+    Requests the search engine not to cache the page content.
+    
+    [Google](https://developers.google.com/webmasters/control-crawl-index/docs/robots_meta_tag#valid-indexing--serving-directives), [Yahoo](https://help.yahoo.com/kb/search-for-desktop/SLN2213.html), [Bing](https://www.bing.com/webmaster/help/which-robots-metatags-does-bing-support-5198d240)
+    
+    `nosnippet`
+    
+    Prevents displaying any description of the page in search engine results.
+    
+    [Google](https://developers.google.com/webmasters/control-crawl-index/docs/robots_meta_tag#valid-indexing--serving-directives), [Bing](https://www.bing.com/webmaster/help/which-robots-metatags-does-bing-support-5198d240)
+    
+    `noimageindex`
+    
+    Requests this page not to appear as the referring page of an indexed image.
+    
+    [Google](https://developers.google.com/webmasters/control-crawl-index/docs/robots_meta_tag#valid-indexing--serving-directives)
+    
+    `nocache`
+    
+    Synonym of `noarchive`.
+    
+    [Bing](https://www.bing.com/webmaster/help/which-robots-metatags-does-bing-support-5198d240)
+    
+     **Notes:**
+    
+     *   Only cooperative robots follow these rules. Do not expect to prevent e-mail harvesters with them.
+     *   The robot still needs to access the page in order to read these rules. To prevent bandwidth consumption, use a _[robots.txt](https://developer.mozilla.org/en-US/docs/Glossary/robots.txt "robots.txt: Robots.txt is a file which is usually placed in the root of any website. It decides whether crawlers are permitted or forbidden access to the web site.")_ file.
+     *   If you want to remove a page, `noindex` will work, but only after the robot visits the page again. Ensure that the `robots.txt` file is not preventing revisits.
+     *   Some values are mutually exclusive, like `index` and `noindex`, or `follow` and `nofollow`. In these cases the robot's behaviour is undefined and may vary between them.
+     *   Some crawler robots, like Google, Yahoo and Bing, support the same values for the HTTP header `X-Robots-Tag`; this allows non-HTML documents like images to use these rules.
+    
+     *   `slurp`, is a synonym of `robots`, but only for Slurp - the crawler for Yahoo Search.
+     *   `viewport`, which gives hints about the size of the initial size of the [viewport](https://developer.mozilla.org/en-US/docs/Glossary/viewport "viewport: A viewport represents a polygonal (normally rectangular) area in computer graphics that is currently being viewed. In web browser terms, it refers to the part of the document you're viewing which is currently visible in its window (or the screen, if the document is being viewed in full screen mode). Content outside the viewport is not visible onscreen until scrolled into view."). Used by mobile devices only.
+    
+    Values for the content of `<meta name="viewport">`
+    
+    Value
+    
+    Possible subvalues
+    
+    Description
+    
+    `width`
+    
+    A positive integer number, or the text `device-width`
+    
+    Defines the pixel width of the viewport that you want the web site to be rendered at.
+    
+    `height`
+    
+    A positive integer, or the text `device-height`
+    
+    Defines the height of the viewport. Not used by any browser.
+    
+    `initial-scale`
+    
+    A positive number between `0.0` and `10.0`
+    
+    Defines the ratio between the device width (`device-width` in portrait mode or `device-height` in landscape mode) and the viewport size.
+    
+    `maximum-scale`
+    
+    A positive number between `0.0` and `10.0`
+    
+    Defines the maximum amount to zoom in. It must be greater or equal to the `minimum-scale` or the behaviour is undefined. Browser settings can ignore this rule and iOS10+ ignores it by default.
+    
+    `minimum-scale`
+    
+    A positive number between `0.0` and `10.0`
+    
+    Defines the minimum zoom level. It must be smaller or equal to the `maximum-scale` or the behaviour is undefined. Browser settings can ignore this rule and iOS10+ ignores it by default.
+    
+    `user-scalable`
+    
+    `yes` or `no`
+    
+    If set to `no`, the user is not able to zoom in the webpage. The default is `yes`. Browser settings can ignore this rule, and iOS10+ ignores it by default.
+    
+    Specification
+    
+    Status
+    
+    Comment
+    
+    [CSS Device Adaptation  
+    The definition of '<meta name="viewport">' in that specification.](https://drafts.csswg.org/css-device-adapt/#viewport-meta)
+    
+    Working Draft
+    
+    Non-normatively describes the Viewport META element
+    
+    See also: [`@viewport`](https://developer.mozilla.org/en-US/docs/Web/CSS/@viewport "The @viewport CSS at-rule lets you configure the viewport through which the document is viewed. It's primarily used for mobile devices, but is also used by desktop browsers that support features like "snap to edge" (such as Microsoft Edge).")
+    
+     **Notes:**
+    
+     *   Though unstandardized, this declaration is respected by most mobile browsers due to de-facto dominance.
+     *   The default values may vary between devices and browsers.
+     *   To learn about this declaration in Firefox for Mobile, see [this article](https://developer.mozilla.org/en-US/docs/Mobile/Viewport_meta_tag "Mobile/Viewport meta tag").
+     * @param String|null httpEquiv	Defines a pragma directive. The attribute is named `**http-equiv**(alent)` because all the allowed values are names of particular HTTP headers:
 
-When not present, the resource is fetched without a CORS request (i.e. without sending the `Origin:` HTTP header), preventing its non-tainted used in [`<canvas>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/canvas "Use the HTML <canvas> element with either the canvas scripting API or the WebGL API to draw graphics and animations.") elements. If invalid, it is handled as if the enumerated keyword **anonymous** was used. See [CORS settings attributes](https://developer.mozilla.org/en-US/docs/HTML/CORS_settings_attributes) for additional information.
-     * @param String|null preload	This enumerated attribute is intended to provide a hint to the browser about what the author thinks will lead to the best user experience. It may have one of the following values:
+     *   `"content-language"`  
+    Defines the default language of the page. It can be overridden by the [lang](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/lang) attribute on any element.
+    
+     **Warning:** Do not use this value, as it is obsolete. Prefer the `lang` attribute on the [`<html>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/html "The HTML <html> element represents the root (top-level element) of an HTML document, so it is also referred to as the root element. All other elements must be descendants of this element.") element.
+    
+     *   `"content-security-policy"`  
+    Allows page authors to define a [content policy](https://developer.mozilla.org/en-US/docs/Web/Security/CSP/CSP_policy_directives) for the current page. Content policies mostly specify allowed server origins and script endpoints which help guard against cross-site scripting attacks.
+     *   `"content-type"`  
+    Defines the [MIME type](https://developer.mozilla.org/en-US/docs/Glossary/MIME_type) of the document, followed by its character encoding. It follows the same syntax as the HTTP `content-type` entity-header field, but as it is inside a HTML page, most values other than `text/html` are impossible. Therefore the valid syntax for its `content` is the string '`text/html`' followed by a character set with the following syntax: '`; charset=_IANAcharset_`', where `IANAcharset` is the _preferred MIME name_ for a character set as [defined by the IANA.](https://www.iana.org/assignments/character-sets)
+    
+     **Warning:** Do not use this value, as it is obsolete. Use the [`charset`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta#attr-charset) attribute on the [`<meta>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta "The HTML <meta> element represents metadata that cannot be represented by other HTML meta-related elements, like <base>, <link>, <script>, <style> or <title>.") element.
+    
+     **Note:** As [`<meta>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta "The HTML <meta> element represents metadata that cannot be represented by other HTML meta-related elements, like <base>, <link>, <script>, <style> or <title>.") can't change documents' types in XHTML or HTML5's XHTML serialization, never set the MIME type to an XHTML MIME type with `<meta>`.
+    
+     *   `"refresh"`  
+    This instruction specifies:
+     *   The number of seconds until the page should be reloaded - only if the [`content`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta#attr-content) attribute contains a positive integer.
+     *   The number of seconds until the page should redirect to another - only if the [`content`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta#attr-content) attribute contains a positive integer followed by the string '`;url=`', and a valid URL.
+     *   `"set-cookie"`  
+    Defines a [cookie](https://developer.mozilla.org/en-US/docs/cookie) for the page. Its content must follow the syntax defined in the [IETF HTTP Cookie Specification](https://tools.ietf.org/html/draft-ietf-httpstate-cookie-14).
+    
+     **Warning:** Do not use this instruction, as it is obsolete. Use the HTTP header [`Set-Cookie`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie) instead.
+     * @param String|null content	This attribute contains the value for the [`http-equiv`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta#attr-http-equiv) or [`name`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta#attr-name) attribute, depending on which is used.
+     * @param String|null charset	This attribute declares the page's character encoding. It must contain a [standard IANA MIME name for character encodings](https://www.iana.org/assignments/character-sets). Although the standard doesn't request a specific encoding, it suggests:
 
-     *   `none`: Indicates that the audio should not be preloaded.
-     *   `metadata`: Indicates that only audio metadata (e.g. length) is fetched.
-     *   `auto`: Indicates that the whole audio file can be downloaded, even if the user is not expected to use it.
-     *   _empty string_: A synonym of the `auto` value.
+     *   Authors are encouraged to use [`UTF-8`](https://developer.mozilla.org/en-US/docs/Glossary/UTF-8).
+     *   Authors should not use ASCII-incompatible encodings to avoid security risk: browsers not supporting them may interpret harmful content as HTML. This happens with the `JIS_C6226-1983`, `JIS_X0212-1990`, `HZ-GB-2312`, `JOHAB`, the ISO-2022 family and the EBCDIC family.
 
-If not set, `preload`'s default value is browser-defined (i.e. each browser may have its own default value). The spec advises it to be set to `metadata`.
+     **Note:** ASCII-incompatible encodings are those that don't map the 8-bit code points `0x20` to `0x7E` to the `0x0020` to `0x007E` Unicode code points)
 
-     **Usage notes:**
+     *   Authors **must not** use `CESU-8`, `UTF-7`, `BOCU-1` and/or `SCSU` as [cross-site scripting](https://developer.mozilla.org/en-US/docs/Glossary/Cross-site_scripting) attacks with these encodings have been demonstrated.
+     *   Authors should not use `UTF-32` because not all HTML5 encoding algorithms can distinguish it from `UTF-16`.
 
-     *   The `autoplay` attribute has precedence over `preload`. If `autoplay` is specified, the browser would obviously need to start downloading the audio for playback.
-     *   The browser is not forced by the specification to follow the value of this attribute; it is a mere hint.
-     * @param String|null autoplay	A Boolean attribute: if specified, the audio will automatically begin playback as soon as it can do so, without waiting for the entire audio file to finish downloading.
+     **Notes:**
 
-     **Note**: Sites that automatically play audio (or videos with an audio track) can be an unpleasant experience for users, so should be avoided when possible. If you must offer autoplay functionality, you should make it opt-in (requiring a user to specifically enable it). However, this can be useful when creating media elements whose source will be set at a later time, under user control.
-     * @param String|null mediagroup	undefined
-     * @param String|null loop	A Boolean attribute: if specified, the audio player will automatically seek back to the start upon reaching the end of the audio.
-     * @param String|null muted	A Boolean attribute that indicates whether the audio will be initially silenced. Its default value is `false`.
-     * @param String|null controls	If this attribute is present, the browser will offer controls to allow the user to control audio playback, including volume, seeking, and pause/resume playback.
+     *   The declared character encoding must match the one the page was saved with to avoid garbled characters and security holes.
+     *   The [`<meta>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta "The HTML <meta> element represents metadata that cannot be represented by other HTML meta-related elements, like <base>, <link>, <script>, <style> or <title>.") element declaring the encoding must be inside the [`<head>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/head "The HTML <head> element provides general information (metadata) about the document, including its title and links to its scripts and style sheets.") element and **within the first 1024 bytes** of the HTML as some browsers only look at those bytes before choosing an encoding.
+     *   This [`<meta>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta "The HTML <meta> element represents metadata that cannot be represented by other HTML meta-related elements, like <base>, <link>, <script>, <style> or <title>.") element is only one part of the [algorithm to determine a page's character set](https://www.whatwg.org/specs/web-apps/current-work/multipage/parsing.html#encoding-sniffing-algorithm "Algorithm charset page"). The [`Content-Type` header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Type) and any [Byte-Order Marks](https://developer.mozilla.org/en-US/docs/Glossary/Byte-Order_Mark "The definition of that term (Byte-Order Marks) has not been written yet; please consider contributing it!") override this element.
+     *   It is strongly recommended to define the character encoding. If a page's encoding is undefined, cross-scripting techniques are possible, such as the [`UTF-7` fallback cross-scripting technique](https://code.google.com/p/doctype-mirror/wiki/ArticleUtf7).
+     *   The [`<meta>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta "The HTML <meta> element represents metadata that cannot be represented by other HTML meta-related elements, like <base>, <link>, <script>, <style> or <title>.") element with a `charset` attribute is a synonym for the pre-HTML5 `<meta http-equiv="Content-Type" content="text/html; charset=_IANAcharset_">`, where _`IANAcharset`_ contains the value of the equivalent [`charset`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta#attr-charset) attribute. This syntax is still allowed, although no longer recommended.
+     * @param String|null scheme	undefined
      * 
      * * Global attributes:
      * @param String|null $accesskey	Provides a hint for generating a keyboard shortcut for the current element. This attribute consists of a space-separated list of characters. The browser should use the first one that exists on the computer keyboard layout.
@@ -233,19 +452,16 @@ If not set, `preload`'s default value is browser-defined (i.e. each browser may 
         public ?array $customAttributes = null,
 
         // Element-specific attributes:
-        String $src = null,
-        String $crossorigin = null,
-        String $preload = null,
-        String $autoplay = null,
-        String $mediagroup = null,
-        String $loop = null,
-        String $muted = null,
-        String $controls = null,
+        public ?String $name = null,
+        public ?String $httpEquiv = null,
+        public ?String $content = null,
+        public ?String $charset = null,
+        public ?String $scheme = null,
 
         // Global attributes
         public ?String $accesskey = null,
         public ?String $autocapitalize = null,
-        public ?array $class = null,
+        public ?String $class = null,
         public ?String $contenteditable = null,
         public ?String $contextmenu = null,
         public ?String $dir = null,
@@ -387,29 +603,22 @@ If not set, `preload`'s default value is browser-defined (i.e. each browser may 
         public ?String $ariaDetails = null,
         public ?String $ariaKeyshortcuts = null,
     ) {
+
         parent::__construct();
-        $this->node = self::$dom->createElement("audio");
+        $this->node = self::$dom->createElement("meta");
         if ($child) $this->node->appendChild($child->node->cloneNode(true));
         if ($children) {
             foreach ($children as $child) {
                 $child && $this->node->appendChild($child->node->cloneNode(true));
             }
         }
-        if ($customAttributes) {
-            foreach ($customAttributes as $attr) {
-                $this->node->setAttribute($attr->name, $attr->value);
-            }
-        }
 
         // Element-specific attributes
-        if ($src) $this->node->setAttribute("src", $src);
-        if ($crossorigin) $this->node->setAttribute("crossorigin", $crossorigin);
-        if ($preload) $this->node->setAttribute("preload", $preload);
-        if ($autoplay) $this->node->setAttribute("autoplay", $autoplay);
-        if ($mediagroup) $this->node->setAttribute("mediagroup", $mediagroup);
-        if ($loop) $this->node->setAttribute("loop", $loop);
-        if ($muted) $this->node->setAttribute("muted", $muted);
-        if ($controls) $this->node->setAttribute("controls", $controls);
+        if ($name) $this->node->setAttribute("name", $name);
+        if ($httpEquiv) $this->node->setAttribute("http-equiv", $httpEquiv);
+        if ($content) $this->node->setAttribute("content", $content);
+        if ($charset) $this->node->setAttribute("charset", $charset);
+        if ($scheme) $this->node->setAttribute("scheme", $scheme);
 
         // Global attributes
         if ($accesskey) $this->node->setAttribute("accesskey", $accesskey);

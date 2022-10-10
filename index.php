@@ -1,92 +1,74 @@
 <?php
 
+use Material2\ContainedButton;
+use Material2\Material2Icon;
+use Material2\Material2Import;
+use Material2\Material2Initialize;
+use Material2\OutlinedButton;
+use Material2\TextButton;
 use SuperPHP\Abbr;
-use SuperPHP\Address;
-use SuperPHP\AnchorLink;
-use SuperPHP\Article;
-use SuperPHP\Audio;
 use SuperPHP\Body;
-use SuperPHP\Button;
-use SuperPHP\Comment;
+use SuperPHP\Div;
 use SuperPHP\Head;
 use SuperPHP\HTML;
-use SuperPHP\LineBreak;
 use SuperPHP\SuperPHP;
 use SuperPHP\PlainText;
-use SuperPHP\Title;
-use SuperPHP\Typography;
 
 require_once __DIR__ . "/components/SimpleDB.php";
 require_once __DIR__ . "/components/SuperPHP/SuperPHP.php";
-require_once __DIR__ . "/components/MyCustomWidgetSample.php";
+require_once __DIR__ . "/components/SuperPHP/Material2/index.php";
 
 
 // $db = new SimpleDB(
 //     debug: true
 // );
 
+
+// print_r($myButton);
+$spacer = new Div(style: "width: 200px; height: 20px;");
+
 new SuperPHP(
     fn () => new HTML(
         children: [
-            new Head(
-                children: [
-                    new Title(
-                        title: new PlainText(text: "Sample title",),
-                    ),
-                ],
-            ),
-            new MyCustomWidgetSample(),
-            new Body(
-                children: [
-                    new AnchorLink(
-                        new PlainText("Go to Google"),
-                        href: "https://google.com",
-                        download: "Oi.txt",
-                        id: "123",
-                        classes: ["btn", "btn-primary"]
-                    ),
-                    new LineBreak(count: 1),
-                    new Comment("<h1>Hllo...!</h1>"),
-                    new Button(
-                        children: array_map(fn ($element) => new PlainText(text: "Click me!",), [1, 2, 3]),
-                    ),
-                    new LineBreak(count: 10),
-                    new Button(
-                        children: [
-                            new PlainText(text: "Or click here!",)
-                        ],
-                    ),
-                    new LineBreak(),
-                    new Address(
-                        child: new PlainText("Sample Address")
-                    ),
-                    new LineBreak(),
-                    new Abbr(
-                        child: new PlainText("Sample Abbr")
-                    ),
-                    new LineBreak(),
-                    new Article(
-                        child: new PlainText("Sample Article")
-                    ),
-                    new LineBreak(),
-                    new Audio(
-                        child: new PlainText("Sample Article"),
-                        controls: true
-                    ),
-                    new LineBreak(),
-                    new Typography(
-                        child: new PlainText("Sample Heading 1"),
-                        id: "test",
-                        variant: Typography::H1
-                    ),
-                    new LineBreak(),
-                    new Typography(
-                        child: new PlainText("Sample Paragrap"),
-                        id: "test",
-                        variant: Typography::Paragraph
-                    ),
-                ],
-            ),
+            new Head(children: [
+                new Material2Import(),
+            ]),
+            new Body(children: [
+                new TextButton(
+                    class: ["mdc-button"],
+                    child: new PlainText("Click me!")
+                ),
+                $spacer,
+                new OutlinedButton(
+                    class: ["mdc-button"],
+                    child: new PlainText("Click me!")
+                ),
+                $spacer,
+                new ContainedButton(
+                    class: ["mdc-button"],
+                    child: new PlainText("Click me!"),
+                    icon: new Material2Icon("favorite"),
+                ),
+
+                $spacer,
+                new Abbr(
+                    child: new PlainText("A single child"),
+                    children: [
+                        new PlainText("All its Children"),
+                    ],
+                    class: ["Test", "btn"]
+                ),
+                new Material2Initialize()
+            ])
         ],
     ),
 );
+
+// echo (new SuperPHP(
+//     fn () => new HTML(
+//         child: new Button(
+//             child: new PlainText("Go to Google"),
+//         ),
+//     ),
+//     false
+// ))->html;
